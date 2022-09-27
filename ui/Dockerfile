@@ -1,5 +1,6 @@
-FROM node:18
-WORKDIR /ui/
-COPY /ui/ /ui/
-RUN npm install
-RUN npm install -g @angular/cli
+FROM node
+WORKDIR /usr/src/app/ui
+COPY package*.json ./
+RUN npm install -g @angular/cli @angular-devkit/build-angular && npm install
+EXPOSE 4200
+CMD ["npm", "start"]
