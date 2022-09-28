@@ -1,0 +1,9 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.align-text-with-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
