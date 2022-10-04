@@ -1,0 +1,84 @@
+
+
+
+.order-now-button {
+  border-radius: 20px;
+}
+
+.slider-container {
+  margin-left: auto;
+}
+
+.slider-background {
+  background-image: url(/assets/images/founder.png);
+  background-size: 100% 100%;
+  align-self: stretch;
+
+}
+
+.head-container {
+  background: rgb(0, 147, 221);
+}
+
+.text-container {
+  color: white;
+}
+.header-text-tile {
+  padding: 0 20% 0 20%;
+}
+
+.color-content:nth-child(even) {
+  background: white;
+}
+
+.color-content:nth-child(odd) {
+  background: rgba(0, 147, 221, 0.1);
+}
+
+.img-in-tile {
+  max-width: 85%;
+  max-height: 85%;
+  
+}
+
+
+.row-container {
+  padding: 6em;
+}
+
+.first-three {
+  text-decoration: underline;
+  text-decoration-color : green;
+  text-decoration-thickness: 4px;
+
+}
+
+.card-image {
+  margin-top: 0px !important;
+  margin-bottom: 0px;
+  height: 160px;
+}
+
+.card-container {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+.card-container-horizontal {
+   padding: 3em; 
+}
+
+
+.inner-card-background {
+  width: 250px;
+  height: 250px;
+  background-image: url('/assets/images/ruchindra-gunas.png');
+  background-size: cover;
+}
+
+.inner-card {
+  width: 250px;
+  height: 250px;
+  background-color: rgba(0, 147, 221, 0.7);
+}
+

@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./toolbar-profile.component.css']
 })
 export class ToolbarProfileComponent implements OnInit {
-  public Auth: boolean = true;
+  public Auth: boolean = false;
   constructor() { }
 
   ngOnInit(): void {

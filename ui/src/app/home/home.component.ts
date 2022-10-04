@@ -6,10 +6,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
+  public arr = new Array<number>(6);
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onChange(){
+    console.log("hello There General Kenobi")
+  }
+
+  onInput(){
+    console.log("hello There General Kenobi")
   }
 
 }

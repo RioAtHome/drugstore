@@ -1,15 +1,11 @@
-<mat-toolbar fxLayout='row' fxLayoutAlign="space-between center" >
-	<button mat-button>
-		<div class='align-text-with-icon'>
-			<mat-icon fontIcon="home"></mat-icon>
-			<span fxShow.lt-sm="false">Gaza Central Pharmacy</span>
-		</div>
-	</button>
-	<div fxShow.lt-md="false" fxFlex="2 1 auto" fxLayoutAlign="center center">
-		<button mat-button>test1</button>
-		<button mat-button>test1</button>
-		<button mat-button>test1</button>
-		<button mat-button>test1</button>
+<mat-toolbar fxLayout='row' fxLayoutAlign="space-between center" class="toolbar">
+			<mat-icon class='warehouse_logo'svgIcon="warehouse_logo"></mat-icon>
+	<div fxShow.lt-md="false" fxFlex="2 1 auto" >
+		<button mat-button>Home</button>
+		<button mat-button>Founder</button>
+		<button mat-button>About Us</button>
+		<button mat-button>Mission & Vision</button>
+		<button mat-button>Contact Us</button>
 	</div>
 	<app-toolbar-profile></app-toolbar-profile>
 </mat-toolbar>

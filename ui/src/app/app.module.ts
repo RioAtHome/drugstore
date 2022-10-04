@@ -8,18 +8,16 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { ToolbarProfileComponent } from './toolbar-profile/toolbar-profile.component';
+import { RouterModule } from '@angular/router';
 
 import { FlexLayoutModule } from '@angular/flex-layout'
+import { HttpClientModule } from '@angular/common/http';
 
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon'; 
-import { MatButtonModule } from '@angular/material/button';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatListModule } from '@angular/material/list';
-import { MatBadgeModule } from '@angular/material/badge';
 import { ToolbarNotificationComponent } from './toolbar-notification/toolbar-notification.component';
 import { ToolbarUserComponent } from './toolbar-user/toolbar-user.component';
+import { MaterialModule } from './material/material.module';
+import { MaterialIconsService } from './material-icons.service';
+import { SigninComponent } from './signin/signin.component';
 
 
 @NgModule({
@@ -30,20 +28,20 @@ import { ToolbarUserComponent } from './toolbar-user/toolbar-user.component';
     HomeComponent,
     ToolbarProfileComponent,
     ToolbarNotificationComponent,
-    ToolbarUserComponent
+    ToolbarUserComponent,
+    SigninComponent
   ],
   imports: [
     BrowserModule,
+    RouterModule.forRoot([
+      {path: '', component: HomeComponent},
+        {path: 'signin', component: SigninComponent},
+      ]),
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatButtonModule,
+    HttpClientModule,
     FlexLayoutModule,
-    MatDividerModule,
-    MatMenuModule,
-    MatListModule,
-    MatBadgeModule,
+    MaterialModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
