@@ -1,4 +1,5 @@
-<mat-toolbar fxLayout='row' fxLayoutAlign="space-between center" class="toolbar">
+<div class='toolbar-background'>
+<mat-toolbar fxLayout='row' fxLayoutAlign="space-between center" ngClass={{styleClass}} >
 			<mat-icon class='warehouse_logo'svgIcon="warehouse_logo"></mat-icon>
 	<div fxShow.lt-md="false" fxFlex="2 1 auto" >
 		<button mat-button>Home</button>
@@ -9,3 +10,4 @@
 	</div>
 	<app-toolbar-profile></app-toolbar-profile>
 </mat-toolbar>
+</div>

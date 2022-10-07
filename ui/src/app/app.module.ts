@@ -18,6 +18,7 @@ import { ToolbarUserComponent } from './toolbar-user/toolbar-user.component';
 import { MaterialModule } from './material/material.module';
 import { MaterialIconsService } from './material-icons.service';
 import { SigninComponent } from './signin/signin.component';
+import { CardSliderComponent } from './card-slider/card-slider.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { SigninComponent } from './signin/signin.component';
     ToolbarProfileComponent,
     ToolbarNotificationComponent,
     ToolbarUserComponent,
-    SigninComponent
+    SigninComponent,
+    CardSliderComponent,
   ],
   imports: [
     BrowserModule,

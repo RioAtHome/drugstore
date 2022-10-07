@@ -3,8 +3,9 @@
 		<app-toolbar-user></app-toolbar-user>
 		<app-toolbar-notification></app-toolbar-notification>
 	</span>
-	<mat-divider vertical=true inset=true class='toolbar-divider'></mat-divider>
-	<span>
+	<mat-divider *ngIf=Auth vertical=true inset=true class='toolbar-divider'></mat-divider>
+	
+		<div fxLayout='row' fxLayoutGap='10px'>
 		<button mat-icon-button [matMenuTriggerFor]='languageMenu'>
 			<mat-icon fontIcon="language" ></mat-icon>
 		</button>
@@ -20,8 +21,11 @@
 			</button>
 		</mat-menu>
 		<span *ngIf="Auth === false">
-			<button mat-raised-button class="order-now-button" color='accent' routerLink="/signin">Sign In</button>
+			<button mat-raised-button class="rounded-button blue-button" routerLink="/signin">Sign In</button>
 		</span>
-		<button mat-raised-button class="order-now-button" color='accent' routerLink="/signin">Order Now</button>
-	</span>
+		<span>
+		<button mat-raised-button class="rounded-button green-button" routerLink="/signin">Order Now</button>
+		</span>
+		</div>
+	
 </div>

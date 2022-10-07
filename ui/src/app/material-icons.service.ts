@@ -27,5 +27,9 @@ export class MaterialIconsService {
       "quotes",
       this.domSanitizer.bypassSecurityTrustResourceUrl("./assets/icons/quotes.svg")
     );
+    this.matIconRegistry.addSvgIcon(
+      "right-arrow",
+      this.domSanitizer.bypassSecurityTrustResourceUrl("./assets/icons/right-arrow.svg")
+    );
   }
 }

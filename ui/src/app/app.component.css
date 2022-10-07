@@ -1,0 +1,12 @@
+app-toolbar {
+   margin-bottom: 0px !important;
+}
+
+router-outlet {
+   margin-bottom: 0px !important;  
+}
+
+
+app-toolbar ~ app-home {
+   background-color: var(--blue) !important;
+}
