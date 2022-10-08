@@ -2,6 +2,10 @@ app-toolbar {
    margin-bottom: 0px !important;
 }
 
+app-signin{
+   margin-bottom: 0px !important; 
+}
+
 router-outlet {
    margin-bottom: 0px !important;  
 }
@@ -10,3 +14,4 @@ router-outlet {
 app-toolbar ~ app-home {
    background-color: var(--blue) !important;
 }
+

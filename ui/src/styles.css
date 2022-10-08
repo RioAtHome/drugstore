@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 :root {
-	--blue:#0093DD;  ;
+	--blue:#0093DD;
+	/*0,147,221*/
 	--green: rgba(167,204,58,255);
 }
 

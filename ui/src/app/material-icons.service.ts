@@ -31,5 +31,13 @@ export class MaterialIconsService {
       "right-arrow",
       this.domSanitizer.bypassSecurityTrustResourceUrl("./assets/icons/right-arrow.svg")
     );
+    this.matIconRegistry.addSvgIcon(
+      "pharmacy-icon",
+      this.domSanitizer.bypassSecurityTrustResourceUrl("./assets/icons/pharmacy-icon.svg")
+    );
+    this.matIconRegistry.addSvgIcon(
+      "lock-icon",
+      this.domSanitizer.bypassSecurityTrustResourceUrl("./assets/icons/lock-icon.svg")
+    );
   }
 }

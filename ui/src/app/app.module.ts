@@ -19,6 +19,7 @@ import { MaterialModule } from './material/material.module';
 import { MaterialIconsService } from './material-icons.service';
 import { SigninComponent } from './signin/signin.component';
 import { CardSliderComponent } from './card-slider/card-slider.component';
+import { AccountDashboardComponent } from './account-dashboard/account-dashboard.component';
 
 
 @NgModule({
@@ -32,12 +33,14 @@ import { CardSliderComponent } from './card-slider/card-slider.component';
     ToolbarUserComponent,
     SigninComponent,
     CardSliderComponent,
+    AccountDashboardComponent,
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot([
       {path: '', component: HomeComponent},
         {path: 'signin', component: SigninComponent},
+        {path: 'account', component: AccountDashboardComponent}
       ]),
     AppRoutingModule,
     BrowserAnimationsModule,
