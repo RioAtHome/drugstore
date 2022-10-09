@@ -1,0 +1,6 @@
+.mat-tab-labels {
+	flex-direction: column !important;
+}
+.router-container {
+	padding-top: 2rem;
+}

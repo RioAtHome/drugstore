@@ -20,6 +20,11 @@ import { MaterialIconsService } from './material-icons.service';
 import { SigninComponent } from './signin/signin.component';
 import { CardSliderComponent } from './card-slider/card-slider.component';
 import { AccountDashboardComponent } from './account-dashboard/account-dashboard.component';
+import { UserMenuComponent } from './user-menu/user-menu.component';
+import { AccountInformationComponent } from './account-information/account-information.component';
+import { CurrentOrdersComponent } from './current-orders/current-orders.component';
+import { ArchivedOrdersComponent } from './archived-orders/archived-orders.component';
+import { OrdersViewComponent } from './orders-view/orders-view.component';
 
 
 @NgModule({
@@ -34,13 +39,23 @@ import { AccountDashboardComponent } from './account-dashboard/account-dashboard
     SigninComponent,
     CardSliderComponent,
     AccountDashboardComponent,
+    UserMenuComponent,
+    AccountInformationComponent,
+    CurrentOrdersComponent,
+    ArchivedOrdersComponent,
+    OrdersViewComponent,
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot([
       {path: '', component: HomeComponent},
         {path: 'signin', component: SigninComponent},
-        {path: 'account', component: AccountDashboardComponent}
+        {path: 'account', component: AccountDashboardComponent, children:[
+        {path: '', redirectTo: 'account/info', pathMatch: 'full'},
+        {path: 'account/info', component: AccountInformationComponent},
+        {path: 'account/current-orders', component: CurrentOrdersComponent},
+        {path: 'account/archived-orders', component: ArchivedOrdersComponent}
+        ]},
       ]),
     AppRoutingModule,
     BrowserAnimationsModule,

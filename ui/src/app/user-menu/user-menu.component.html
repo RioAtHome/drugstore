@@ -1,0 +1,28 @@
+<div fxLayout='column' fxLayout.lt-md='row' fxFlexAlign='stretch' class='main-container' fxLayoutGap='100px'>
+			<mat-card fxHide.lt-md>
+				<mat-card-header fxLayout='column'>
+					<div mat-card-avatar class='profile-image'></div>
+					<div class='change-profile-button'
+					fxLayout='row' fxLayoutAlign='end end'>
+					<button mat-mini-fab color='primary'>
+						<div>
+							<mat-icon>camera_enhance</mat-icon>
+						</div>
+					</button>
+				</div>
+				</mat-card-header>
+			</mat-card>
+					<mat-button-toggle-group name='fontStyle' aria-label='Font Style' vertical>
+						<mat-button-toggle value='info' checked routerLink='account/info' routerLinkActive="active'">
+							Account Information
+						</mat-button-toggle>
+						<mat-button-toggle value='info' routerLink='account/current-orders'>
+							Current Orders
+						</mat-button-toggle>
+						<mat-button-toggle value='info' routerLink='account/archived-orders' routerLinkActive='active'>
+							Archived Orders
+						</mat-button-toggle>
+					</mat-button-toggle-group>
+			<div fxLayout='column'>
+			</div>
+		</div>

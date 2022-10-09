@@ -1,0 +1,27 @@
+.mat-button-toggle-checked {
+	background-color: rgba(0, 147, 221, 0.2);
+}
+
+
+.profile-image {
+	width: 180px;
+	height: 180px;
+	background-image: url('/assets/images/alexander-hipp-.png');
+	background-size: cover;
+}
+
+.change-profile-button {
+	z-index: 1;
+	margin-top: -50px !important;
+}
+
+.main-container{
+	margin-left: 4rem;
+	background-color: aliceblue;
+}
+
+mat-card {
+background-color: aliceblue;
+box-shadow: none !important;
+
+}

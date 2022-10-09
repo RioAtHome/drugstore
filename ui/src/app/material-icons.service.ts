@@ -39,5 +39,13 @@ export class MaterialIconsService {
       "lock-icon",
       this.domSanitizer.bypassSecurityTrustResourceUrl("./assets/icons/lock-icon.svg")
     );
+    this.matIconRegistry.addSvgIcon(
+      "camera-icon",
+      this.domSanitizer.bypassSecurityTrustResourceUrl("./assets/icons/camera.svg")
+    );
+    this.matIconRegistry.addSvgIcon(
+      "home-icon",
+      this.domSanitizer.bypassSecurityTrustResourceUrl("./assets/icons/home-icon.svg")
+    );
   }
 }

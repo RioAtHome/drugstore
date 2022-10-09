@@ -1,0 +1,48 @@
+<div fxLayout='column' fxLayoutGap='50px'>
+	<div fxLayout='row'>
+		<span>
+			<span>
+				<mat-icon svgIcon='home-icon'></mat-icon></span>
+				/Pharmacy Profile <span class='active-text'>/ Account Information</span>
+			</span>
+		</div>
+		<div fxLayout='column' fxLayoutGap='15px' fxLayoutAlign='start start'>
+			<div fxLayout='row' fxLayoutGap='10px' fxLayoutAlign='center center'>
+				<h2>Account Information</h2>
+				<button mat-mini-fab (click)='changeDisabled()'>
+					<mat-icon>edit</mat-icon>
+				</button>
+			</div>
+			<mat-card>
+				<mat-card-content>
+					<form fxLayout='column'>
+						<div fxLayout='row' fxLayoutAlign='space-between center' fxLayoutGap="150px">
+							<label>Pharmacy Name</label>
+							<mat-form-field>
+								<input matInput value="SomeName" disabled={{disabled}}>
+							</mat-form-field>
+						</div>
+						<div fxLayout='row' fxLayoutAlign='space-between center' fxLayoutGap="150px">
+							<label>Account Number</label>
+							<mat-form-field>
+								<input matInput value="SomeName" disabled={{disabled}}>
+							</mat-form-field>
+						</div>
+						<div fxLayout='row' fxLayoutAlign='space-between center' fxLayoutGap="150px">
+							<label>Password</label>
+							<mat-form-field>
+								<input matInput [type]= "hide ? 'password' : 'text'" disabled={{disabled}}>
+								<button mat-icon-button matSuffix (click)="hide = !hide">
+									<mat-icon> {{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+								</button>
+							</mat-form-field>
+						</div>
+						<span>
+							<button mat-button *ngIf='!disabled'>Submit</button>
+						</span>
+					</form>
+				</mat-card-content>
+			</mat-card>
+		</div>
+
+	</div>

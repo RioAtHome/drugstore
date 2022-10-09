@@ -11,6 +11,10 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSliderModule } from '@angular/material/slider'; 
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input'; 
+import { MatButtonToggleModule } from '@angular/material/button-toggle'; 
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+
 
 @NgModule({
   declarations: [],
@@ -29,6 +33,9 @@ import { MatInputModule } from '@angular/material/input';
     MatSliderModule,
     MatCardModule,
     MatInputModule,
+    MatButtonToggleModule,  
+    MatPaginatorModule,  
+    MatTableModule,
   ]
 })
 export class MaterialModule { }
