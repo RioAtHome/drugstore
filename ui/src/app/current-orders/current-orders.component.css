@@ -1,3 +1,7 @@
 .active-text {
 	color: var(--blue);
 }
+
+app-orders-view  {
+	width: 800px;
+}

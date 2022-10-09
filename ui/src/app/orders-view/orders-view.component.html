@@ -1,13 +1,16 @@
-<div fxLayout='column' fxLayoutAlign='center center'>
+<div fxLayout='column' fxLayoutAlign='center center' fxFlexAlign='stretch'>
 	<div fxLayout='columm' *ngFor='let order of ordersData'>
-		<table mat-table [dataSource]="order.order">
+		<table mat-table [dataSource]="order.order" fixedLayout>
 			<ng-container matColumnDef='id'>
 				<th mat-header-cell *matHeaderCellDef>ID</th>
 				<td mat-cell *matCellDef='let order'>
 					{{order.id}}
+					
 				</td>
+				<td mat-footer-cell *matFooterCellDef colspan="2">
+				Created At: <br>{{order.createdAt}}</td>
 			</ng-container>
-			<ng-container matColumnDef='name'>
+			<ng-container matColumnDef='drug_name'>
 				<th mat-header-cell *matHeaderCellDef>Name</th>
 				<td mat-cell *matCellDef='let order'>
 					{{order.drug_name}}
@@ -19,12 +22,13 @@
 				<td mat-cell *matCellDef='let order'>
 					{{order.quantity}}
 				</td>
-
+				<td mat-footer-cell *matFooterCellDef colspan="2">
+				Order Status: <br>{{order.order_status}}</td>
 			</ng-container>
 			<ng-container matColumnDef='expiration_date'>
 				<th mat-header-cell *matHeaderCellDef>Expiration Time</th>
 				<td mat-cell *matCellDef='let order'>
-					{{order.expiration_time}}
+					{{order.expiration_date}}
 				</td>
 
 			</ng-container>
@@ -34,15 +38,26 @@
 					{{order.price_per_unit}}
 				</td>
 			</ng-container>
-			<ng-container total_price>
+			<ng-container matColumnDef=total_price>
 				<th mat-header-cell *matHeaderCellDef>Total Price</th>
 				<td mat-cell *matCellDef='let order'>
 					{{order.total_price}}
 				</td>
+				<td mat-footer-cell *matFooterCellDef colspan="2">
+				Order Price :<br>{{order.price}}</td>
 			</ng-container>
-
+			<ng-container matColumnDef=actions *ngIf='editable'>
+				<th mat-header-cell *matHeaderCellDef>Actions</th>
+				<td mat-cell *matCellDef>
+					<div fxLayout='columm' fxLayoutGap=2px>
+					<button mat-raised-button color="warn">Delete</button>
+					<button mat-raised-button color="accent">Edit</button>
+					</div>
+				</td>
+			</ng-container>
 			<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
 			<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+			<tr mat-footer-row *matFooterRowDef="footerDisplayColumns"></tr>
 
 		</table>
 	</div>
@@ -54,20 +69,3 @@
 </div>
 </div>
 
-
-<!-- export interface Order {
-  id: string,
-  drug_name:string,
-  quantity: number,
-  expiration_date: string,
-  drug_status: string,
-  price_per_unit: number,
-  total_price: number,
-}
-
-export interface Orders {
-  order: Order[],
-  price: number,
-  createdAt: string
-  order_status:string
-} -->

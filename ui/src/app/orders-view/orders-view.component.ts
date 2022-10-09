@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+
 
 export interface Order {
   id: string,
@@ -92,13 +93,20 @@ const STATIC_ORDERS: Orders[] = [
     styleUrls: ['./orders-view.component.css']
   })
   export class OrdersViewComponent implements OnInit {
-    displayedColumns = ['id', 'drug_name', 'quantity', 'expiration_date','drug_status','price_per_unit', 'total_price']
-    footerDisplayColumns = ['createdAt', 'price', 'order_status']
+    displayedColumns = ['id', 'drug_name', 'quantity', 'expiration_date','price_per_unit', 'total_price'];
+    footerDisplayColumns = ['id', 'quantity', 'total_price'];
     ordersData = STATIC_ORDERS;
-    console = console;
-    constructor() { }
+    
+    @Input() editable: boolean = false;
+
+    constructor() {
+
+     }
 
     ngOnInit(): void {
+      if(this.editable){
+        this.displayedColumns.push('actions');
+      }
     }
 
   }

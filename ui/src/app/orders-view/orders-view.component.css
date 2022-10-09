@@ -1,0 +1,8 @@
+table {
+ width: 100%;
+
+}
+
+.mat-footer-row {
+	background-color: var(--blue);
+}

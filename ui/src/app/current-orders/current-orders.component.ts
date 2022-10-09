@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./current-orders.component.css']
 })
 export class CurrentOrdersComponent implements OnInit {
-
+  canEdit = true;
   constructor() { }
 
   ngOnInit(): void {

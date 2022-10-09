@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./archived-orders.component.css']
 })
 export class ArchivedOrdersComponent implements OnInit {
-
+  editable: boolean = false;
   constructor() { }
 
   ngOnInit(): void {
