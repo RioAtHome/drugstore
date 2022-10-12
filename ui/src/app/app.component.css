@@ -2,12 +2,10 @@ app-toolbar {
    margin-bottom: 0px !important;
 }
 
-app-signin{
-   margin-bottom: 0px !important; 
-}
 
 router-outlet {
-   margin-bottom: 0px !important;  
+   margin-bottom: 0px !important; 
+
 }
 
 

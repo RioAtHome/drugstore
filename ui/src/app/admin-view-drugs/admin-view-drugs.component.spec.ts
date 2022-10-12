@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CardSliderComponent } from './card-slider.component';
+import { AdminViewDrugsComponent } from './admin-view-drugs.component';
 
-describe('CardSliderComponent', () => {
-  let component: CardSliderComponent;
-  let fixture: ComponentFixture<CardSliderComponent>;
+describe('AdminViewDrugsComponent', () => {
+  let component: AdminViewDrugsComponent;
+  let fixture: ComponentFixture<AdminViewDrugsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CardSliderComponent ]
+      declarations: [ AdminViewDrugsComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CardSliderComponent);
+    fixture = TestBed.createComponent(AdminViewDrugsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

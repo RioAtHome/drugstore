@@ -10,3 +10,30 @@ services:
     volumes:
        - ./ui:/usr/src/app/ui
        - /usr/src/app/ui/node_modules
+  redis-channels:
+    image: redis:6.2-alpine
+    ports:
+      - '6379:6379'
+    command: redis-server
+  drugs-api:
+    build: ./api
+    command: sh -c  "python manage.py makemigrations &&
+     python manage.py migrate &&
+     python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - ./api:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - REDIS_HOST=${REDIS_HOST:-redis-channels} 
+      - REDIS_PORT=${REDIS_PORT:- 6379} 
+      - SECRET_KEY=${SECRET_KEY:-secret}
+      - DEBUG=${DEBUG:-False}
+      - HOSTS=${HOSTS:-*}
+    links:
+      - redis-channels
+    depends_on:
+      - redis-channels
+volumes:
+  redis_channels:
+    driver: local

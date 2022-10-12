@@ -12,27 +12,35 @@
 			</span>
 		</div>
 		<div fxLayout='column'>
+			<form [formGroup]='signinForm' (ngSubmit)="onSubmit()" novalidate>
+				<div fxLayout='column' fxLayoutGap='15px'>
 			<mat-form-field appearance='fill'>
 				<mat-label>
 					<span>
 						<mat-icon svgIcon='pharmacy-icon'></mat-icon>
 					</span>
 				Account Number</mat-label>
-				<input matInput type=text>
+				<input matInput type=text formControlName='code'>
+				<!-- TODO: validate against numbers -->
+				<mat-error *ngIf="signinForm.get('code')?.errors?.['required']">Account Number is Required</mat-error>
+				<mat-error *ngIf="signinForm.get('code')?.errors?.['pattern']">Account Number is Only Numbers</mat-error>
 			</mat-form-field>
-
 			<mat-form-field appearance='fill'>
 				<mat-label>
 					<span>
 						<mat-icon svgIcon='lock-icon'></mat-icon>
 					</span>
 				Password</mat-label>
-				<input matInput [type]= "hide ? 'password' : 'text'">
-				<button mat-icon-button matSuffix (click)="hide= !hide" [attr.aria-label]= "'Hide password'" [attr.aria-pressed]="hide">
-					<mat-icon> {{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+				<input matInput [type]= "hide_password ? 'password' : 'text'" formControlName='password'>
+				<button mat-icon-button matSuffix (click)="hide_password= !hide_password" [attr.aria-label]= "'Hide password'" [attr.aria-pressed]="hide_password">
+					<mat-icon> {{ hide_password ? 'visibility_off' : 'visibility' }}</mat-icon>
 				</button>
+				<mat-error *ngIf="signinForm.get('password')?.errors?.['required']">Password is Required</mat-error>
 			</mat-form-field>
-			<button mat-raised-button class='blue-button'>SIGN IN</button>
+			</div>
+			<button mat-raised-button class='blue-button text_on_background' type='submit' [disabled]='!signinForm.valid'>SIGN IN</button>
+			<mat-error *ngIf='error' style='margin-top: 4px;'>{{ error }}</mat-error>
+			</form>
 		</div>
 		<span>
 			<h3>OR</h3>
@@ -48,8 +56,8 @@
 				<div>
 					<mat-icon svgIcon='warehouse_logo' class='warehouse_logo'></mat-icon>
 				</div>
-				<h2>Gaza Central Company</h2>
-				<p align="center">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 15 ummy text ever since the </p>
+				<h2 class='text_on_background'>Gaza Central Company</h2>
+				<p align="center" class='text_on_background'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 15 ummy text ever since the </p>
 			</div>
 		</div>
 		</div>

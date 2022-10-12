@@ -1,0 +1,22 @@
+.active-text {
+	color: var(--blue);
+}
+
+.table-lt-md{
+min-width: 800px;
+}
+
+
+.table-container-lt-md {
+	display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.main-container {
+	padding: 4rem;
+}
+
+.main-container-lt-md{
+	padding: 1rem;
+}

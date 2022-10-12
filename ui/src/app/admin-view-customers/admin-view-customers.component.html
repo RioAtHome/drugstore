@@ -1,0 +1,48 @@
+<div ngClass='main-container' ngClass.lt-md='main-container-lt-md' fxLayoutGap='10px'>
+	<div fxLayout='row' fxLayoutAlign='space-between center' class='h1-container'>
+		<h1 style='margin-bottom: 0px;'>Customers</h1>
+		<button mat-raised-button>
+			Import Customers
+		</button>
+	</div>
+	<div fxLayout='column' class='table-container' ngClass.lt-md='table-container-lt-md'>
+		<table mat-table [dataSource]="customerData" ngClass.lt-md='table-lt-md'>
+			<ng-container matColumnDef='account_number'>
+				<th mat-header-cell *matHeaderCellDef>Account Number</th>
+				<td mat-cell *matCellDef='let customer'>
+					{{customer.account_number}}
+					
+				</td>
+			</ng-container>
+			<ng-container matColumnDef='pharmacy_name'>
+				<th mat-header-cell *matHeaderCellDef>Pharmacy Name</th>
+				<td mat-cell *matCellDef='let customer'>
+					{{customer.pharmacy_name}}
+				</td>
+
+			</ng-container>
+			<ng-container matColumnDef='latitude'>
+				<th mat-header-cell *matHeaderCellDef>latitude</th>
+				<td mat-cell *matCellDef='let customer'>
+					{{customer.latitude}}
+				</td>
+			</ng-container>
+			<ng-container matColumnDef='longitude'>
+				<th mat-header-cell *matHeaderCellDef>longitude</th>
+				<td mat-cell *matCellDef='let customer'>
+					{{customer.longitude}}
+				</td>
+
+			</ng-container>
+			<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+			<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+		</table>
+		<div fxLayout='row' fxLayoutAlign='center center'>
+		<mat-paginator [length]="100"
+		[pageSize]="10"
+		[pageSizeOptions]="[5, 10, 25, 100]">
+	</mat-paginator>
+</div>
+				
+	</div>
+</div>
