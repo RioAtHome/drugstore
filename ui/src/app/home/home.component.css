@@ -16,6 +16,28 @@
 
 }
 
+.slider-background-lt-lg{
+   background-image: url(/assets/images/founder.png);
+  background-size: 100% 100%;
+  align-self: stretch;
+  margin-right: -70px;
+  margin-top: -130px;
+  margin-bottom: -130px;
+  padding-left: 240px;
+
+}
+
+.slider-background-gt-lg {
+background-image: url(/assets/images/founder.png);
+  background-size: 100% 100%;
+  align-self: stretch;
+  margin-right: -70px;
+  margin-top: -130px;
+  margin-bottom: -130px;
+  margin-left: 270px;
+
+}
+
 .head-container {
   background: rgb(0, 147, 221);
   padding: 5em;
@@ -48,7 +70,11 @@
 }
 
 .row-container-lt-md {
-  padding: 0em;
+  padding: 1em;
+}
+
+.row-container-gt-lg{
+  padding: 7em;
 }
 
 .first-three {

@@ -32,6 +32,7 @@ import { AdminViewCustomersComponent } from './admin-view-customers/admin-view-c
 import { AdminViewDrugsComponent } from './admin-view-drugs/admin-view-drugs.component';
 import { AuthGuardServiceService } from './shared/auth-guard-service.service';
 import { RoleGuardServiceService } from './shared/role-guard-service.service';
+import { ProfilePictureDialogComponent } from './profile-picture-dialog/profile-picture-dialog.component';
 
 
 @NgModule({
@@ -55,6 +56,7 @@ import { RoleGuardServiceService } from './shared/role-guard-service.service';
     AdminCurrentOrdersComponent,
     AdminViewCustomersComponent,
     AdminViewDrugsComponent,
+    ProfilePictureDialogComponent,
   ],
   imports: [
     BrowserModule,

@@ -21,6 +21,10 @@ from datetime import timedelta
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("SECRET_KEY")
+WS_SECRET_KEY = os.environ.get("WS_SECRET_KEY", "wsSecret")
+PHOTO_STORAGE_API_URL = 'https://api.imgbb.com/1/upload'
+PHOTO_STORAGE_API_KEY = os.environ.get('IMAGE_API_KEY')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 debug = os.environ.get("DEBUG")

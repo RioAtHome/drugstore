@@ -13,3 +13,18 @@ app-toolbar ~ app-home {
    background-color: var(--blue) !important;
 }
 
+
+:host {
+   margin: 0px !important;
+   padding: 0px !important;
+}
+
+.limit-gt-lg {
+   margin-bottom: 0px !important;
+   width: 1920px;
+   height: 925px;
+}
+
+.limit {
+   margin-bottom: 0px !important;  
+}

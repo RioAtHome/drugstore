@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
 from urllib.parse import parse_qs
 from rest_framework_simplejwt.exceptions import InvalidToken
-from rest_framework_simplejwt.tokens import AccessToken
+from .utils import verify_token
 
 
 USER_MODEL = get_user_model()
@@ -17,7 +17,7 @@ def get_user(pk):
 
 
 def verify_token(token):
-    token = AccessToken(token)
+    token = verify_token(token)
     return token.payload
 
 

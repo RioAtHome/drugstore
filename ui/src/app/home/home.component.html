@@ -1,18 +1,18 @@
 <div fxLayout='column' fxLayoutAlign='space-between center' class='main-home-container'>
 	<div fxLayout='row' fxLayout.lt-md='column' fxLayoutAlign='space-between center' class='head-container' fxFlexAlign='stretch'>
 		<div class='row-container' ngClass.lt-md="row-container-lt-md" id='home'>
-			<div fxLayout='column'>
+			<div fxLayout='column' class='text_on_background'>
 				<h1>Gaza Central Company</h1>
 				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 				<h4>Let's create your first order</h4>
 				<div>
-				<button mat-raised-button class="order-now-button" color='accent'>Order Now</button></div>
+					<button mat-raised-button class="order-now-button" color='accent' routerLink='account/order'>Order Now</button></div>
+				</div>
 			</div>
-			</div>
-			<div fxHide.lt-md fxLayout='row' fxLayout.lt-md='column' fxLayoutAlign='end center' class='slider-background' fxFlex=60 fxFlex.lt-md=100>
+			<div fxHide.lt-md fxLayout='row' fxLayout.lt-md='column' fxLayoutAlign='end center' ngClass='slider-background' ngClass.lt-lg='slider-background-lt-lg' ngClass.gt-lg='slider-background-gt-lg' fxFlex=80>
 			</div>
 		</div>
-		<div fxLayout='column' class='row-container color-content' fxLayoutGap=50 id='about-us' > 
+		<div fxLayout='column' ngClass='row-container color-content' ngClass.lt-md='row-container-lt-md' fxLayoutGap=50 id='about-us' > 
 			<div fxLayout='column' fxLayoutAlign="start center">
 				<h1>
 					<span class='first-three'>Abo</span>ut Gaza Central Company
@@ -23,7 +23,7 @@
 					</p>
 				</div>
 			</div>
-			<div fxLayout='row' fxLayout.lt-md='column' fxLayoutAlign='center center' id='founder'>
+			<div fxLayout='row' fxLayout.lt-md='column' fxLayoutAlign='center center'>
 				<div fxFlexOrder.lt-md='2'>
 					<img src="/assets/images/national-cancer(1).png" class="img-in-tile" fxFlexAlign='center'>
 				</div>
@@ -41,7 +41,7 @@
 				</div>
 			</div>
 		</div>
-		<div class='color-content row-container' fxLayout='column'  fxLayoutGap='70'>
+		<div ngClass='color-content row-container' ngClass.lt-md='color-content row-container-lt-md' fxLayout='column'  fxLayoutGap='70' id='founder'>
 			<div fxLayout='column' fxLayoutAlign="center center">
 				<h1>
 					<span class='first-three'>Fou</span>nder & Board of Directors
@@ -65,7 +65,7 @@
 				1914 translation by H. Rackham</p>
 			</div>
 		</div>
-		<div class='color-content row-container' fxLayoutAlign='center center'>
+		<div ngClass='color-content row-container' fxLayoutAlign='center center' >
 			<div fxLayout='column' fxLayoutAlign="center center" fxLayoutGap="12px" fxFlex.gt-lg='60'>
 				<mat-card fxLayout='row' fxLayout.lt-md='column' fxLayoutAlign='space-between center' class='card-container'>
 					<img mat-card-image src='/assets/images/char-01.png' fxLayout="row" fxFlex=30 fxFlex.gt-md="20" class='card-image'>
@@ -117,7 +117,7 @@
 								</mat-card>
 							</div>
 						</div>
-						<div class='color-content row-container' fxFlexAlign='stretch' id='mission-vision'>
+						<div ngClass='color-content row-container' ngClass.lt-md='row-container-lt-md color-content'fxFlexAlign='stretch' id='mission-vision'>
 							<div fxLayout='column' fxLayoutAlign="center center">
 								<div fxLayout='column' fxLayoutAlign="start center">
 									<h1>
@@ -165,44 +165,49 @@
 							</div>
 						</div>
 
-						<div class='color-content row-container' fxFlexAlign='stretch' fxLayout='column' id='contact-us'>
-							<div fxLayout='column' fxLayoutAlign="center center">
+						<div ngClass='color-content row-container' fxFlexAlign='stretch' fxLayout='column' id='contact-us'>
+							<div fxLayout='column' fxLayoutAlign="center center" >
 								<h1>
-									<span class='first-three'>Con</span>tact Us
+									<span class='first-three' >Con</span>tact Us
 								</h1>
 								<p align="center"> 
 									Leave us a Message !
 								</p>
 							</div>
-							<div fxFlex='1 1 auto' fxLayoutAlign='center center'>
-							<mat-card fxLayout='row'
-							fxLayout.lt-md='column' fxLayoutAlign='space-between center' fxFlex.gt-lg='50'>
-							<div class='inner-card-background' >
-								<mat-card fxLayout='column' fxLayoutGap='40' class='inner-card' fxLayoutAlign='center center' ngClass.lt-md='inner-card-lt-md'>
-									<mat-card-content fxLayout='column' fxLayoutGap='25' fxLayoutAlign='center center'>
-										<span> Contact Us</span>
-										<span fxLayout='row' fxLayoutAlign='center center'><mat-icon>phone</mat-icon>+978523482034</span>
-										<span fxLayout='row' fxLayoutAlign='center center'><mat-icon>email</mat-icon>DEV@DEV.com</span>
-										<span fxLayout='row' fxLayoutAlign='center center'><mat-icon svgIcon='whatsapp_logo'></mat-icon>@DEVIE</span>
+							<div fxLayout='row' fxLayoutAlign='center center'>
+								<mat-card fxLayout='row'
+								fxLayout.lt-md='column' fxLayoutAlign='space-between center' fxFlex.gt-lg='50' >
+								<div class='inner-card-background' >
+									<mat-card fxLayout='column' fxLayoutGap='40' class='inner-card' fxLayoutAlign='center center' ngClass.lt-md='inner-card-lt-md'>
+										<mat-card-content fxLayout='column' fxLayoutGap='25' fxLayoutAlign='center center' class='text_on_background'>
+											<span> Contact Us</span>
+											<span fxLayout='row' fxLayoutAlign='center center'><mat-icon>phone</mat-icon>+978523482034</span>
+											<span fxLayout='row' fxLayoutAlign='center center'><mat-icon>email</mat-icon>DEV@DEV.com</span>
+											<span fxLayout='row' fxLayoutAlign='center center'><mat-icon svgIcon='whatsapp_logo'></mat-icon>@DEVIE</span>
+										</mat-card-content>
+									</mat-card>
+								</div>
+								<div fxLayout='column' fxFlexAlign='stretch'>
+									<mat-card fxFlex='stretch' fxLayout='column'>
+										<p align="center">
+											Contact us to retreive your special access credentials
+										</p>
+										<mat-card-content fxLayout='column' fxLayoutAlign='start center' fxFlex='stretch'>
+											<div fxFlexAlign='stretch'>
+											<mat-form-field appearance='fill' fxFlex='stretch'
+											>
+											<mat-label>Message</mat-label>
+											<textarea matInput></textarea>
+
+										</mat-form-field>
+										</div>
+										<div>
+											<button mat-raised-button>Submit</button>
+										</div>
 									</mat-card-content>
 								</mat-card>
 							</div>
-							<mat-card>
-								<p align="center">
-									Contact us to retreive your special access credentials
-								</p>
-								<mat-card-content fxLayout='column' fxLayoutAlign='center center'>
-									<mat-form-field appearance='fill' fxFlex='stretch'
-									>
-									<mat-label>Message</mat-label>
-									<textarea matInput></textarea>
-								</mat-form-field>
-								<div>
-									<button mat-raised-button>Submit</button>
-								</div>
-							</mat-card-content>
 						</mat-card>
-					</mat-card>
 					</div>
 				</div>
 			</div>

@@ -35,7 +35,13 @@ export class ToolbarComponent implements OnInit {
   }
 
   navToSection(section: string, route: string): void{
-    this.router.navigateByUrl(`${route}#${section}`);
+    this.router.navigateByUrl(route).then(()=> {
+    const element = document.querySelector(section);
+    if (element){
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    });
+    
   }
 
 }

@@ -6,3 +6,4 @@ black
 channels
 channels_redis
 django-filter
+requests

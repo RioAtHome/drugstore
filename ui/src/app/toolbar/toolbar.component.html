@@ -2,11 +2,11 @@
 <mat-toolbar fxLayout='row' fxLayoutAlign="space-between center" ngClass={{styleClass}} >
 			<mat-icon class='warehouse_logo'svgIcon="warehouse_logo"></mat-icon>
 	<div fxShow.lt-md="false" fxFlex="2 1 auto" >
-		<button mat-button (click)='navToSection("home", "/")' class='text_on_background'>Home</button>
-		<button mat-button (click)='navToSection("founder", "/")' class='text_on_background'>Founder</button>
-		<button mat-button (click)='navToSection("about-us", "/")' class='text_on_background'>About Us</button>
-		<button mat-button (click)='navToSection("mission-vision", "/")' class='text_on_background'>Mission & Vision</button>
-		<button mat-button (click)='navToSection("contact-us", "/")' class='text_on_background'>Contact Us</button>
+		<button mat-button (click)='navToSection("#home", "/")' class='text_on_background'>Home</button>
+		<button mat-button (click)='navToSection("#founder", "/")' class='text_on_background'>Founder</button>
+		<button mat-button (click)='navToSection("#about-us", "/")' class='text_on_background'>About Us</button>
+		<button mat-button (click)='navToSection("#mission-vision", "/")' class='text_on_background'>Mission & Vision</button>
+		<button mat-button (click)='navToSection("#contact-us", "/")' class='text_on_background'>Contact Us</button>
 	</div>
 	<app-toolbar-profile [authenticated]='isAuthenticated()'></app-toolbar-profile>
 </mat-toolbar>

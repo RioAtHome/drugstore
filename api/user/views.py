@@ -1,6 +1,7 @@
-import re
 import csv
 import os
+import requests
+from django.conf import settings
 from rest_framework.views import APIView
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
@@ -20,8 +21,26 @@ from .serializers import UserSerializer
 from user.serializers import MyTokenSerializer
 from rest_framework.generics import ListCreateAPIView
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.exceptions import APIException
 
 
+class ServiceUnavailable(APIException):
+    status_code = 400
+    default_detail = 'Service temporarily unavailable, try again later.'
+    default_code = 'service_unavailable'
+
+
+
+
+def return_picture_url(picture):
+    API_KEY = settings.PHOTO_STORAGE_API_KEY
+    API_URL = settings.PHOTO_STORAGE_API_URL
+
+    resp = requests.post(f'{API_URL}?key={API_KEY}', files=picture)
+    if resp.status_code == '200':
+        return resp.json()['display_url']
+
+    raise ServiceUnavailable()
 
 
 
@@ -63,6 +82,14 @@ class UserView(APIView):
     def patch(self, request, code):
         if request.user != get_object_or_404(User, code=code):
             return Response({"message": "cannot update another user data"})
+
+        if 'picture' in request.data:
+            picture = request.files['picture']
+            url = return_picture_url(picture)
+
+            request.data['picture'] = url
+
+
         serializer = UserSerializer(request.user, request.data, partial=True)
         if serializer.is_valid(raise_exception=True):
             serializer.save()

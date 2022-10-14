@@ -15,7 +15,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox'; 
-
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -39,6 +39,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatPaginatorModule,  
     MatTableModule,
     MatCheckboxModule,
+    MatDialogModule,
   ]
 })
 export class MaterialModule { }
