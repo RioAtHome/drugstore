@@ -25,3 +25,40 @@ background-color: aliceblue;
 box-shadow: none !important;
 
 }
+
+.main-container-lt-md{
+	margin: 0;
+	background-color: aliceblue;
+}
+
+.menu-container-lt-md{
+	display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.menu-button-group-lt-md{
+	min-width: 485px;
+}
+
+@media (min-width: 640px){
+
+:host {
+	display: flex;
+	margin-bottom: 0px !important;
+}
+}
+
+@media (min-width: 768px){
+
+:host {
+	display: flex;
+	margin-bottom: 0px !important;
+}
+}
+
+:host{
+	margin-bottom: 0px !important;	
+}
+
+

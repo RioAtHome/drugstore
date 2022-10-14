@@ -23,7 +23,11 @@ export class RestServiceService {
   };
 
   private handleError(error: HttpErrorResponse) {
-    return throwError(() => new Error('Ooops, something went wrong; please try again later.'));
+    if(error.status === 500){
+      return throwError(() => new Error('Oops, something went wrong, please try again later!'));
+    }
+    const errMsg: string = error.error.detail;
+    return throwError(() => new Error(errMsg));
   }
 
 

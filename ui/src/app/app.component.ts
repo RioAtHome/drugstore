@@ -8,5 +8,6 @@ import { MaterialIconsService } from './material-icons.service';
 export class AppComponent {
   title = 'Gaza Central Pharmacy';
   constructor (private materialIconService: MaterialIconsService) {
+    console.log('root');
   }
 }

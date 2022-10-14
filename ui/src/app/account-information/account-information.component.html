@@ -1,10 +1,26 @@
-<div fxLayout='column' fxLayoutGap='50px'>
+<div fxLayout='column' fxLayoutGap='20px' ngClass.lt-md='main-container-lt-md'>
 	<div fxLayout='row'>
 		<span>
 			<span>
 				<mat-icon svgIcon='home-icon'></mat-icon></span>
 				/Pharmacy Profile <span class='active-text'>/ Account Information</span>
 			</span>
+		</div>
+		<div fxHide.gt-sm>
+			<mat-card ngClass='profile-mat-card' fxLayoutAlign='center center'>
+		<mat-card-header fxLayout='column'>
+			<div mat-card-avatar class='profile-image'></div>
+			<div class='change-profile-button'
+			fxLayout='row' fxLayoutAlign='end end'>
+			<!-- dialog when you click edit, which opens a form -->
+			<button mat-mini-fab color='primary'>
+				<div>
+					<mat-icon class='text_on_background'>camera_enhance</mat-icon>
+				</div>
+			</button>
+		</div>
+	</mat-card-header>
+</mat-card>
 		</div>
 		<div fxLayout='column' fxLayoutGap='15px' fxLayoutAlign='start start'>
 			<div fxLayout='row' fxLayoutGap='10px' fxLayoutAlign='center center'>
@@ -16,21 +32,21 @@
 			<mat-card>
 				<mat-card-content>
 					<form fxLayout='column'>
-						<div fxLayout='row' fxLayoutAlign='space-between center' fxLayoutGap="150px">
+						<div fxLayout='row' fxLayoutAlign='space-between center' fxLayoutGap="150px" fxLayoutGap.lt-md='30px' fxLayoutAlign.lt-md='start center'>
 							<label>Pharmacy Name</label>
 							<mat-form-field>
 								<input matInput value="SomeName" disabled={{disabled}}>
 							</mat-form-field>
 						</div>
-						<div fxLayout='row' fxLayoutAlign='space-between center' fxLayoutGap="150px">
+						<div fxLayout='row' fxLayoutAlign='space-between center' fxLayoutGap="150px" fxLayoutGap.lt-md='30px' fxLayoutAlign.lt-md='start center'>
 							<label>Account Number</label>
 							<mat-form-field>
 								<input matInput value="SomeName" disabled={{disabled}}>
 							</mat-form-field>
 						</div>
-						<div fxLayout='row' fxLayoutAlign='space-between center' fxLayoutGap="150px">
+						<div fxLayout='row' fxLayoutAlign='space-between center'  fxLayoutGap="150px" fxLayoutGap.lt-md='65px' fxLayoutAlign.lt-md='start center'>
 							<label>Password</label>
-							<mat-form-field>
+							<mat-form-field ngClass='password-field-form'>
 								<input matInput [type]= "hide ? 'password' : 'text'" disabled={{disabled}}>
 								<button mat-icon-button matSuffix (click)="hide = !hide">
 									<mat-icon> {{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
@@ -44,5 +60,4 @@
 				</mat-card-content>
 			</mat-card>
 		</div>
-
 	</div>

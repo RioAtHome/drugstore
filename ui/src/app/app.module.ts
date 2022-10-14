@@ -30,6 +30,8 @@ import { AdminArchivedOrdersComponent } from './admin-archived-orders/admin-arch
 import { AdminCurrentOrdersComponent } from './admin-current-orders/admin-current-orders.component';
 import { AdminViewCustomersComponent } from './admin-view-customers/admin-view-customers.component';
 import { AdminViewDrugsComponent } from './admin-view-drugs/admin-view-drugs.component';
+import { AuthGuardServiceService } from './shared/auth-guard-service.service';
+import { RoleGuardServiceService } from './shared/role-guard-service.service';
 
 
 @NgModule({
@@ -58,17 +60,20 @@ import { AdminViewDrugsComponent } from './admin-view-drugs/admin-view-drugs.com
     BrowserModule,
     RouterModule.forRoot([
       {path: '', component: HomeComponent},
-      {path: 'account/order', component:NewOrderComponent},
-      {path: 'admin/customers', component: AdminViewCustomersComponent},
-      {path: 'admin/current-orders', component: AdminCurrentOrdersComponent},
-      {path: 'admin/archived-orders', component: AdminArchivedOrdersComponent},
-      {path: 'admin/drugs', component: AdminViewDrugsComponent},
-        {path: 'signin', component: SigninComponent},
-        {path: 'account', component: AccountDashboardComponent, children:[
-        {path: '', redirectTo: 'info', pathMatch: 'full'},
-        {path: 'info', component: AccountInformationComponent},
-        {path: 'current-orders', component: CurrentOrdersComponent},
-        {path: 'archived-orders', component: ArchivedOrdersComponent},
+      {path: 'signin', component: SigninComponent},
+      {path: 'admin', canActivate: [RoleGuardServiceService], children:[
+        {path: '', redirectTo: 'customers', pathMatch: 'full'},
+        {path: 'customers', component: AdminViewCustomersComponent},
+        {path: 'current-orders', component: AdminCurrentOrdersComponent},
+        {path: 'archived-orders', component: AdminArchivedOrdersComponent},
+        {path: 'drugs', component: AdminViewDrugsComponent},
+      ]},
+        {path: 'account', component: AccountDashboardComponent, canActivate: [AuthGuardServiceService], children:[
+          {path: '', redirectTo: 'info', pathMatch: 'full'},
+          {path: 'order', component:NewOrderComponent},
+          {path: 'info', component: AccountInformationComponent},
+          {path: 'current-orders', component: CurrentOrdersComponent},
+          {path: 'archived-orders', component: ArchivedOrdersComponent},
         ]},
       ]),
     AppRoutingModule,

@@ -3,11 +3,11 @@ app-toolbar {
 }
 
 
-router-outlet {
-   margin-bottom: 0px !important; 
+router-outlet { 
+   margin: 0px !important;
+   padding: 0px !important;
 
 }
-
 
 app-toolbar ~ app-home {
    background-color: var(--blue) !important;

@@ -4,3 +4,8 @@
 .router-container {
 	padding-top: 2rem;
 }
+
+.router-container-lt-md {
+	padding-top: 1rem;
+}
+

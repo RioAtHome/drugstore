@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { AuthService } from '../shared/auth.service';
 
 @Component({
   selector: 'app-toolbar-profile',
@@ -6,8 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./toolbar-profile.component.css']
 })
 export class ToolbarProfileComponent implements OnInit {
-  public Auth: boolean = false;
-  constructor() { }
+  @Input() authenticated: boolean = false;
+  constructor() {
+   }
 
   ngOnInit(): void {
   }

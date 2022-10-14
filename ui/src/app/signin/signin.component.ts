@@ -33,13 +33,12 @@ export class SigninComponent implements OnInit {
     const { code, password } = this.signinForm.value;
     
     this.restClient.signIn(code, password).subscribe(
-      res => console.log("HTTP RESPONE", res),
+      res => {
+        this.auth.setCurrentUser(res);
+        this.router.navigateByUrl('/');
+      },
       err => this.error = err,
-      () => console.log("HTTP REQUEST DONE")
       )
-    
   }
-
-
 
 }
