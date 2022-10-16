@@ -34,7 +34,8 @@ export class SigninComponent implements OnInit {
     
     this.restClient.signIn(code, password).subscribe(
       res => {
-        this.auth.setCurrentUser(res);
+        this.auth.setCurrentUser(res.pharmacy);
+        this.auth.setAccessToken(res.access)
         this.router.navigateByUrl('/');
       },
       err => this.error = err,

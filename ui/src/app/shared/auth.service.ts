@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, pipe } from 'rxjs';
 import { Customer } from './customer';
-import { RestServiceService } from './rest-service.service';
+
 
 export interface User extends Customer{}
 
@@ -12,10 +12,11 @@ export interface User extends Customer{}
 })
 export class AuthService {
   currentUser: User | undefined;
+  accessToken: string = '';
+  refreshToken: string = '';
+  constructor() {}
 
-  constructor(private restClient: RestServiceService) {}
-
-  setCurrentUser(user: User){
+  setCurrentUser(user: User | undefined){
     localStorage.setItem('user', JSON.stringify(user));
     this.currentUser = user;
   }
@@ -55,17 +56,47 @@ export class AuthService {
     return this.currentUser?.is_staff ? true : false;
   }
 
-  validateToken(): void {
+  setAccessToken(token: string): void {
+    localStorage.setItem('access', token);
+    this.accessToken = token;
 
   }
 
-  refreshToken(): void{
+  getAccessToken(): string | null {
+    if (this.accessToken){
+      return this.accessToken
+    }
+    try{
+      const token: string | null = localStorage.getItem('access') || "";
+      return token;
+    }
+    catch(e){
+      if(e instanceof SyntaxError){
+        return null;
+      }
+    }
+    return null;
 
   }
 
   signOut(): void{
     localStorage.clear();
     sessionStorage.clear();
+    this.currentUser = undefined;
 
   }
+
+  setRefreshToken(): void {
+
+  }
+
+  getRefreshToken(): void {
+
+  }
+
+  validateToken(): void {
+
+  }
+  
+
 }

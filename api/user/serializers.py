@@ -17,12 +17,20 @@ class UserSerializer(serializers.ModelSerializer):
         user.save()
         return user
 
+    def update(self, instance, validated_data):
+        password = validated_data.get('password', None)
+        if (password):
+            validated_data.pop('password')
+            instance.set_password(password)
+            instance.save()
+
+        return super().update(instance, validated_data)
+
 
 class MyTokenSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
         token = super().get_token(user)
-        # TODO: client cant access token, so is_staff is useless here
         token["is_staff"] = user.is_staff
         return token
 
@@ -35,7 +43,7 @@ class MyTokenSerializer(TokenObtainPairSerializer):
             "latitude": user.latitude,
             "longitude": user.longitude,
             "picture": user.picture,
-            "is_staff": user.is_staff
+            "is_staff": user.is_staff,
         }
         context = {
             "access": data["access"],

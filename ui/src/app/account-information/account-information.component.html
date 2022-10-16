@@ -9,11 +9,11 @@
 		<div fxHide.gt-sm>
 			<mat-card ngClass='profile-mat-card' fxLayoutAlign='center center'>
 		<mat-card-header fxLayout='column'>
-			<div mat-card-avatar class='profile-image'></div>
+			<div mat-card-avatar [ngStyle]="{'background-image': getPicture() , 'width': '180px', 'height': '180px', 'background-size': 'cover'}"></div>
 			<div class='change-profile-button'
 			fxLayout='row' fxLayoutAlign='end end'>
 			<!-- dialog when you click edit, which opens a form -->
-			<button mat-mini-fab color='primary'>
+			<button mat-mini-fab color='primary' (click)="openDialog('0ms', '0ms')">
 				<div>
 					<mat-icon class='text_on_background'>camera_enhance</mat-icon>
 				</div>
@@ -31,32 +31,33 @@
 			</div>
 			<mat-card>
 				<mat-card-content>
-					<form fxLayout='column'>
+					<form fxLayout='column' [formGroup]=accountForm (ngSubmit)="onSubmit()">
 						<div fxLayout='row' fxLayoutAlign='space-between center' fxLayoutGap="150px" fxLayoutGap.lt-md='30px' fxLayoutAlign.lt-md='start center'>
 							<label>Pharmacy Name</label>
 							<mat-form-field>
-								<input matInput value="SomeName" disabled={{disabled}}>
+								<input matInput formControlName='name'>
 							</mat-form-field>
 						</div>
 						<div fxLayout='row' fxLayoutAlign='space-between center' fxLayoutGap="150px" fxLayoutGap.lt-md='30px' fxLayoutAlign.lt-md='start center'>
 							<label>Account Number</label>
 							<mat-form-field>
-								<input matInput value="SomeName" disabled={{disabled}}>
+								<input matInput [value]="currentUser?.code" disabled=disabled>
 							</mat-form-field>
 						</div>
 						<div fxLayout='row' fxLayoutAlign='space-between center'  fxLayoutGap="150px" fxLayoutGap.lt-md='65px' fxLayoutAlign.lt-md='start center'>
 							<label>Password</label>
 							<mat-form-field ngClass='password-field-form'>
-								<input matInput [type]= "hide ? 'password' : 'text'" disabled={{disabled}}>
+								<input matInput [type]= "hide ? 'password' : 'text'" formControlName='password'>
 								<button mat-icon-button matSuffix (click)="hide = !hide">
 									<mat-icon> {{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
 								</button>
 							</mat-form-field>
 						</div>
 						<span>
-							<button mat-button *ngIf='!disabled'>Submit</button>
+							<button mat-button *ngIf='!disabled' type=submit>Submit</button>
 						</span>
 					</form>
+					<mat-error *ngIf='error'>{{error}}</mat-error>
 				</mat-card-content>
 			</mat-card>
 		</div>

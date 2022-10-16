@@ -1,5 +1,5 @@
 <div class='main-container' ngClass.lt-md='main-container-lt-md'>
-	<div>
+	<div fxLayout='column' fxLayoutGap='30px'>
 		<div fxLayout='row' >
 		<span>
 			<span>
@@ -9,14 +9,7 @@
 		</div>
 		<mat-card>
 			<mat-card-content fxLayout='row' fxLayoutAlign='space-between center'>
-				<div fxLayout='row' fxLayoutGap='150px'>
-				<div fxLayout='row' fxHide.lt-md>
-		<span>
-			<span>
-				<mat-icon svgIcon='home-icon'></mat-icon></span>
-				/ <span class='active-text'>New Order</span>
-			</span>
-		</div>
+				<div fxLayout='row' fxLayoutGap='150px'>	
 		<div fxLayout='row'>
 		<span>
 			<span>
@@ -27,9 +20,8 @@
 		</div>
 		<div fxLayout='row'>
 			<span>
-				<button mat-button>
+				<button mat-button routerLink='/account/current-orders'>
 					<span>My orders</span>
-					<mat-icon>right_arrow_keyboard</mat-icon>
 				</button>
 			</span>
 		</div>	
@@ -40,26 +32,70 @@
 		<span><h1>Create Your Order Now</h1></span>
 		<div fxLayout='column' fxLayoutGap='25px'>
 			<div>
-				<form fxLayout='row' fxLayout.lt-md='column'fxLayoutGap='10px' fxLayoutAlign='start center'>
-					<div fxLayout.lt-md='row' fxLayoutGap='10px'>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				<form fxLayout='column' fxLayoutGap='10px' fxLayoutAlign='start center'>
+					<div fxLayout='row' fxLayout.lt-md='column' fxLayoutGap='10px' fxFlexAlign='stretch'>
 					<mat-form-field appearance='fill'>
-						<mat-label>select or enter a drug name</mat-label>
+						<mat-label>Search</mat-label>
+						<mat-icon matSuffix>search icon</mat-icon>
 						<input matInput>
 					</mat-form-field>
-					<mat-form-field appearance='fill'>
+					<mat-form-field appearance='fill' [ngStyle]="{'width': '100px'}">
+						<mat-label>Quantity</mat-label>
 						<input matInput type='number'>
 					</mat-form-field>
-					</div>
 					<div>
-					<button mat-raised-button fxLayout='row'>
+				<button mat-raised-button fxLayout='row'>
 					<mat-icon>add_circle_outline</mat-icon>
 					Add
 				</button>
 				</div>
+					</div>
 				</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 			</div>
 			<div class='table-conatiner' ngClass.lt-md='table-container-lt-md' fxLayout='column'>
-					<table mat-table [dataSource]="orderData" ngClass.lt-md='table-lt-md'>
+					<table mat-table [dataSource]="orderData" ngClass='table-lt-md'>
 			<ng-container matColumnDef='id'>
 				<th mat-header-cell *matHeaderCellDef>ID</th>
 				<td mat-cell *matCellDef='let order'>

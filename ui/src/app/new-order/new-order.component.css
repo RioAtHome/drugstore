@@ -7,6 +7,8 @@ min-width: 800px;
 }
 
 
+
+
 .table-container-lt-md {
 	display: block;
     overflow-x: auto;
@@ -14,9 +16,9 @@ min-width: 800px;
 }
 
 .main-container {
-	padding: 4rem;
+	padding: 0.5rem;
 }
 
 .main-container-lt-md{
-	padding: 1rem;
+	padding: 0.5rem;
 }

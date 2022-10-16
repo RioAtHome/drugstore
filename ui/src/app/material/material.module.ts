@@ -16,6 +16,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox'; 
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatTableModule,
     MatCheckboxModule,
     MatDialogModule,
+    MatProgressBarModule,
   ]
 })
 export class MaterialModule { }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-
+import { AuthService } from '../shared/auth.service'
 import { ProfilePictureDialogComponent } from '../profile-picture-dialog/profile-picture-dialog.component'
 
 @Component({
@@ -9,9 +9,8 @@ import { ProfilePictureDialogComponent } from '../profile-picture-dialog/profile
   styleUrls: ['./user-menu.component.css']
 })
 export class UserMenuComponent implements OnInit {
-  
-  constructor(public dialog: MatDialog) { }
-
+  currentUser = this.auth.getCurrentUser();
+  constructor(public dialog: MatDialog, private auth: AuthService) { }
   ngOnInit(): void {
   }
 
@@ -27,6 +26,11 @@ export class UserMenuComponent implements OnInit {
       }
     }
     )
+  }
+
+  getPicture(): string{
+
+    return `url(${this.currentUser?.picture})`;
   }
 
 }

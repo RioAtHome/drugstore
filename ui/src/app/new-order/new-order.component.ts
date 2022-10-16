@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+// import { Order } from '../shared/order';
+// import { Drug, OrderedDrug } from '../shared/drug';
+// import { AuthService } from '../shared/auth-service';
+// import { RestServiceService } from '../shared/rest-service.service';
+// import { Search } from '../shared/search.pipe';
 
 export interface Order {
   id: string,
@@ -53,6 +58,7 @@ export class NewOrderComponent implements OnInit {
   displayedColumns = ['id', 'drug_name', 'quantity', 'expiration_date','price_per_unit', 'total_price', 'actions'];
   footerDisplayColumns = ['id', 'total_price']
   orderData = STATIC_ORDERS;
+
   constructor() { }
 
   ngOnInit(): void {

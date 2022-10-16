@@ -1,7 +1,7 @@
 <div ngClass='main-container' ngClass.lt-md='main-container-lt-md' fxLayout='column' fxLayout.lt-md='row' fxFlexAlign.gt-md='stretch' fxLayoutGap='100px' fxLayoutGap.lt-md=0 >
 	<mat-card fxHide.lt-md>
 		<mat-card-header fxLayout='column'>
-			<div mat-card-avatar class='profile-image'></div>
+			<div mat-card-avatar [ngStyle]="{'background-image': getPicture() , 'width': '180px', 'height': '180px', 'background-size': 'cover'}"></div>
 			<div class='change-profile-button'
 			fxLayout='row' fxLayoutAlign='end end'>
 			<button mat-mini-fab color='primary' (click)="openDialog('0ms', '0ms')">

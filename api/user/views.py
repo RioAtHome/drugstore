@@ -22,6 +22,7 @@ from user.serializers import MyTokenSerializer
 from rest_framework.generics import ListCreateAPIView
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.exceptions import APIException
+from django.middleware import csrf
 
 
 class ServiceUnavailable(APIException):
@@ -33,12 +34,13 @@ class ServiceUnavailable(APIException):
 
 
 def return_picture_url(picture):
+    # TODO: TAKES TOO GODDAMN LONG
     API_KEY = settings.PHOTO_STORAGE_API_KEY
     API_URL = settings.PHOTO_STORAGE_API_URL
 
-    resp = requests.post(f'{API_URL}?key={API_KEY}', files=picture)
-    if resp.status_code == '200':
-        return resp.json()['display_url']
+    resp = requests.post(f'{API_URL}?key={"f0402fb8fb0aa5127952b1c548108dfe"}', files={'image': picture})
+    if resp.status_code == 200:
+        return resp.json()['data']['display_url']
 
     raise ServiceUnavailable()
 
@@ -46,20 +48,6 @@ def return_picture_url(picture):
 
 class MyTokenView(TokenObtainPairView):
     serializer_class = MyTokenSerializer
-
-    def post(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        try:
-            serializer.is_valid(raise_exception=True)
-        except TokenError as e:
-            raise InvalidToken(e.args[0])
-        ACCESS_TOKEN, REFRESH_TOKEN, PHARMACY = serializer.validated_data.values()
-
-        response = Response(data=PHARMACY, status=status.HTTP_200_OK)
-        response.set_cookie(key='Authorization', value=ACCESS_TOKEN, httponly=True)
-        response.set_cookie(key='Refresh', value=REFRESH_TOKEN, httponly=True)
-        print(response)
-        return response
 
 
 class SignoutView(APIView):
@@ -74,7 +62,7 @@ class UserView(APIView):
     def get(self, request, code):
         user = get_object_or_404(User, code=code)
         if request.user != user or not request.user.is_staff:
-            return Response({"message": "only cannot get another user data"})
+            return Response({"message": "only cannot get another user data"}, status=status.HTTP_403_FORBIDDEN)
 
         serializer = UserSerializer(user)
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -84,16 +72,18 @@ class UserView(APIView):
             return Response({"message": "cannot update another user data"})
 
         if 'picture' in request.data:
-            picture = request.files['picture']
+            picture = request.FILES['picture']
             url = return_picture_url(picture)
 
             request.data['picture'] = url
 
-
+        
         serializer = UserSerializer(request.user, request.data, partial=True)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
-            return Response(serializer.validated_data, status=status.HTTP_200_OK)
+            data = UserSerializer(request.user).data
+
+            return Response(data, status=status.HTTP_200_OK)
 
 
 class AddListUsers(ListCreateAPIView):

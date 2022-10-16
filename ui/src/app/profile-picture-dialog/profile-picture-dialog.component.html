@@ -7,6 +7,7 @@
   <span class="file-name">{{selectedFile?.name}}</span>
   <span *ngIf='error' style='color: red;'>{{error}}</span>
 </div>
+<mat-progress-bar *ngIf=progress mode="query"></mat-progress-bar>
 <div mat-dialog-actions>
   <button mat-button color='accent' (click)='onCancel()'>Cancel</button>
   <button mat-button (click)='onSubmit()'>Ok</button>
