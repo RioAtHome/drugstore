@@ -1,10 +1,14 @@
-import { Directive } from '@angular/core';
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
-export function ExtensionValidator({ forbiddenExt }: { forbiddenExt: string[]; }): ValidatorFn {
+export function ExtensionValidator(AllowedExt: string[]): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
-     const ext: string = control.value.split('.')[0]
-     return !forbiddenExt.includes(ext) ? {badExtension: {value: control.value}}: null;
+      console.log('Value of control is -->', control.value);
+     let ext: string = control.value.split('.')[1]
+     console.log('value of ext is --> ', ext);
+     if(AllowedExt.includes(ext)){
+      return {forbiddenExt: true}
+     }
+     return null;
   }
 }
 

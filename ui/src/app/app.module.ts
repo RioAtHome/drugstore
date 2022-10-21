@@ -44,7 +44,7 @@ import { StringToDatePipe } from './shared/string-to-date.pipe';
 import { AcronymToStatusPipe } from './shared/acronym-to-status.pipe';
 import { EditOrderDialogComponent } from './edit-order-dialog/edit-order-dialog.component';
 import { UploadFileDialogComponent } from './upload-file-dialog/upload-file-dialog.component';
-import { ReactiveFormsModule } from '@angular/forms';
+
 @NgModule({
   declarations: [
     AppComponent,
