@@ -25,6 +25,7 @@ from rest_framework.exceptions import APIException
 from django.middleware import csrf
 
 
+
 class ServiceUnavailable(APIException):
     status_code = 400
     default_detail = 'Service temporarily unavailable, try again later.'

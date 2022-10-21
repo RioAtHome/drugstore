@@ -1,91 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
-
-
-export interface Order {
-  id: string,
-  drug_name:string,
-  quantity: number,
-  expiration_date: string,
-  drug_status: string,
-  price_per_unit: number,
-  total_price: number,
-}
-
-export interface Orders {
-  order: Order[],
-  price: number,
-  createdAt: string
-  order_status:string
-}
-
-const STATIC_ORDERS: Orders[] = [
-{
-  order:[{
-    id: '00000',
-    drug_name:"string",
-    quantity: 34,
-    expiration_date: 'weeee',
-    drug_status: 'Avaliable',
-    price_per_unit: 66.5,
-    total_price: 9000,
-  },
-  {
-    id: '00000',
-    drug_name:"string",
-    quantity: 34,
-    expiration_date: 'weeee',
-    drug_status: 'Avaliable',
-    price_per_unit: 66.5,
-    total_price: 9000,
-  },
-  {
-    id: '00000',
-    drug_name:"string",
-    quantity: 34,
-    expiration_date: 'weeee',
-    drug_status: 'Avaliable',
-    price_per_unit: 66.5,
-    total_price: 9000,
-  }] 
-  ,
-    price: 233,
-    createdAt: "SomeDate",
-    order_status: 'Pending'
-  },
-  {
-    order: [{
-    id: '00000',
-    drug_name:"string",
-    quantity: 34,
-    expiration_date: 'weeee',
-    drug_status: 'Avaliable',
-    price_per_unit: 66.5,
-    total_price: 9000,
-  },
-  {
-    id: '00000',
-    drug_name:"string",
-    quantity: 34,
-    expiration_date: 'weeee',
-    drug_status: 'Avaliable',
-    price_per_unit: 66.5,
-    total_price: 9000,
-  },
-  {
-    id: '00000',
-    drug_name:"string",
-    quantity: 34,
-    expiration_date: 'weeee',
-    drug_status: 'Avaliable',
-    price_per_unit: 66.5,
-    total_price: 9000,
-  }],
-    price: 2334,
-    createdAt: "SomeDateBaby",
-    order_status: 'Pending'
-  }
-
-  ]
+import { Component, OnInit, Input, AfterViewInit, ViewChild } from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { ListCustomerOrders, RestServiceService } from '../shared/rest-service.service';
+import { Order } from '../shared/order';
+import { MatTableDataSource, MatTable } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
+import { EditOrderDialogComponent } from '../edit-order-dialog/edit-order-dialog.component';
 
   @Component({
     selector: 'app-orders-view',
@@ -95,18 +14,81 @@ const STATIC_ORDERS: Orders[] = [
   export class OrdersViewComponent implements OnInit {
     displayedColumns = ['id', 'drug_name', 'quantity', 'expiration_date','price_per_unit', 'total_price'];
     footerDisplayColumns = ['id', 'quantity', 'total_price'];
-    ordersData = STATIC_ORDERS;
-    
+    ordersData = new MatTableDataSource<Order>([]);
+    error: string = '';
+    initalResponse?: ListCustomerOrders;
     @Input() editable: boolean = false;
+    @Input() query_status: string = 'PE';
+    @ViewChild(MatPaginator) paginator!: MatPaginator;
+    totalRows = 0;
+    pageSize = 10;
+    currentPage = 0;
+    pageSizeOptions: number[] = [5, 10, 25, 100];
 
-    constructor() {
+
+
+    constructor(private restClient: RestServiceService, public dialog: MatDialog) {
 
      }
 
     ngOnInit(): void {
+      this.getListOrder(this.query_status, (this.currentPage + 1).toString());
+      
       if(this.editable){
         this.displayedColumns.push('actions');
+        this.footerDisplayColumns.push('actions')
       }
+    }
+
+
+    ngAfterViewInit() {
+     
+    }
+
+    pageChanged(event: PageEvent){
+      this.pageSize = event.pageSize;
+      this.currentPage = event.pageIndex;
+      this.getListOrder(this.query_status, (this.currentPage + 1).toString())
+    }
+    totalForOrder(order: Order): number{
+      return order.ordered_drugs.reduce((acc: any, obj: any)=> {
+      return acc + parseFloat(obj.total_drug_price);
+    }, 0);
+    }
+
+    openDialog(order: Order, enterAnimationDuration: string, exitAnimationDuration: string){
+      this.dialog.open(EditOrderDialogComponent, {
+        width: '800px',
+        enterAnimationDuration,
+        exitAnimationDuration,
+        data: {order: order}
+      }).afterClosed().subscribe(
+      (shouldReload: boolean) => {
+      if(shouldReload) {
+      window.location.reload()
+      }
+    }
+      )
+    }
+
+    getListOrder(queryparms: string, page: string): void{
+      this.restClient.getCustomerOrders(queryparms, page).subscribe(
+          (res)=>{
+      
+            this.initalResponse = res;
+            
+            this.paginator.length = this.initalResponse.count
+
+            this.paginator.pageIndex = this.currentPage;
+
+            this.ordersData.data = this.initalResponse.results;
+
+            
+          },
+          (err)=>{
+            this.error = err;
+          }
+        )
     }
 
   }

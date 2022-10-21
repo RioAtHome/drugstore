@@ -1,4 +1,8 @@
-import { NgModule } from '@angular/core';
+// TODO: Unsubscribe from observables
+// TODO: Divide to ngModules to enable lazy_loading
+// TODO: enable intercepter
+
+import { importProvidersFrom, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -12,7 +16,7 @@ import { HomeComponent } from './home/home.component';
 import { ToolbarProfileComponent } from './toolbar-profile/toolbar-profile.component';
 import { RouterModule } from '@angular/router';
 
-import { FlexLayoutModule } from '@angular/flex-layout'
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpClientModule } from '@angular/common/http';
 
 import { ToolbarNotificationComponent } from './toolbar-notification/toolbar-notification.component';
@@ -34,8 +38,13 @@ import { AdminViewDrugsComponent } from './admin-view-drugs/admin-view-drugs.com
 import { AuthGuardServiceService } from './shared/auth-guard-service.service';
 import { RoleGuardServiceService } from './shared/role-guard-service.service';
 import { ProfilePictureDialogComponent } from './profile-picture-dialog/profile-picture-dialog.component';
-
-
+import { SearchPipe } from './shared/search.pipe';
+import { OrderStatusDialogComponent } from './order-status-dialog/order-status-dialog.component';
+import { StringToDatePipe } from './shared/string-to-date.pipe';
+import { AcronymToStatusPipe } from './shared/acronym-to-status.pipe';
+import { EditOrderDialogComponent } from './edit-order-dialog/edit-order-dialog.component';
+import { UploadFileDialogComponent } from './upload-file-dialog/upload-file-dialog.component';
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,7 +67,13 @@ import { ProfilePictureDialogComponent } from './profile-picture-dialog/profile-
     AdminViewCustomersComponent,
     AdminViewDrugsComponent,
     ProfilePictureDialogComponent,
-
+    SearchPipe,
+    OrderStatusDialogComponent,
+    StringToDatePipe,
+    AcronymToStatusPipe,
+    EditOrderDialogComponent,
+    UploadFileDialogComponent,
+    
   ],
   imports: [
     BrowserModule,

@@ -19,7 +19,7 @@ def rollback_quantity(sender, instance, *args, **kwargs):
     if instance.status in ["CA", "RE"]:
         related_drugs = instance.ordered_drugs.all()
         for drug in related_drugs:
-            drug.set_quantity(drug.quantity)
+            drug.origindrug.set_quantity(drug.quantity)
 
 
 @receiver(post_save, sender=Order)
@@ -34,7 +34,7 @@ def send_notification(sender, instance, *args, **kwargs):
 @receiver(post_save, sender=OrderedDrug)
 def set_drug_quantity(sender, instance, *args, **kwargs):
     drug = instance.origindrug
-    if instance.status == "PE":
+    if instance.order.status == "PE":
         drug.set_quantity(-instance.quantity)
     elif instance.order.status in ["CA", "RE"]:
         drug.set_quantity(instance.quantity)

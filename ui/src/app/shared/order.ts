@@ -1,10 +1,12 @@
+import { OrderedDrug} from "./drug"
+
+
 export interface Order {
-	status: string,
+	id?: number,
+	user?: string,
+	status?: string,
 	description: string,
-	total_price: number,
-	created_at: Date,
-	updated_at:Date
+	created_at?: string,
+	updated_at?: string,
+	ordered_drugs: OrderedDrug[]
 }
-
-
-// SHOULD I ADD USER HERE??

@@ -11,7 +11,7 @@ def create_notfication(data):
     user should be the user you want to notify
     and payload is the message.
     """
-    serializer = NotificationSerializers(data)
+    serializer = NotificationSerializer(data=data)
     if serializer.is_valid(raise_exception=True):
         serializer.save()
 

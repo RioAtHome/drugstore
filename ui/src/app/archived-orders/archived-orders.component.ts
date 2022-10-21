@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ArchivedOrdersComponent implements OnInit {
   editable: boolean = false;
+  query_status: string = 'archived';
   constructor() { }
 
   ngOnInit(): void {

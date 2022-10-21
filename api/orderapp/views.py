@@ -37,9 +37,9 @@ class ListCreateOrder(AbstractView, ListCreateAPIView):
         if pharmacy != self.request.user or not self.request.user.is_staff:
             return Response({"message": "cannot get another pharmacy orders"})
         queryset = queryset.filter(user=pharmacy)
-        status = self.request.GET.get("status")
+        status = self.request.query_params.getlist("status")
         if status:
-            queryset = queryset.filter(status=status)
+            queryset = queryset.filter(status__in=status)
         return queryset
 
     def create(self, request, *args, **kwargs):

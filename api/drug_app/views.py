@@ -65,6 +65,14 @@ class ListCreateDrugView(AbstractView, ListCreateAPIView):
         if exceptions:
             return Response({"exceptions": exceptions})
         return Response({"message": "the file data is uploaded successfully"})
+    def list(self, request, *args, **kwargs):
+        # TODO: Make a custom pagination class, that is deactivated when queryparams
+        # have no_pag=true flag or something.
+
+        if request.query_params.get('no_pag', False) == 'true':
+            self.pagination_class = None
+
+        return super().list(request, *args, **kwargs)
 
 
 class OneDrugView(AbstractView, RetrieveUpdateAPIView):
@@ -77,3 +85,6 @@ class OneDrugView(AbstractView, RetrieveUpdateAPIView):
         if request.user.is_staff:
             return super().update(request, *args, **kwargs)
         return Response({"message": "this user is not admin"})
+
+
+

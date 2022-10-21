@@ -1,7 +1,9 @@
-.mat-button-toggle-checked {
+.info .active{
 	background-color: rgba(0, 147, 221, 0.2);
 }
-
+.active {
+	background-color: rgba(0, 147, 221, 0.2);
+}
 
 .profile-image {
 	width: 180px;

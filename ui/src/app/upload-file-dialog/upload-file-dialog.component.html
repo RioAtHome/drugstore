@@ -1,0 +1,18 @@
+<div ngClass='main-container' ngClass.lt-mg='main-container-lt-md' fxLayout='column' fxLayoutAlign='center center'>
+
+	<span></span>
+
+	<div>
+		<form [formGroup]='fileForm' (ngSubmit)='onSubmit()'>
+			<label mat-label for="file">Upload a file!</label>
+			<input type='file' id='file' fromControlName='file'>
+		</form>
+		{{console.log(fileForm)}}
+		<mat-error *ngIf='fileForm.errors?.["ExtensionValidator"]'>Please submit a file with accepted format, ie ({{this.ALLOWED_EXT.toString()}})!</mat-error>
+	<div>
+		<button mat-raised-button type="submit" [disabled]="!fileForm.valid">Import</button>
+		<button mat-raised-button (click)="onCancel()">Cancel</button>
+	</div>
+	</div>
+	
+</div>

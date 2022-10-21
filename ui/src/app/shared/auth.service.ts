@@ -52,8 +52,9 @@ export class AuthService {
     return this.getCurrentUser()? true: false;
   }
 
-  isStaff(): boolean {
-    return this.currentUser?.is_staff ? true : false;
+  isStaff(): boolean | undefined {
+
+    return this.getCurrentUser()?.is_staff;
   }
 
   setAccessToken(token: string): void {
@@ -63,9 +64,6 @@ export class AuthService {
   }
 
   getAccessToken(): string | null {
-    if (this.accessToken){
-      return this.accessToken
-    }
     try{
       const token: string | null = localStorage.getItem('access') || "";
       return token;
@@ -75,6 +73,9 @@ export class AuthService {
         return null;
       }
     }
+    if (this.accessToken){
+      return this.accessToken
+    }
     return null;
 
   }
@@ -83,14 +84,30 @@ export class AuthService {
     localStorage.clear();
     sessionStorage.clear();
     this.currentUser = undefined;
+    this.accessToken = '';
 
   }
 
-  setRefreshToken(): void {
+  setRefreshToken(token:string): void {
+    localStorage.setItem('refresh', token);
+    this.accessToken = token;
 
   }
 
-  getRefreshToken(): void {
+  getRefreshToken(): string | null {
+    try{
+      const token: string | null = localStorage.getItem('refresh') || "";
+      return token;
+    }
+    catch(e){
+      if(e instanceof SyntaxError){
+        return null;
+      }
+    }
+    if (this.accessToken){
+      return this.accessToken
+    }
+    return null;
 
   }
 

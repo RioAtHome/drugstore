@@ -7,11 +7,13 @@ import { AuthService } from '../shared/auth.service';
   templateUrl: './toolbar-user.component.html',
   styleUrls: ['./toolbar-user.component.css']
 })
+
 export class ToolbarUserComponent implements OnInit {
 
   constructor(public auth: AuthService, public router: Router) { }
 
   ngOnInit(): void {
+
   }
 
   signOut(): void{
@@ -21,6 +23,10 @@ export class ToolbarUserComponent implements OnInit {
 
   redirect(route: string): void {
     this.router.navigateByUrl(route);
+  }
+
+  isStaff(): boolean | undefined{
+    return this.auth.isStaff();
   }
 
 }

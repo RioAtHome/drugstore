@@ -17,7 +17,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox'; 
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-
+import { CdkTableModule } from '@angular/cdk/table'; 
 
 @NgModule({
   declarations: [],
@@ -25,6 +25,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
   ],
   exports: [
   CommonModule,
+    CdkTableModule,
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,

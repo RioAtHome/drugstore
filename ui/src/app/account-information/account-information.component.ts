@@ -54,7 +54,6 @@ export class AccountInformationComponent implements OnInit {
   }
 
   getPicture(): string{
-
     return `url(${this.currentUser?.picture})`;
   }
 

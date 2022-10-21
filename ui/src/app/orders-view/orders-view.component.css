@@ -1,6 +1,24 @@
-table {
- width: 100%;
 
+.table-lt-md{
+min-width: 635px;
+}
+
+
+.table {
+	width: 100%;
+}
+
+
+.table-container-lt-md {
+	display: block !important;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.main-container-lt-md {
+	display: block !important;
+    overflow-x: auto;
+    white-space: nowrap;
 }
 
 .mat-footer-row {

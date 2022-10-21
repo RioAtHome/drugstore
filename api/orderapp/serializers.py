@@ -6,6 +6,7 @@ class OrderedDrugSerialilzer(serializers.ModelSerializer):
     class Meta:
         model = OrderedDrug
         fields = (
+            "id",
             "origindrug",
             "order",
             "name",
@@ -14,7 +15,7 @@ class OrderedDrugSerialilzer(serializers.ModelSerializer):
             "total_drug_price",
             "exp_date",
         )
-        read_only_fields = ("name", "drug_price", "price_per_quantity", "exp_date")
+        read_only_fields = ("name", "drug_price", "price_per_quantity", "exp_date", 'id')
         extra_kwargs = {
             "order": {"write_only": True, "required": False},
         }
@@ -49,6 +50,7 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = (
+            "id",
             "status",
             "user",
             "description",
@@ -56,7 +58,7 @@ class OrderSerializer(serializers.ModelSerializer):
             "created_at",
             "ordered_drugs",
         )
-        read_only_fields = ("status", "created_at", "updated_at", "total_price")
+        read_only_fields = ("status", "created_at", "updated_at", "total_price", "id")
         ...
 
     def create_ordered_drugs(self, ordered_drugs: dict, order):

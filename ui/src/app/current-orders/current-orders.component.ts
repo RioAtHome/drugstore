@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CurrentOrdersComponent implements OnInit {
   canEdit = true;
+  query_status = 'PE';
   constructor() { }
 
   ngOnInit(): void {
