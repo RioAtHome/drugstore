@@ -1,119 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChildren, ViewChild, QueryList } from '@angular/core';
+import { RestServiceService } from '../shared/rest-service.service';
+import { Order } from '../shared/order';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { filter } from 'rxjs';
+import { ListCustomerOrders } from '../shared/rest-service.service';
 
-export interface Order {
-  id: string,
-  drug_name:string,
-  quantity: number,
-  expiration_date: string,
-  drug_status: string,
-  price_per_unit: number,
-  total_price: number,
+
+export interface PharmacyOrders{
+  pharmacy_name: string, 
+  orders:  Order[]
 }
 
-
-const STATIC_ORDERS: Order[] = 
-
-[
-{
-  id: '00000',
-  drug_name:"string",
-  quantity: 34,
-  expiration_date: 'weeee',
-  drug_status: 'Avaliable',
-  price_per_unit: 66.5,
-  total_price: 9000,
-},
-{
-  id: '00000',
-  drug_name:"string",
-  quantity: 34,
-  expiration_date: 'weeee',
-  drug_status: 'Avaliable',
-  price_per_unit: 66.5,
-  total_price: 9000,
-},
-{
-  id: '00000',
-  drug_name:"string",
-  quantity: 34,
-  expiration_date: 'weeee',
-  drug_status: 'Avaliable',
-  price_per_unit: 66.5,
-  total_price: 9000,
-}] 
-
-const STATIC_PHARMACY_ORDERS = [
-{
-  pharmacy_name: "somePharamcyName",
-  orders: [
-  {
-    order:[{
-      id: '00000',
-      drug_name:"string",
-      quantity: 34,
-      expiration_date: 'weeee',
-      drug_status: 'Avaliable',
-      price_per_unit: 66.5,
-      total_price: 9000,
-    },
-    {
-      id: '00000',
-      drug_name:"string",
-      quantity: 34,
-      expiration_date: 'weeee',
-      drug_status: 'Avaliable',
-      price_per_unit: 66.5,
-      total_price: 9000,
-    },
-    {
-      id: '00000',
-      drug_name:"string",
-      quantity: 34,
-      expiration_date: 'weeee',
-      drug_status: 'Avaliable',
-      price_per_unit: 66.5,
-      total_price: 9000,
-    }] ,
-    price: 233,
-    createdAt: "SomeDate",
-    order_status: 'Pending'
-  },
-  {
-    order: [{
-      id: '00000',
-      drug_name:"string",
-      quantity: 34,
-      expiration_date: 'weeee',
-      drug_status: 'Avaliable',
-      price_per_unit: 66.5,
-      total_price: 9000,
-    },
-    {
-      id: '00000',
-      drug_name:"string",
-      quantity: 34,
-      expiration_date: 'weeee',
-      drug_status: 'Avaliable',
-      price_per_unit: 66.5,
-      total_price: 9000,
-    },
-    {
-      id: '00000',
-      drug_name:"string",
-      quantity: 34,
-      expiration_date: 'weeee',
-      drug_status: 'Avaliable',
-      price_per_unit: 66.5,
-      total_price: 9000,
-    }],
-    price: 2334,
-    createdAt: "SomeDateBaby",
-    order_status: 'Pending'
-  }
-
-  ]
-}
-]
 
 @Component({
   selector: 'app-admin-current-orders',
@@ -121,13 +20,161 @@ const STATIC_PHARMACY_ORDERS = [
   styleUrls: ['./admin-current-orders.component.css']
 })
 export class AdminCurrentOrdersComponent implements OnInit {
-  activeOrders = STATIC_PHARMACY_ORDERS;
-  console = console;
+  activeOrders = new MatTableDataSource<PharmacyOrders>([]);
+  @ViewChild(MatTable, {static: true}) paginator!: MatPaginator;
+  @ViewChildren(MatTable) matTables!: QueryList<MatTable<any>>
+  error: string = '';
+  totalRows = 0;
+  pageSize = 10;
+  currentPage = 0;
+  pageSizeOptions: number[] = [5, 10, 25, 100];
+  allPharmacyNames = new Set<string>();
+  AllOrders: Order[] = [];
+  filterForm = new FormGroup({
+    date: new FormControl(''),
+    drugName : new FormControl(''),
+    gtPrice: new FormControl('1', [Validators.min(1), Validators.max(100000)]),
+    ltPrice: new FormControl('99999', [Validators.min(1), Validators.max(100000)]),
+    pharmacyName: new FormControl('')
+  });
+  intialResponse?: ListCustomerOrders;
   displayedColumns = ['id', 'drug_name', 'quantity', 'expiration_date','price_per_unit', 'total_price'];
   footerDisplayColumns = ['id', 'quantity', 'total_price', 'actions'];
-  constructor() { }
+  constructor(private restClient: RestServiceService) { }
 
   ngOnInit(): void {
+    this.getAllCurrentOrders({status: 'PE'});
+  }
+
+  totalForOrder(order: Order): number{
+      return order.ordered_drugs.reduce((acc: any, obj: any)=> {
+      return acc + parseFloat(obj.total_drug_price);
+    }, 0);
+    }
+
+  cleanData(data: Order[]): PharmacyOrders[]{
+    let newData: PharmacyOrders[] = [];
+    data.forEach((element) => {
+      this.allPharmacyNames.add(element.user as string) 
+})
+    this.allPharmacyNames.forEach((name) => {
+      newData.push({pharmacy_name: name, orders: []})
+    })
+
+    
+    this.allPharmacyNames.forEach((name) => {
+      data.forEach((order) => {
+        if(order.user === name){
+          let index = newData.findIndex(object => {
+              return object.pharmacy_name === name;})
+          newData[index].orders.push(order)
+      }})
+    })
+
+    return newData
+
+  }
+
+  onMark(order: Order){
+    let id = order.id;
+    this.restClient.changeStatus(id).subscribe(
+      (res) => {
+        window.location.reload()
+      },
+      (err) => {this.error = err}
+      )
+  }
+
+  onExport(){
+    let filteredData: Order[] | any = []
+    let filters: any = this.filterForm.getRawValue()
+    Object.keys(filters).forEach((key: any) => {
+      if (filters[key] == ''){
+        delete filters[key]
+      }
+    })
+
+    filters = {...filters, status:'PE'}
+
+
+    this.restClient.ExtractOrders(filters).subscribe(
+      blob => {
+        const a = document.createElement('a')
+        const objectUrl = URL.createObjectURL(blob)
+        a.href = objectUrl
+        a.download = 'report.csv';
+        a.click();
+        URL.revokeObjectURL(objectUrl);
+      });
+      
+    console.log("wow");
+  }
+
+
+  filterTotalPrice(data: Order[], min: number| any, max:number| any): Order[]{
+    let newData: Order[] = []
+    data.forEach((element)=> {
+      if((element.total_price ?? 1) >= min && (element.total_price ?? 1) < max){
+
+        newData.push(element);
+      }
+    })
+    return newData;
+  }
+
+  filterData(){
+    let filteredData: Order[] | any = []
+    let filters: any = this.filterForm.getRawValue()
+    let min = filters["gtPrice"]
+    let max = filters["ltPrice"]
+    Object.keys(filters).forEach((key: any) => {
+      if (filters[key] == ''){
+        delete filters[key]
+      }
+    })
+    delete filters["gtPrice"]
+    delete filters["ltPrice"]
+
+    filters = {...filters, status:'PE'}
+
+    this.getAllCurrentOrders(filters, min, max);
+
+
+    
+  }
+  pageChanged(event: PageEvent){
+      this.pageSize = event.pageSize;
+      this.currentPage = event.pageIndex;
+      this.getAllCurrentOrders({...this.filterForm.getRawValue(), page:(this.currentPage + 1).toString(), status:"PE"})
+    }
+
+  getAllCurrentOrders(params: string[] | any, min?: number, max?: number){
+    if(!min){
+      min = this.filterForm.getRawValue().gtPrice as number | any;
+    }
+    if(!max){
+       max = this.filterForm.getRawValue().ltPrice as number | any;;
+    }
+
+    this.restClient.getAllOrders(params).subscribe(
+      (res) => {
+        this.intialResponse = res
+        this.totalRows = this.intialResponse.count
+        this.AllOrders = this.intialResponse.results;
+        let newData = this.filterTotalPrice(this.AllOrders, min, max)
+        
+        let orders = this.cleanData(newData);
+            
+        this.activeOrders.data = orders;
+
+        if(this.matTables?.first){ 
+        this.matTables?.first.renderRows();
+        this.matTables?.last.renderRows();
+        }
+
+      },
+      (err) => {this.error = err}
+      )
   }
 
 }

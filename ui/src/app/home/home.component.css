@@ -59,8 +59,8 @@ background-image: url(/assets/images/founder.png);
 }
 
 .img-in-tile {
-  max-width: 95%;
-  max-height: 95%;
+  max-width: 90%;
+  max-height: 90%;
   
 }
 
@@ -120,4 +120,24 @@ background-image: url(/assets/images/founder.png);
 
 .image-container {
   margin-top: 20px;
+}
+
+.some-text-container{
+  padding-left: 15rem;
+  padding-right: 15rem;
+}
+
+.some-text {
+  padding: 0rem;
+}
+
+
+.color-content.row-container.mat-cards{
+  padding-left: 15rem;
+  padding-right: 15rem;
+}
+
+.home-picture {
+  padding-left: 15rem;
+  padding-right: 15rem;
 }

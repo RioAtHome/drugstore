@@ -4,9 +4,9 @@ import { Order } from './order';
 import { OrderedDrug } from './drug';
 import { Drug } from './drug';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpRequest, HttpEvent } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpRequest, HttpEvent, HttpParams } from '@angular/common/http';
 import { ObjectUnsubscribedError, Observable, throwError } from 'rxjs';
-import { retry, catchError, tap, retryWhen} from 'rxjs/operators';
+import { retry, catchError, tap, retryWhen, map} from 'rxjs/operators';
 import { LogService } from './log.service';
 
 export interface LoginData {
@@ -28,6 +28,9 @@ export interface ListCustomers extends Omit<ListCustomerOrders, 'results'> {
 }
 
 
+
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -35,6 +38,7 @@ export class RestServiceService {
   private baseUrl = 'http://localhost:8000/api/';
 
   constructor(private http: HttpClient, private logger: LogService, private auth: AuthService) { }
+
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -53,6 +57,13 @@ export class RestServiceService {
       'Authorization': `Bearer ${this.auth.getAccessToken()}`
     }),
 
+  }
+
+  fileDonwload = {
+    headers: new HttpHeaders({
+      'Authorization': `Bearer ${this.auth.getAccessToken()}`
+    }),
+    responseType: 'blob'
   }
 
   private handleError(error: HttpErrorResponse) {
@@ -93,12 +104,20 @@ export class RestServiceService {
       )
   }
 
-  getAllDrugs(): Observable<Drug[]> {
-    const url = this.baseUrl + `drugs/?no_pag=true`;
+  getAllDrugs(pag: boolean, page:string='1'): Observable<Drug[]> {
+    const url = this.baseUrl + `drugs?page=${page}`;
+    if(pag){
+      const url = this.baseUrl + `drugs/?no_pag=true`;
+    }
+
     return this.http.get<Drug[]>(url, this.httpAuthOptions).pipe(
       tap(_ => this.logger.log('Getting All Drugs')),
       catchError(this.handleError),
       )
+  }
+
+  importDrugs(){
+
   }
 
   createNewOrder(order: Order): Observable<Order> {
@@ -113,7 +132,7 @@ export class RestServiceService {
 
   getCustomerOrders(query_status: string, page_number: string='1'): Observable<ListCustomerOrders>{
     const code = this.auth.getCurrentUser()?.code;
-      let url = this.baseUrl + `orders/${code}/?status=${query_status}&page=${page_number}`;
+    let url = this.baseUrl + `orders/${code}/?status=${query_status}&page=${page_number}`;
 
     if(query_status === 'archived'){
       url = this.baseUrl + `orders/${code}/?status=CA&status=CO&status=RE&page=${page_number}`
@@ -146,12 +165,41 @@ export class RestServiceService {
   importCustomers(data: FormData): Observable<any>{
     const url = this.baseUrl + 'users/';
 
-    return this.http.post<any>(url, this.fileAuthOptions, {reportProgress: true, observe: 'events'}).pipe(
+    return this.http.post<any>(url, data, this.fileAuthOptions).pipe(
       tap(_ => this.logger.log('importing New Customers')),
       catchError(this.handleError)
       )
     }
+
+    getAllOrders(query_params: string[]| any): Observable<ListCustomerOrders>{
+
+      let url = this.baseUrl + `orders/all`
+      
+
+      return this.http.get<ListCustomerOrders>(url, {...this.fileAuthOptions, params: new HttpParams({fromObject: query_params})}).pipe(
+      tap(_ => this.logger.log('Getting All Orders')),
+      catchError(this.handleError)
+      )
+    }
+
+    ExtractOrders(query_params: string[]| any): Observable<Blob>{
+
+      let url = this.baseUrl + `orders/all/extract/`
+      
+
+      return this.http.get(url, {...this.fileAuthOptions, params: new HttpParams({fromObject: query_params}), responseType: 'blob'}).pipe(
+      catchError(this.handleError)
+      )
+    }
   
+    changeStatus(id: number | undefined): Observable<any>{
+      const url = this.baseUrl + `orders/${id}/set-status/`;
+    
+      return this.http.patch(url, this.httpAuthOptions).pipe(tap(_ => this.logger.log('Changed Status')),
+      catchError(this.handleError)
+      )
+    }
+    
 
   // TODO: Enable refresh token, like for real
   refreshToken(token: string): Observable<LoginData>{

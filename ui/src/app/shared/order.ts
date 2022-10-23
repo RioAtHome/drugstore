@@ -8,5 +8,6 @@ export interface Order {
 	description: string,
 	created_at?: string,
 	updated_at?: string,
+	total_price?: number
 	ordered_drugs: OrderedDrug[]
 }

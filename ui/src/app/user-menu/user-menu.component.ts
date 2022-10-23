@@ -10,12 +10,13 @@ import { ProfilePictureDialogComponent } from '../profile-picture-dialog/profile
 })
 export class UserMenuComponent implements OnInit {
   currentUser = this.auth.getCurrentUser();
+  subscription: any;
   constructor(public dialog: MatDialog, private auth: AuthService) { }
   ngOnInit(): void {
   }
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string){
-    this.dialog.open(ProfilePictureDialogComponent, {
+    this.subscription = this.dialog.open(ProfilePictureDialogComponent, {
       width: '300px',
       enterAnimationDuration,
       exitAnimationDuration,
@@ -29,8 +30,11 @@ export class UserMenuComponent implements OnInit {
   }
 
   getPicture(): string{
-
     return `url(${this.currentUser?.picture})`;
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }

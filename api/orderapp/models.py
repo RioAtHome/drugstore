@@ -24,7 +24,7 @@ class Order(models.Model):
     description = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True, editable=False, blank=True)
     updated_at = models.DateTimeField(auto_now=True, editable=False, blank=True)
-
+    
     class Meta:
         ordering = ["created_at"]
 

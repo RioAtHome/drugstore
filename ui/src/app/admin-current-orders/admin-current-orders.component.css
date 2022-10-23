@@ -23,3 +23,8 @@ table {
 	min-width: 800px;	
 	width: 100%;
 }
+
+
+.price {
+	width: 110px;
+}

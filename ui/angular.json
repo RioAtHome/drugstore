@@ -66,7 +66,7 @@
           "options": {
             "browserTarget": "ui:build",
             "proxyConfig": "src/proxy.conf.json"
-                },
+          },
           "configurations": {
             "production": {
               "browserTarget": "ui:build:production",
@@ -102,11 +102,23 @@
             ],
             "scripts": []
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
   "cli": {
-    "analytics": "317afa27-b895-4229-8aa3-a23a4e37ad84"
+    "analytics": "317afa27-b895-4229-8aa3-a23a4e37ad84",
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }

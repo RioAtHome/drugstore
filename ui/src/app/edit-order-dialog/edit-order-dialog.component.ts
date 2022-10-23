@@ -47,7 +47,7 @@ export class EditOrderDialogComponent implements OnInit {
   }
 
   getDrugs(): void {
-    this.restClient.getAllDrugs().subscribe(
+    this.restClient.getAllDrugs(true).subscribe(
       (res) => {
         this.availableDrugs = res;
         this.availableDrugsNames = this.availableDrugs.map(({name})=> name); 

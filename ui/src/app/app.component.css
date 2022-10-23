@@ -2,7 +2,6 @@ app-toolbar {
    margin-bottom: 0px !important;
 }
 
-
 router-outlet { 
    margin: 0px !important;
    padding: 0px !important;
@@ -19,12 +18,10 @@ app-toolbar ~ app-home {
    padding: 0px !important;
 }
 
-.limit-gt-lg {
-   margin-bottom: 0px !important;
-   width: 1920px;
-   height: 925px;
+.main-container-gt-lg{
+   max-width: 1920px;
 }
 
-.limit {
-   margin-bottom: 0px !important;  
+.main-background {
+   background-color: rgba(0,147,221, 0.1);
 }

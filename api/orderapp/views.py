@@ -14,6 +14,8 @@ from django.http import HttpResponse
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
+from django_filters import rest_framework as filters
+from .filters import OrderFilter
 
 
 # Create your views here.
@@ -22,8 +24,10 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 class AbstractView(GenericAPIView):
     serializer_class = OrderSerializer
     queryset = Order.objects.all()
-    permission_classes = [IsAuthenticated]
-    authentication_classes = [JWTAuthentication]
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = OrderFilter
+    # permission_classes = [IsAuthenticated]
+    # authentication_classes = [JWTAuthentication]
 
 
 class ListCreateOrder(AbstractView, ListCreateAPIView):
@@ -45,23 +49,31 @@ class ListCreateOrder(AbstractView, ListCreateAPIView):
     def create(self, request, *args, **kwargs):
         if request.user != self.get_pharmacy():
             return Response({"message": "cannot create order for another user"})
+
         return super().create(request, *args, **kwargs)
 
 
 class ListOrders(AbstractView, ListAPIView):
-    def get_queryset(self):
-        filters = self.request.query_params.dict()
-        return self.queryset.filter(**filters)
+
+    # def get_queryset(self):
+    #     status = self.request.query_params.getlist("status")
+        
+    #     filters = self.request.query_params.dict()
+    #     if filters.get('no_pag', False) == 'true':
+    #         self.pagination_class = None
+    #         filters.pop('no_pag')
+    #     if not status:
+    #         status = ['PE']
+    #     return self.queryset.filter(**filters, status__in=status)
+
 
     def list(self, request, *args, **kwargs):
-        if not request.user.is_staff:
-            return Response({"message": "admin only can get all orders"})
+        # if not request.user.is_staff:
+        #     return Response({"message": "admin only can get all orders"})
         return super().list(request, *args, **kwargs)
 
 
 class ExtractOrders(ListOrders):
-
-    queryset = Order.objects.filter(status="CO")
 
     def get_serializer(self, queryset, many=True):
         return self.serializer_class(
@@ -70,8 +82,8 @@ class ExtractOrders(ListOrders):
         )
 
     def list(self, request, *args, **kwargs):
-        if not request.user.is_staff:
-            return Response({"message": "only admin can extract data"})
+        # if not request.user.is_staff:
+        #     return Response({"message": "only admin can extract data"})
 
         response = HttpResponse(content_type="text/csv")
         response["Content-Disposition"] = 'attachment; filename="export.csv"'
@@ -133,6 +145,5 @@ class StatusOrderView(AbstractView, APIView):
                 }
             )
         order.status = status
-        print(order.id)
         order.save()
         return Response("the state is changed successfully")

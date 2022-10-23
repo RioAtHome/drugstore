@@ -39,7 +39,10 @@ export class AdminViewCustomersComponent implements OnInit {
       const dialog = this.dialog.open(UploadFileDialogComponent, {
         width: '800px',
         enterAnimationDuration,
-        exitAnimationDuration
+        exitAnimationDuration,
+        autoFocus: false,
+        restoreFocus: false
+
       })
     
       dialog.afterClosed().subscribe(

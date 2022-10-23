@@ -1,12 +1,11 @@
+import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
-import { AuthService } from '../shared/auth.service';
-import { RestServiceService } from '../shared/rest-service.service';
-import { Customer } from '../shared/customer';
-import { HttpEvent, HttpEventType, HttpResponse } from '@angular/common/http';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ExtensionValidator } from '../shared/extension-validator.directive';
+import { RestServiceService } from '../shared/rest-service.service';
+
+
 
 @Component({
   selector: 'app-upload-file-dialog',
@@ -16,31 +15,61 @@ import { ExtensionValidator } from '../shared/extension-validator.directive';
 export class UploadFileDialogComponent implements OnInit {
   selectedFile: any = null;
   error: string = '';
-  progress = false;
+  startProgress = false;
+  disableForm = false;
+
   console = console
   ALLOWED_EXT : string[] = ['csv'];
   fileForm = new FormGroup({
     file: new FormControl('', [Validators.required, ExtensionValidator(this.ALLOWED_EXT)])
   });
+  fileName: string = '';
+  formData = new FormData();
   
   constructor(private restClient: RestServiceService, public dialogRef: MatDialogRef<UploadFileDialogComponent>) { }
 
   ngOnInit(): void {
   }
 
-  onCancel(): void {
+  onCancel(): void { 
     this.dialogRef.close(false);
   }
 
   onSubmit(): void {
-    
+    this.error = '';
+    this.startProgress = true;
+    this.fileForm.disable
+    this.importCustomers(this.formData);
   }
 
-  importCustomers(data: FormData){
-    this.restClient.importCustomers(data).subscribe((event: HttpEvent<any>) => {
-      
-    })
-  }  
+  onFileChange(event: any){
+      const file: File = event.target.files[0];
+
+      if(file) {
+
+        this.fileForm.patchValue({
+          file: file?.name
+        })
+        this.formData.delete('file');
+        this.formData.append('file', file);
+
+      }
+      this.fileForm.markAsTouched();
+      this.fileName = file.name;
+      this.console.log(this.fileForm);
+    }
 
 
-}
+
+    importCustomers(data: FormData){
+      this.restClient.importCustomers(data).subscribe(
+        (res) => {this.dialogRef.close(true)}, (err) => {
+          this.fileForm.enable;
+          this.startProgress = false;
+          this.error = "Huh, something went wrong, please try again later";
+          this.console.log(err)
+        })
+    }  
+
+
+  }

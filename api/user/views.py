@@ -25,6 +25,17 @@ from rest_framework.exceptions import APIException
 from django.middleware import csrf
 
 
+def uploaded_file_to_dict(file):
+    dict_list = []
+    readable_file = file.read().decode().splitlines()
+    csv_file = csv.DictReader(readable_file)
+
+    for row in csv_file:
+        cleaned_row = {k: v for k, v in row.items() if v}
+        dict_list.append(cleaned_row)
+
+    return dict_list
+
 
 class ServiceUnavailable(APIException):
     status_code = 400
@@ -88,8 +99,9 @@ class UserView(APIView):
 
 
 class AddListUsers(ListCreateAPIView):
+    staff_users = User.objects.filter(is_staff=True).values_list('code', flat=True)
     authentication_classes = [JWTAuthentication]
-    queryset = User.objects.all()
+    queryset = User.objects.all().exclude(pk__in=staff_users)
     serializer_class = UserSerializer
     permission_classes = [IsAuthenticated]
     pagination_class = PageNumberPagination
@@ -101,38 +113,32 @@ class AddListUsers(ListCreateAPIView):
 
     def create(self, request):
         users = User.objects.all()
-        if request.user.is_staff:
-            csv_file = CSVFiles(request).get_csv_file()
+        if not request.user.is_staff:
+            return Response("Unauthorized", status=status.HTTP_401_UNAUTHORIZED)
 
-            admin_user = User.objects.filter(is_staff=True).first()
-            User.objects.all().exclude(pk=admin_user.code).delete()
+        file = request.FILES['file']
+        ext = file.name.split(".")[1]
 
-            with open(csv_file) as f_data:
-                reader = csv.DictReader(f_data)
-                exceptions = []
-                for n, row in enumerate(reader, start=1):
-                    data = {
-                        "code": row["code"],
-                        "name": row["name"],
-                        "password": row["password"],
-                        "latitude": row["latitude"],
-                        "longitude": row["longitude"],
-                        "picture": None,
-                    }
-                    serializer = UserSerializer(data=data)
-                    if not serializer.is_valid():
-                        error = {
-                            "data": data,
-                            "line": n,
-                            "errors": serializer.errors,
-                        }
-                        exceptions.append(error)
-                        continue
-                    serializer.save()
-                os.remove(csv_file)
-                if exceptions:
-                    return Response({"exceptions": exceptions})
-            return Response(
-                {"message": "the file data is uploaded successfully"},
-                status=status.HTTP_201_CREATED,
-            )
+        if not ext in ['csv']:
+            return Response("Bad Extension honey", status=status.HTTP_400_BAD_REQUEST)
+
+        customers = uploaded_file_to_dict(file)
+        if not customers:
+            return Response("Bad Syntax", status=status.HTTP_400_BAD_REQUEST)
+
+
+        serializer = UserSerializer(data=customers, many=True)
+        valid = serializer.is_valid()
+
+        for error in serializer.errors:
+            if error['code'][0].code != 'unique':
+                return Response("Bad Syntax", status=status.HTTP_400_BAD_REQUEST)
+        
+        self.queryset.delete()
+        
+        serializer = UserSerializer(data=customers, many=True)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+
+
+        return Response("A-Okay", status=status.HTTP_201_CREATED)

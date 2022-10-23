@@ -1,0 +1,29 @@
+.h1-container{
+	/*ADD UNDERLINE*/
+}
+
+
+.main-container-lt-md {
+	padding: 1rem;
+}
+
+
+.main-container {
+	padding: 4rem;
+}
+
+
+.table-container-lt-md {
+	display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+
+}
+
+.table-lt-md {
+	min-width: 800px;
+}
+
+.table{
+	width:  100%;
+}
