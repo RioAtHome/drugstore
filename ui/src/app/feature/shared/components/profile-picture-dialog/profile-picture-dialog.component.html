@@ -1,0 +1,14 @@
+
+<h1 mat-dialog-title>Change Profile Picture</h1>
+
+<div mat-dialog-content fxLayout='column' fxLayoutGap=10px>
+  <button type="button" mat-raised-button (click)="fileInput.click()">Choose File</button>
+  <input (change)="onFileSelected($event)" #fileInput type="file" hidden>
+  <span class="file-name">{{selectedFile?.name}}</span>
+  <span *ngIf='error' style='color: red;'>{{error}}</span>
+</div>
+<mat-progress-bar *ngIf=progress mode="query"></mat-progress-bar>
+<div mat-dialog-actions>
+  <button mat-button color='accent' (click)='onCancel()' [disabled]='progress'>Cancel</button>
+  <button mat-button (click)='onSubmit()' [disabled]='progress'>Ok</button>
+</div>

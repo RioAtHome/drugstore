@@ -25,6 +25,8 @@ h2 {
 	z-index: 1;
 	margin-top: -50px !important;
 	margin-right: 165px !important;
+	border-radius: 20px;
+
 }
 
 .main-container{
@@ -35,4 +37,27 @@ h2 {
 .profile-mat-card {
 	box-shadow: none !important;
 
+}
+
+.save-changes-button{
+	border-radius: 20px;
+  background-color: var(--blue) !important;
+  color: white;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.edit-button{
+	border-radius: 20px;
+  background-color: var(--green) !important;
+  color: white;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.change-photo-button{
+	border-radius: 20px;
+  background-color: var(--blue) !important;
+  color: white;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }

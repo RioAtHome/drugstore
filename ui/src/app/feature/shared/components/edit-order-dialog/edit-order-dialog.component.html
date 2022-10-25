@@ -1,0 +1,102 @@
+
+<div ngClass='main-container' ngClass.lt-md='main-container-lt-md' fxLayout='column' fxLayoutGap='10px' fxFlex='0 0 100%'>
+	<form fxLayout='row'  fxLayoutGap='10px' fxLayoutAlign='start center' [formGroup]='addDrugForm'>
+		<div fxLayout='row' fxFlexAlign='stretch' fxFlexAlign='center'>
+			<div fxLayout='row' fxLayoutGap='10px'>
+				<div>
+					<!-- TODO: BUG: focus out doesnt remove list, also if you put focusout, the click doesnt register! -->
+					<mat-form-field appearance='fill' [ngStyle]="{'width': '210px'}">
+						<mat-label>Search</mat-label>
+						<mat-icon matSuffix>search icon</mat-icon>
+						<input matInput [(ngModel)]=searchText 
+						(focusin)="show=true" formControlName='searchTextController'> 
+					</mat-form-field>
+					<mat-card  *ngIf='show' ngClass='mat-card-search'>
+						<mat-action-list fxLayout='column' *ngFor='let drug of availableDrugs | search: searchText' #drugs>
+							<button mat-button fxLayout='row' (click)='onClickSearch($event, drug)'>
+								<span [ngStyle]="{'float': 'left'}">
+									{{drug.name}}
+								</span>
+								<span [ngStyle]="{'float': 'right'}">
+									{{drug.drug_price}}$
+								</span>
+							</button>
+						</mat-action-list>
+					</mat-card>
+				</div>
+				<mat-form-field appearance='fill' [ngStyle]="{'width': '110px'}">
+					<mat-label>Quantity</mat-label>
+					<input matInput type='number' formControlName='quantityController'>
+				</mat-form-field>
+			</div>
+		</div>
+		<button mat-mini-fab fxLayout='row' fxFlexAlign='start' type='submit'>
+			<mat-icon fxFlexAlign='center' (click)="onAdd()">add_circle_outline</mat-icon>
+		</button>
+	</form>
+	<mat-error *ngIf="error">{{error}}</mat-error>
+	<div  ngClass.lt-md='table-container-lt-md' fxLayout='column'>
+		<table mat-table [dataSource]="orderData" ngClass.lt-md='table-lt-md'>
+			<ng-container matColumnDef='id'>
+				<th mat-header-cell *matHeaderCellDef>ID</th>
+				<td mat-cell *matCellDef='let order'>
+					{{order.id}}
+
+				</td>
+				<td mat-footer-cell *matFooterCellDef colspan="5">
+				Total Price</td>
+			</ng-container>
+			<ng-container matColumnDef='drug_name'>
+				<th mat-header-cell *matHeaderCellDef>Name</th>
+				<td mat-cell *matCellDef='let order'>
+					{{order.name}}
+				</td>
+
+			</ng-container>
+			<ng-container matColumnDef='quantity'>
+				<th mat-header-cell *matHeaderCellDef>Quantity</th>
+				<td mat-cell *matCellDef='let order'>
+					{{order.quantity}}
+				</td>
+			</ng-container>
+			<ng-container matColumnDef='expiration_date'>
+				<th mat-header-cell *matHeaderCellDef>Expiration Time</th>
+				<td mat-cell *matCellDef='let order'>
+					{{order.exp_date}}
+				</td>
+
+			</ng-container>
+			<ng-container matColumnDef='price_per_unit'>
+				<th mat-header-cell *matHeaderCellDef>Price Per Unit</th>
+				<td mat-cell *matCellDef='let order'>
+					{{order.drug_price}}
+				</td>
+			</ng-container>
+			<ng-container matColumnDef=total_price>
+				<th mat-header-cell *matHeaderCellDef>Total Price</th>
+				<td mat-cell *matCellDef='let order'>
+					{{order.total_price | number}}
+				</td>
+				<td mat-footer-cell *matFooterCellDef colspan="2">
+				{{totalPrice() | number}}</td>
+			</ng-container>
+			<ng-container matColumnDef=actions>
+				<th mat-header-cell *matHeaderCellDef>Actions</th>
+				<td mat-cell *matCellDef='let order'>
+					<div fxLayout='columm' fxLayoutGap=2px>
+						<button mat-raised-button color="warn" (click)='onDelete(order)'>Delete</button>
+					</div>
+				</td>
+			</ng-container>
+			<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+			<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+			<tr mat-footer-row *matFooterRowDef="footerDisplayColumns"></tr>
+		</table>
+	</div>
+	<div *ngIf='orderData.data.length'>
+		<button mat-raised-button (click)='onSubmit()'>UPDATE</button>
+	</div>
+	<div fxLayout=row fxLayoutAlign='center center' fxLayoutGap=25px>
+	<button mat-raised-button (click)='onCancel()'>Cancel</button>
+	
+</div>

@@ -9,7 +9,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { LayoutModule } from 'src/app/layout/layout.module';
 import { SharedModule } from '../shared/shared.module';
 import { UserRoutingModule } from './user-routing.module';
-
+import { SearchPipe } from '../shared/pipes/search.pipe';
 
 @NgModule({
   declarations: [
@@ -24,7 +24,7 @@ import { UserRoutingModule } from './user-routing.module';
     CommonModule,
     LayoutModule,
     SharedModule,
-    UserRoutingModule
+    UserRoutingModule,
   ],
   exports: [
      CommonModule,

@@ -1,0 +1,19 @@
+<div ngClass='main-container' fxLayout='column' fxLayoutAlign='center center'>
+<h1 mat-dialog-title>Order Status</h1>
+
+<div mat-dialog-content fxLayout='column' fxLayoutGap=10px fxLayoutAlign='center center'>
+  <div class='icon-container' fxLayout='column' fxLayoutAlign='center center' *ngIf='data.icon === "check_circle_outline"; else BadRequest'>
+  <mat-icon class='icon icon-color'>{{data.icon}}</mat-icon>
+  </div>
+  <ng-template #BadRequest>
+  <div class='icon-container' fxLayout='column' fxLayoutAlign='center center'>
+  <mat-icon class='icon icon-red-color'>{{data.icon}}</mat-icon>
+  </div>
+  </ng-template>
+  <h3>{{data.order_status}}</h3>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)='onSubmit()'>Ok</button>
+</div>
+</div>

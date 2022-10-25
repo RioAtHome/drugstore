@@ -12,7 +12,7 @@
 			<div mat-card-avatar [ngStyle]="{'background-image': getPicture() , 'width': '180px', 'height': '180px', 'background-size': 'cover'}"></div>
 			<div class='change-profile-button'
 			fxLayout='row' fxLayoutAlign='end end'>
-			<button mat-mini-fab color='primary' (click)="openDialog('0ms', '0ms')">
+			<button mat-mini-fab (click)="openDialog('0ms', '0ms')" ngClass='change-photo-button'>
 				<div>
 					<mat-icon class='text_on_background'>camera_enhance</mat-icon>
 				</div>
@@ -24,7 +24,7 @@
 		<div fxLayout='column' fxLayoutGap='15px' fxLayoutAlign='start start' fxLayoutAlign.lt-md='center center'>
 			<div fxLayout='row' fxLayoutGap='10px' fxLayoutAlign='center center'>
 				<h2>Account Information</h2>
-				<button mat-mini-fab (click)='changeDisabled()'>
+				<button mat-mini-fab (click)='changeDisabled()' ngClass='edit-button'>
 					<mat-icon>edit</mat-icon>
 				</button>
 			</div>
@@ -47,13 +47,13 @@
 							<label>Password</label>
 							<mat-form-field ngClass='password-field-form'>
 								<input matInput [type]= "hide ? 'password' : 'text'" formControlName='password'>
-								<button mat-icon-button matSuffix (click)="hide = !hide">
+								<button type="button" mat-icon-button matSuffix (click)="hide = !hide" [disabled]="disabled">
 									<mat-icon> {{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
 								</button>
 							</mat-form-field>
 						</div>
 						<span>
-							<button mat-raised-button *ngIf='!disabled' type=submit>Submit</button>
+							<button mat-raised-button *ngIf='!disabled' type="submit" ngClass='save-changes-button'>Save Changes</button>
 						</span>
 					</form>
 					<mat-error *ngIf='error'>{{error}}</mat-error>

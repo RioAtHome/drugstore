@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { UploadFileDialogComponent } from '../../shared/components/upload-file-dialog/upload-file-dialog.component';
-
+import { ProfilePictureDialogComponent } from '../../shared/components/profile-picture-dialog/profile-picture-dialog.component';
 
 @Component({
   selector: 'app-user-menu',
@@ -18,10 +17,12 @@ export class UserMenuComponent implements OnInit {
   }
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string){
-    this.subscription = this.dialog.open(UploadFileDialogComponent, {
-      width: '300px',
+    this.subscription = this.dialog.open(ProfilePictureDialogComponent, {
+      width: '450px',
       enterAnimationDuration,
       exitAnimationDuration,
+      autoFocus: false,
+        restoreFocus: false
     }).afterClosed().subscribe(
     (shouldReload: boolean) => {
       if(shouldReload) {

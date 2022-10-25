@@ -7,10 +7,9 @@ min-width: 800px;
 }
 
 .table-container-lt-md {
-	display: block !important;
+	/*display: block !important;*/
     overflow-x: auto;
     white-space: nowrap;
-    width: 100vw;
 }
 
 .main-container {

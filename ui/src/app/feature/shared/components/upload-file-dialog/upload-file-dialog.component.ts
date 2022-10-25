@@ -65,6 +65,8 @@ ngOnInit(): void {
           this.startProgress = false;
           this.console.log(err)
         })
-    }  
+    }
+
+    uploadPhoto(){}  
 
 }

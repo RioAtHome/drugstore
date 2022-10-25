@@ -4,7 +4,8 @@ import { Subscription } from 'rxjs';
 import { RestService } from 'src/app/core/services/rest.service';
 import { Drug, Order } from 'src/app/shared/models';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-
+import { EditOrderDialogComponent } from '../edit-order-dialog/edit-order-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-order-table',
@@ -28,7 +29,7 @@ export class OrderTableComponent implements OnInit {
   displayedColumns = ['id', 'drug_name', 'quantity', 'expiration_date','price_per_unit', 'total_price'];
   footerDisplayColumns = ['id', 'drug_name', 'quantity', 'expiration_date','price_per_unit', 'total_price'];
   
-  constructor(private restClient: RestService) { }
+  constructor(public dialog: MatDialog, private restClient: RestService) { }
 
   ngOnInit(): void {
     if(this.editable){
@@ -50,8 +51,19 @@ export class OrderTableComponent implements OnInit {
     })
   }
 
-  onEdit(order: Order){
-
+  onEdit(order: Order, enterAnimationDuration: string, exitAnimationDuration: string){
+    this.dialog.open(EditOrderDialogComponent, {
+        width: '800px',
+        enterAnimationDuration,
+        exitAnimationDuration,
+        data: {order: order}
+      }).afterClosed().subscribe(
+      (shouldReload: boolean) => {
+      if(shouldReload) {
+      window.location.reload()
+      }
+    }
+      ).unsubscribe()
   }
 
   onSave(){

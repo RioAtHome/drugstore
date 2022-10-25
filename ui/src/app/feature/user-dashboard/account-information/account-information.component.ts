@@ -3,8 +3,9 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { RestService } from 'src/app/core/services/rest.service';
-import { UploadFileDialogComponent } from '../../shared/components/upload-file-dialog/upload-file-dialog.component';
 import { DataForm } from 'src/app/shared/models';
+import { ProfilePictureDialogComponent } from '../../shared/components/profile-picture-dialog/profile-picture-dialog.component';
+
 @Component({
   selector: 'app-account-information',
   templateUrl: './account-information.component.html',
@@ -20,21 +21,23 @@ export class AccountInformationComponent implements OnInit {
     password: new FormControl({value: '', disabled: true},),
   });
 
-  constructor(public dialog: MatDialog, private auth: AuthService, private restClient: RestService) { }
+constructor(public dialog: MatDialog, private auth: AuthService, private restClient: RestService) { }
 changeDisabled(): void {
-    this.accountForm.controls.name.enable();
-    this.accountForm.controls.password.enable();
     this.disabled = !this.disabled;
+    this.accountForm.controls.name.reset({ value: this.currentUser?.name, disabled: this.disabled });
+    this.accountForm.controls.password.reset({ value: "", disabled: this.disabled });
   }
 
   ngOnInit(): void {
   }
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string){
-    this.dialog.open(UploadFileDialogComponent, {
+    this.dialog.open(ProfilePictureDialogComponent, {
       width: '450px',
       enterAnimationDuration,
       exitAnimationDuration,
+      autoFocus: false,
+        restoreFocus: false
     }).afterClosed().subscribe(
     (shouldReload: boolean) => {
       if(shouldReload) {

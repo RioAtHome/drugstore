@@ -4,7 +4,7 @@
 			<div mat-card-avatar [ngStyle]="{'background-image': getPicture() , 'width': '180px', 'height': '180px', 'background-size': 'cover'}"></div>
 			<div class='change-profile-button'
 			fxLayout='row' fxLayoutAlign='end end'>
-			<button mat-mini-fab color='primary' (click)="openDialog('0ms', '0ms')">
+			<button mat-mini-fab color='primary' (click)="openDialog('0ms', '0ms')" ngClass='change-photo-button'>
 				<div>
 					<mat-icon class='text_on_background'>camera_enhance</mat-icon>
 				</div>
@@ -13,7 +13,7 @@
 	</mat-card-header>
 </mat-card>
 <div ngClass.lt-md='menu-container-lt-md'>
-	<mat-button-toggle-group name='fontStyle' aria-label='Font Style' fxLayout='column' fxLayout.lt-md='row' ngClass.lt-md='menu-button-group-lt-md'>
+	<mat-button-toggle-group name='fontStyle' aria-label='Font Style' fxLayout='column' fxLayout.lt-md='row' ngClass.lt-md='menu-button-group-lt-md' fxLayoutAlign.lt-md='center center' fxLayoutAlign.gt-sm=''>
 		<mat-button-toggle value='info' routerLink='info' routerLinkActive="active">
 			Account Information
 		</mat-button-toggle>

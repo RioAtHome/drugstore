@@ -58,7 +58,7 @@
 				<ng-template #otherActions>
 						<th mat-header-cell *matHeaderCellDef ><span><span fxHide.lt-lg
 							[ngStyle]="{'margin-right': '10px'}">Actions:</span>
-							<button mat-mini-fab color="accent" (click)='onEdit(order)'><mat-icon>edit</mat-icon></button>
+							<button mat-mini-fab color="accent" (click)="onEdit(order, '0ms', '0ms')"><mat-icon>edit</mat-icon></button>
 						</span></th>
 						<td mat-cell *matCellDef></td>
 						<td mat-footer-cell *matFooterCellDef></td>

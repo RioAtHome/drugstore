@@ -1,19 +1,18 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { RestService } from 'src/app/core/services/rest.service';
 import { Drug, Order, OrderedDrug } from 'src/app/shared/models';
-import { OrderStatusDialogComponent } from '../../shared/components/order-status-dialog/order-status-dialog.component';
-@Component({
-  selector: 'app-new-order',
-  templateUrl: './new-order.component.html',
-  styleUrls: ['./new-order.component.css']
-})
-export class NewOrderComponent implements OnInit {
 
-   displayedColumns = ['id', 'drug_name', 'quantity', 'expiration_date','price_per_unit', 'total_price', 'actions'];
+@Component({
+  selector: 'app-edit-order-dialog',
+  templateUrl: './edit-order-dialog.component.html',
+  styleUrls: ['./edit-order-dialog.component.css']
+})
+export class EditOrderDialogComponent implements OnInit {
+displayedColumns = ['id', 'drug_name', 'quantity', 'expiration_date','price_per_unit', 'total_price', 'actions'];
   footerDisplayColumns = ['id', 'total_price']
   availableDrugs: Drug[] = [];
   availableDrugsNames: string[] = [];
@@ -21,24 +20,25 @@ export class NewOrderComponent implements OnInit {
   searchText = '';
   show: boolean = false;
   searchInput: string = '';
+  currentOrder?: Order;
   addDrugForm: FormGroup = new FormGroup({
     searchTextController: new FormControl('' ,Validators.required),
     quantityController: new FormControl('', Validators.required)
   });
 
   orderData = new MatTableDataSource<OrderedDrug>([]);
-  
-
   @ViewChild(MatTable,{static:true}) table: MatTable<any>;
 
-  constructor(public dialog: MatDialog, private restClient: RestService, private auth: AuthService) { }
+  constructor(public dialogRef: MatDialogRef<EditOrderDialogComponent>,
+   @Inject(MAT_DIALOG_DATA) public data: {order: Order},
+    private restClient: RestService, private auth: AuthService) { }
 
   ngOnInit(): void {
     this.getDrugs();
-    
+    this.currentOrder = this.data.order
+    this.orderData.data = this.currentOrder.ordered_drugs
+
   }
-
-
   totalPrice(): number{
     return this.orderData.data.reduce((acc: any, obj: any)=> {
       return acc + obj.total_price;
@@ -63,6 +63,16 @@ export class NewOrderComponent implements OnInit {
     const numPrice = parseFloat(price);
     return quantity * numPrice;
   }
+  onDelete(drug:any): void{
+    const deletedDrug = this.orderData.data.findIndex((object: any) => {
+      return object.id === drug.id;
+    })
+
+    this.orderData.data.splice(deletedDrug, 1);
+
+    this.table.renderRows();
+
+  }
 
   onAdd(): void {
     this.error = '';
@@ -75,14 +85,13 @@ export class NewOrderComponent implements OnInit {
       return;
     }
     if( quantityController > quantity || quantityController <= 0){
-      if(quantityController <= 0 ){
+      if(quantityController <=0 ){
         this.error = `Quantity can't be less than 0!, duh`
         return
       }
       this.error = `Quantity:${quantityController} exceeds available quantity: ${quantity}..`;
       return;
     }
-
 
 
     const total_price = this.pricePerDrug(drug?.drug_price, quantityController);
@@ -98,43 +107,22 @@ export class NewOrderComponent implements OnInit {
     this.table.renderRows();
   }
 
-  onDelete(drug:any): void{
-    const deletedDrug = this.orderData.data.findIndex((object: any) => {
-      return object.id === drug.id;
-    })
+  onSubmit(){
+    const id = this.currentOrder?.id;
+    const code = this.auth.getCurrentUser()?.code;
+    const order = this.currentOrder;
 
-    this.orderData.data.splice(deletedDrug, 1);
-
-    this.table.renderRows();
-
-  }
-
-  openDialog(icon: string, order_status: string, enterAnimationDuration: string, exitAnimationDuration: string){
-    this.dialog.open(OrderStatusDialogComponent, {
-      width: '600px',
-      data: {icon: icon, order_status: order_status},
-      enterAnimationDuration,
-      exitAnimationDuration,
-    }).afterClosed().subscribe(
-    (()=> window.location.reload()))
-  }
-
-  onSave(){
-    const order: Order = {
-      user: this.auth.getCurrentUser()?.code,
-      description: 'blank',
-      ordered_drugs: this.orderData.data
-    }
-
-    this.restClient.createNewOrder(order).subscribe(
-      (res)=> {
-        this.openDialog('check_circle_outline', 'Order have been submited!', '0ms','0ms')
+    this.restClient.editOrder(order as Order, id, code).subscribe(
+      (res) => {
+        this.dialogRef.close(true);
       },
-      (err)=> {
-          this.openDialog('highlight_off', 'Something went wrong!', '0ms','0ms')
-      
-      }
-      );
+      (err) => {this.error = err}
+      )
+    
   }
+  onCancel(){
+    this.dialogRef.close(false);
+  }
+ 
 
 }

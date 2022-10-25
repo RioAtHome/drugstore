@@ -28,7 +28,6 @@ export class ArchivedOrdersComponent implements OnInit {
   totalRows = 0;
   pageSize = 10;
   currentPage = 0;
-  console = console;
   pageSizeOptions: number[] = [5, 10, 25, 100];
   allPharmacyNames = new Set<string>();
   AllOrders: Order[] = [];
@@ -46,8 +45,6 @@ export class ArchivedOrdersComponent implements OnInit {
   }
 
   onFilterChanges(event: any){
-    this.console.info("Ayoe")
-    this.console.log(event)
     this.rawFilters = event;
     this.getAllOrders(this.rawFilters)
   }
@@ -90,7 +87,6 @@ export class ArchivedOrdersComponent implements OnInit {
 
   filterTotalPrice(data: Order[]): Order[]{
     let newData: Order[] = []
-    this.console.info(this.rawFilters)
     if(!this.rawFilters.gtPrice || !this.rawFilters.ltPrice){
       return data
     }
@@ -102,7 +98,6 @@ export class ArchivedOrdersComponent implements OnInit {
         newData.push(element);
       }
     })
-    this.console.info(newData)
     return newData;
   }
 

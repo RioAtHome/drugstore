@@ -9,6 +9,10 @@ import { NoResultsComponent } from './components/no-results/no-results.component
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { SharedRoutingModule } from './shared-routing.module';
 import { UploadFileDialogComponent } from './components/upload-file-dialog/upload-file-dialog.component';
+import { OrderStatusDialogComponent } from './components/order-status-dialog/order-status-dialog.component';
+import { ProfilePictureDialogComponent } from './components/profile-picture-dialog/profile-picture-dialog.component';
+import { EditOrderDialogComponent } from './components/edit-order-dialog/edit-order-dialog.component';
+import { SearchPipe } from './pipes/search.pipe';
 
 @NgModule({
   declarations: [
@@ -19,6 +23,10 @@ import { UploadFileDialogComponent } from './components/upload-file-dialog/uploa
     NoResultsComponent,
     PageNotFoundComponent,
     UploadFileDialogComponent,
+    ProfilePictureDialogComponent,
+    OrderStatusDialogComponent,
+    EditOrderDialogComponent,
+    SearchPipe,
 
 
   ],
@@ -35,7 +43,10 @@ exports:[
   FilterComponent,
   SharedRoutingModule,
   NoResultsComponent,
-  PageNotFoundComponent
+  ProfilePictureDialogComponent,
+  OrderStatusDialogComponent,
+  PageNotFoundComponent,
+  SearchPipe
 ]
 })
 export class SharedModule { }
