@@ -9,6 +9,7 @@ class OrderFilter(filters.FilterSet):
         ("RE", "Rejected"),
         ("CA", "Canceled"),)
     )
+    pharmacyName = filters.CharFilter(field_name='user__name')
     class Meta:
         model = Order
         fields = ('user',)

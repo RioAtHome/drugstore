@@ -16,6 +16,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from django_filters import rest_framework as filters
 from .filters import OrderFilter
+from drug_app.serializers import DrugSerializer
 
 
 # Create your views here.
@@ -26,8 +27,8 @@ class AbstractView(GenericAPIView):
     queryset = Order.objects.all()
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = OrderFilter
-    # permission_classes = [IsAuthenticated]
-    # authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
 
 
 class ListCreateOrder(AbstractView, ListCreateAPIView):
@@ -82,8 +83,8 @@ class ExtractOrders(ListOrders):
         )
 
     def list(self, request, *args, **kwargs):
-        # if not request.user.is_staff:
-        #     return Response({"message": "only admin can extract data"})
+        if not request.user.is_staff:
+            return Response({"message": "only admin can extract data"})
 
         response = HttpResponse(content_type="text/csv")
         response["Content-Disposition"] = 'attachment; filename="export.csv"'
@@ -91,12 +92,14 @@ class ExtractOrders(ListOrders):
         serializer = self.get_serializer(
             self.get_queryset(),
         )
-        header = OrderSerializer.Meta.fields
 
-        writer = csv.DictWriter(response, fieldnames=header)
+        headers = OrderSerializer.Meta.fields
+        # TODO: Write a better csv structure
+        writer = csv.DictWriter(response, fieldnames=headers)
         writer.writeheader()
-        for row in serializer.data:
-            writer.writerow(row)
+        for order in serializer.data:
+            writer.writerow(order)
+
 
         return response
 
@@ -130,9 +133,9 @@ class ModifyOrder(RetrieveUpdateAPIView, AbstractView):
 class StatusOrderView(AbstractView, APIView):
     def patch(self, request, order_id):
         if not request.user.is_staff:
-            print(request.user)
             return Response("only admin can complete status")
         order = get_object_or_404(Order, id=order_id)
+        print("request.user")
         status = request.data.get("status", "")
         if not status:
             return Response({"message": "must put status in filed"})
@@ -147,3 +150,19 @@ class StatusOrderView(AbstractView, APIView):
         order.status = status
         order.save()
         return Response("the state is changed successfully")
+
+
+class BatchOrderStatusView(AbstractView, RetrieveUpdateAPIView):
+    def patch(self, request, *args, **kwargs):
+
+        if not request.user.is_staff:
+                return Response("only admin can complete status", status=401)
+
+        for order in request.data:
+            __order = get_object_or_404(Order, id=order['id'])
+            __order.status = order['status']
+            __order.save()
+
+        return Response("done", status=200)
+
+

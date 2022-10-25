@@ -1,0 +1,30 @@
+.main-container-lt-md {
+	padding: 1rem;
+}
+
+
+.main-container {
+	padding: 4rem;
+}
+
+
+.tables-container-lt-lg {
+	display: block;
+    overflow-x: auto;
+	white-space: nowrap;
+	width: 100vw;
+}
+
+
+.export-button {
+  border-radius: 20px;
+  background-color: var(--blue) !important;
+  color: white;
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+}
+
+.form-container {
+	width: 70%;
+}

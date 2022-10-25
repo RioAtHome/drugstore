@@ -1,0 +1,35 @@
+<div ngClass='main-container' ngClass.lt-lg='main-container-lt-md'>
+	<div fxLayout='row' fxLayout.lt-md='column' fxLayoutAlign='space-between center'  class='h1-container' fxLayoutGap='10px'>
+		<h1 fxFlexAlign.lt-md='start'>Archived Orders</h1>
+		<div ngClass.gt-md='form-container' fxLayoutGap='10px' fxLayoutAlign='center center' fxFlexAlign.lt-md='center'>
+		<app-filter [status]='status' (initalValues)="setFilters($event)" (detectFilters)="onFilterChanges($event)"></app-filter>
+		</div>
+		<button mat-raised-button (click)="onExport()" ngClass='export-button'>
+			Export
+		</button>
+	</div>
+	<div>
+
+	<div *ngIf='activeOrders.length > 0; else NoResult'>
+		<div *ngFor='let pharmacy of activeOrders'>
+		<h3>{{pharmacy.pharmacy_name}}</h3>
+		<div  ngClass='tables-container' ngClass.lt-md='tables-container-lt-lg'>
+		<app-order-table [editable]="editable" [orders]="pharmacy.orders" [isAdmin]="isAdmin" ></app-order-table>
+		</div>
+	</div>
+	</div>
+	<!-- TODO: Add a Nothing found template!! -->
+	<ng-template #NoResult>
+		<app-no-results></app-no-results>
+	</ng-template>
+
+		<mat-paginator 
+		(page) = "pageChanged($event)"
+		[length] ="totalRows"
+		[pageSize]="pageSize"
+		[pageIndex]="currentPage"
+		[pageSizeOptions]="pageSizeOptions">
+
+	</mat-paginator>
+	</div>
+</div>

@@ -1,0 +1,29 @@
+<div fxLayout='row'>
+	<span *ngIf='authenticated'>
+		<app-navbar-user-menu></app-navbar-user-menu>
+		<app-navbar-notification></app-navbar-notification>
+	</span>
+	<mat-divider *ngIf='authenticated' vertical=true inset=true class='toolbar-divider'></mat-divider>
+	
+		<div fxLayout='row' fxLayoutGap='10px'>
+		<button mat-icon-button [matMenuTriggerFor]='languageMenu'>
+			<mat-icon fontIcon="language" class='text_on_background'></mat-icon>
+		</button>
+
+		<mat-menu #languageMenu='matMenu'>
+			<button mat-menu-item>
+				<span>English</span>
+			</button>
+			<button mat-menu-item>
+				<span>Arabic</span>
+			</button>
+		</mat-menu>
+		<span *ngIf="!authenticated">
+			<button mat-raised-button class="rounded-button blue-button" routerLink="/signin"><span class='text_on_background'>Sign In</span></button>
+		</span>
+		<span>
+		<button mat-raised-button class="rounded-button green-button" routerLink="/account/order"><span class='text_on_background'>Order Now</span></button>
+		</span>
+		</div>
+	
+</div>

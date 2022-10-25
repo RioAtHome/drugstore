@@ -20,8 +20,14 @@ app-toolbar ~ app-home {
 
 .main-container-gt-lg{
    max-width: 1920px;
+   background-color: white;
+}
+
+.main-container {
+   background-color: white;
 }
 
 .main-background {
+   z-index: 0;
    background-color: rgba(0,147,221, 0.1);
 }

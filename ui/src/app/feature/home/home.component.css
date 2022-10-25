@@ -1,0 +1,145 @@
+.order-now-button {
+  border-radius: 20px;
+  background-color: var(--green) !important;
+}
+
+
+.slider-container {
+  margin-left: auto;
+}
+
+.slider-background {
+  background-image: url(/assets/images/founder.png);
+  background-size: 100% 100%;
+  align-self: stretch;
+  margin-right: -70px;
+  margin-top: -130px;
+  margin-bottom: -130px;
+
+}
+
+.slider-background-lt-lg{
+   background-image: url(/assets/images/founder.png);
+  background-size: 100% 100%;
+  align-self: stretch;
+  margin-right: -70px;
+  margin-top: -130px;
+  margin-bottom: -130px;
+  padding-left: 240px;
+
+}
+
+.slider-background-gt-lg {
+background-image: url(/assets/images/founder.png);
+  background-size: 100% 100%;
+  align-self: stretch;
+  margin-right: -70px;
+  margin-top: -130px;
+  margin-bottom: -130px;
+  margin-left: 270px;
+
+}
+
+.head-container {
+  background: rgb(0, 147, 221);
+  padding: 5em;
+}
+
+.text-container {
+  color: white;
+}
+.header-text-tile {
+  padding: 0 20% 0 20%;
+}
+
+.color-content:nth-child(even) {
+  background: white;
+}
+
+.color-content:nth-child(odd) {
+  background: rgba(0, 147, 221, 0.1);
+}
+
+.img-in-tile {
+  max-width: 90%;
+  max-height: 90%;
+  
+}
+
+
+.row-container {
+  padding: 6em;
+}
+
+.row-container-lt-md {
+  padding: 2em;
+}
+
+.row-container-gt-lg{
+  padding: 7em;
+}
+
+.first-three {
+  text-decoration: underline;
+  text-decoration-color : green;
+  text-decoration-thickness: 4px;
+
+}
+
+.card-image {
+  margin-top: 0px !important;
+  margin-bottom: 0px;
+  height: 160px;
+}
+
+.card-container {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+.card-container-horizontal {
+   padding: 3em; 
+}
+
+
+.inner-card-background {
+  background-image: url('/assets/images/ruchindra-gunas.png');
+  background-size: cover;
+}
+
+.inner-card {
+  background-color: rgba(0, 147, 221, 0.7);
+  padding: 6rem;
+}
+
+.inner-card-lt-md{
+  padding: 3rem;
+}
+
+.main-home-container{
+  margin-top: -65px;
+}
+
+.image-container {
+  margin-top: 20px;
+}
+
+.some-text-container{
+  padding-left: 15rem;
+  padding-right: 15rem;
+}
+
+.some-text {
+  padding: 0rem;
+}
+
+
+.color-content.row-container.mat-cards{
+  padding-left: 15rem;
+  padding-right: 15rem;
+}
+
+.home-picture {
+  padding-left: 15rem;
+  padding-right: 15rem;
+}

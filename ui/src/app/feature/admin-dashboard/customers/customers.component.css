@@ -1,0 +1,25 @@
+.underline {
+  text-decoration: underline;
+  text-decoration-color : green;
+  text-decoration-thickness: 4px;
+}
+
+.main-container-lt-md {
+	padding: 1rem;
+}
+
+
+.main-container {
+	padding: 4rem;
+}
+
+
+.mat-header-cell {
+    background: rgba(167,204,58,0.2);
+    color: black;
+}
+
+.mat-footer-cell {
+	background: rgba(0,147,221,0.1);
+    color: black;
+}
