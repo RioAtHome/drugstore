@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef} from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
@@ -12,7 +12,7 @@ import { ExtensionValidator } from '../../directive/extension-validator.directiv
   templateUrl: './profile-picture-dialog.component.html',
   styleUrls: ['./profile-picture-dialog.component.css']
 })
-export class ProfilePictureDialogComponent implements OnInit {
+export class ProfilePictureDialogComponent implements OnInit, OnDestroy {
 
   selectedFile: any = null;
   error: string = '';
@@ -62,7 +62,8 @@ export class ProfilePictureDialogComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.uploadPhotoSubscription.unsubscribe();
+    if(this.uploadPhotoSubscription){this.uploadPhotoSubscription.unsubscribe();}
+   
   }
 
 }

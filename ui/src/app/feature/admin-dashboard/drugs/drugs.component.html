@@ -1,11 +1,11 @@
 <div ngClass='main-container' ngClass.lt-md='main-container-lt-md'>
 	<div fxLayout='row' fxLayoutAlign='space-between center' class='h1-container' [ngStyle]= "{'padding-bottom': '20px'}">
-		<h1 fxFlexAlign='start'><span class='underline'>All</span> Drugs</h1>
-		<button mat-raised-button (click)='openDialog("0ms", "0ms")'>
+		<h1 fxFlexAlign='start' [ngStyle]="{'margin-bottom': '0px'}"><span class='underline'>All</span> Drugs</h1>
+		<button mat-raised-button (click)='openDialog("0ms", "0ms")' ngClass='import-button'>
 			Import
 		</button>
 	</div>
-	<div  ngClass.lt-md='table-container-lt-md'>
+	<div  fxLayout='column' ngClass='table-container' ngClass.lt-md='table-container-lt-md'>
 		<table mat-table [dataSource]="drugsSource.data" ngClass='table' ngClass.lt-lg='table-lt-md'>
 			<ng-container matColumnDef='id'>
 				<th mat-header-cell *matHeaderCellDef>ID</th>
@@ -51,8 +51,7 @@
 		(page) = "pageChanged($event)"
 		[length] ="totalRows"
 		[pageSize]="pageSize"
-		[pageIndex]="currentPage"
-		[pageSizeOptions]="pageSizeOptions">
+		[pageIndex]="currentPage">
 
 	</mat-paginator>
 </div>

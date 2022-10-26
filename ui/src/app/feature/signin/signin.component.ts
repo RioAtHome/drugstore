@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -10,7 +10,7 @@ import { RestService } from 'src/app/core/services/rest.service';
   templateUrl: './signin.component.html',
   styleUrls: ['./signin.component.css']
 })
-export class SigninComponent implements OnInit {
+export class SigninComponent implements OnInit, OnDestroy {
   hide_password = true;
   signinForm: FormGroup;
   error: string = '';
@@ -40,8 +40,9 @@ export class SigninComponent implements OnInit {
 
   ngOnDestroy(){
     console.info("Sign in have been destroyed")
+    if(this.loginRequest){
     this.loginRequest.unsubscribe();
-  }
+  }}
 
 
 }

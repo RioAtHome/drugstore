@@ -5,3 +5,24 @@
 app-orders-view  {
 	width: 800px;
 }
+
+.tables-container{
+	display: block;
+    overflow-x: auto;
+	white-space: nowrap;
+	width: 80vw;
+
+}
+.tables-container-lt-md {
+	display: block;
+    overflow-x: auto;
+	white-space: nowrap;
+	width: 100vw;
+}
+
+.tables-container-lt-lg {
+	display: block;
+    overflow-x: auto;
+	white-space: nowrap;
+	width: 60vw;
+}

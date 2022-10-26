@@ -14,7 +14,12 @@ export class OrderStatusDialogComponent implements OnInit {
   }
 
   onSubmit(){
+    if(this.data.icon==="highlight_off"){
+    this.dialogRef.close(false)
+    return  
+    }
     this.dialogRef.close(true)
+    
   }
 
 }

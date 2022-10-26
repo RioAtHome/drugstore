@@ -67,3 +67,8 @@ mat-selection-list {
     color: black;
 }
 
+
+.cancel-button {
+	border-radius: 20px;
+  color: white;
+}

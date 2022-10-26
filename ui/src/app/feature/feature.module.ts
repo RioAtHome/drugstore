@@ -22,6 +22,7 @@ import { SearchPipe } from './shared/pipes/search.pipe';
   exports: [
   SigninModule,
     HomeModule,
+    SharedModule,
     AdminDashboardModule,
     UserDashboardModule
   ]

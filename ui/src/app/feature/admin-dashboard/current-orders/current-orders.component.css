@@ -12,7 +12,7 @@
 	display: block;
     overflow-x: auto;
 	white-space: nowrap;
-	width: 100vw;
+	width: 90vw;
 }
 
 
@@ -23,6 +23,12 @@
   margin-top: 10px;
   margin-bottom: 10px;
 
+}
+
+.underline {
+  text-decoration: underline;
+  text-decoration-color : green;
+  text-decoration-thickness: 4px;
 }
 
 .form-container {

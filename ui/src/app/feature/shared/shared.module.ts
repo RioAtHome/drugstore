@@ -13,6 +13,7 @@ import { OrderStatusDialogComponent } from './components/order-status-dialog/ord
 import { ProfilePictureDialogComponent } from './components/profile-picture-dialog/profile-picture-dialog.component';
 import { EditOrderDialogComponent } from './components/edit-order-dialog/edit-order-dialog.component';
 import { SearchPipe } from './pipes/search.pipe';
+import { OrderFormComponent } from './components/order-form/order-form.component';
 
 @NgModule({
   declarations: [
@@ -27,16 +28,16 @@ import { SearchPipe } from './pipes/search.pipe';
     OrderStatusDialogComponent,
     EditOrderDialogComponent,
     SearchPipe,
+    OrderFormComponent,
 
 
   ],
   imports: [
     CommonModule,
     LayoutModule,
-    SharedRoutingModule
+    SharedRoutingModule,
   ],
 exports:[
-  
   StringToDatePipe,
   AcronymToStatusPipe,
   OrderTableComponent,
@@ -46,7 +47,8 @@ exports:[
   ProfilePictureDialogComponent,
   OrderStatusDialogComponent,
   PageNotFoundComponent,
-  SearchPipe
+  SearchPipe,
+  OrderFormComponent
 ]
 })
 export class SharedModule { }

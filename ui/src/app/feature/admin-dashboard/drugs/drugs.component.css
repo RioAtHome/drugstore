@@ -22,7 +22,7 @@
     display: block !important;
     overflow-x: auto;
     white-space: nowrap;
-    width: 100vw;
+    width: 90vw;
 
 }
 
@@ -33,3 +33,16 @@
 .table{
     width: 100%;
 }
+
+.underline {
+  text-decoration: underline;
+  text-decoration-color : green;
+  text-decoration-thickness: 4px;
+}
+
+
+.import-button{
+ border-radius: 20px;
+  background-color: var(--blue) !important;
+  color: white;
+  }

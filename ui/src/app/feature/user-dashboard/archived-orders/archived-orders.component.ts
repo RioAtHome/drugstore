@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTable } from '@angular/material/table';
 import { Subscription } from 'rxjs';
@@ -10,45 +10,46 @@ import { ListCustomerOrders, Order } from 'src/app/shared/models';
   templateUrl: './archived-orders.component.html',
   styleUrls: ['./archived-orders.component.css']
 })
-export class ArchivedOrdersComponent implements OnInit {
+export class ArchivedOrdersComponent implements OnDestroy, OnInit {
   editable=false;
   archivedOrders: Order[] = [];
   isAdmin = false;
   status = ['CO', 'CA', 'RE'];
   getOrdersSubscription = new Subscription
-  @ViewChild(MatTable, {static: true}) paginator!: MatPaginator;
+  @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
   totalRows = 0;
   pageSize = 10;
-  currentPage = 0;
-  pageSizeOptions: number[] = [5, 10, 25, 100];
+  currentPage = 1;
+
   error: string = '';
   initResponse?: ListCustomerOrders;
   constructor(private restClient: RestService) { }
 
   ngOnInit(): void {
-    this.getAllOrders({status: this.status}, (this.currentPage + 1).toString())
+    this.getAllOrders({status: this.status}, (this.currentPage).toString())
   }
 
   getAllOrders(status: any, page: string){
+    const query = {status: status, page: page}
     this.getOrdersSubscription = this.restClient.getCustomerOrders(status, page).subscribe(
       (res) =>{
         this.initResponse = res;
-            
             this.paginator.length = this.initResponse.count
-
             this.paginator.pageIndex = this.currentPage;
-
             this.archivedOrders = this.initResponse.results;
       },
       (err) =>{}
       )
-
   }
 
   pageChanged(event: PageEvent){
       this.pageSize = event.pageSize;
       this.currentPage = event.pageIndex;
-      this.getAllOrders({status: this.status}, (this.currentPage + 1).toString())
+      this.getAllOrders({status: this.status}, (this.currentPage).toString())
     }
 
+  ngOnDestroy(){
+    if(this.getOrdersSubscription){
+    this.getOrdersSubscription.unsubscribe()
+  }}
 }

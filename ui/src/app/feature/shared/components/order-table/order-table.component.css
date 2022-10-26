@@ -43,3 +43,8 @@ table {
 }
 
 
+.edit-button {
+	background-color: var(--blue) !important;
+}
+
+

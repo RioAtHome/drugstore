@@ -21,7 +21,7 @@ export class CustomersComponent implements OnInit {
   totalRows = 0;
   pageSize = 10;
   currentPage = 0;
-  pageSizeOptions: number[] = [5, 10, 25, 100];
+
   displayedColumns = ['account_number', 'pharmacy_name', 'latitude', 'longitude']
   
   constructor(private restClient: RestService, public dialog: MatDialog) { }

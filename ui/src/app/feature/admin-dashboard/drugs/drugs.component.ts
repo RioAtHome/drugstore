@@ -21,7 +21,7 @@ export class DrugsComponent implements OnInit {
   totalRows = 0;
   pageSize = 10;
   currentPage = 0;
-  pageSizeOptions: number[] = [5, 10, 25, 100];
+
   displayedColumns = ['id', 'drug_name', 'quantity', 'expiration_date', 'price_per_unit']
   
   constructor(private restClient: RestService, public dialog: MatDialog) { }

@@ -2,23 +2,20 @@
 			<mat-icon fontIcon="notifications" matBadge="3 "matBadgeColor="warn" class='text_on_background'></mat-icon>
 		</button>
 		<mat-menu #notificationMenu='matMenu' >
-			<mat-list>
-				<button mat-menu-item fxLayout='row' fxLayoutAlign="space-between center">
+			<mat-list >
+				<div mat-menu-item fxLayout='row' fxLayoutAlign="space-between center">
 					<span> Notification 1 and others things </span>
 					<mat-icon color="accent">new_releases</mat-icon>
-				</button>
+				</div>
 				<mat-divider></mat-divider>
-				<button mat-menu-item fxLayout='row' fxLayoutAlign="space-between center">
+				<div mat-menu-item fxLayout='row' fxLayoutAlign="space-between center">
 					<span> Notification 2 </span>
 					<mat-icon color="accent">new_releases</mat-icon>
-				</button>
+				</div>
 				<mat-divider></mat-divider>
-				<button mat-menu-item>
+				<div mat-menu-item>
 					<span> does this even work??</span>
-				</button>
-				<mat-divider></mat-divider>
-				<button mat-button color="accent">
-					See All Notfications
-				</button>
+				</div>
 			</mat-list>
+
 		</mat-menu>

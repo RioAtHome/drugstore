@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTable } from '@angular/material/table';
 import { Subscription } from 'rxjs';
@@ -10,7 +10,7 @@ import { ListCustomerOrders, Order, PharmacyOrders } from 'src/app/shared/models
   templateUrl: './current-orders.component.html',
   styleUrls: ['./current-orders.component.css']
 })
-export class CurrentOrdersComponent implements OnInit {
+export class CurrentOrdersComponent implements OnInit, OnDestroy {
   editable: boolean = true;
   isAdmin: boolean = true;
   extractSubscription = new Subscription;
@@ -22,7 +22,6 @@ export class CurrentOrdersComponent implements OnInit {
   totalRows = 0;
   pageSize = 10;
   currentPage = 0;
-  pageSizeOptions: number[] = [5, 10, 25, 100];
   allPharmacyNames = new Set<string>();
   AllOrders: Order[] = [];
   rawFilters?: any;
@@ -44,14 +43,11 @@ export class CurrentOrdersComponent implements OnInit {
     this.getAllOrders(this.rawFilters)
   }
 
-
+ 
   cleanData(data: Order[]): PharmacyOrders[]{
     let newData: PharmacyOrders[] = [];
-    if(data.length <= 0){
-      return newData;
-    }
     data.forEach((element) => {
-      this.allPharmacyNames.add(element.user as string) 
+      this.allPharmacyNames.add(element.username as string) 
 })
     this.allPharmacyNames.forEach((name) => {
       newData.push({pharmacy_name: name, orders: []})
@@ -60,7 +56,7 @@ export class CurrentOrdersComponent implements OnInit {
     
     this.allPharmacyNames.forEach((name) => {
       data.forEach((order) => {
-        if(order.user === name){
+        if(order.username === name){
           let index = newData.findIndex(object => {
               return object.pharmacy_name === name;})
           newData[index].orders.push(order)
@@ -69,6 +65,7 @@ export class CurrentOrdersComponent implements OnInit {
 
     return newData
   }
+
 
   onExport(){
     this.extractSubscription = this.restClient.ExtractOrders(this.rawFilters).subscribe(
@@ -123,8 +120,10 @@ export class CurrentOrdersComponent implements OnInit {
   }
 
   ngOnDestroy(){
-    this.extractSubscription.unsubscribe();
-    this.getOrdersSubscription.unsubscribe();
+    if(this.extractSubscription){
+    this.extractSubscription.unsubscribe();}
+    if(this.getOrdersSubscription){
+    this.getOrdersSubscription.unsubscribe();}
   }
 
 

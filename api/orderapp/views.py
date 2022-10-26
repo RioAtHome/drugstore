@@ -5,6 +5,7 @@ from rest_framework.generics import (
     get_object_or_404,
     ListAPIView,
     GenericAPIView,
+    DestroyAPIView,
 )
 from .models import Order, User
 from rest_framework.response import Response
@@ -50,7 +51,7 @@ class ListCreateOrder(AbstractView, ListCreateAPIView):
     def create(self, request, *args, **kwargs):
         if request.user != self.get_pharmacy():
             return Response({"message": "cannot create order for another user"})
-
+        print(request.data)
         return super().create(request, *args, **kwargs)
 
 
@@ -104,7 +105,7 @@ class ExtractOrders(ListOrders):
         return response
 
 
-class ModifyOrder(RetrieveUpdateAPIView, AbstractView):
+class ModifyOrder(RetrieveUpdateAPIView, AbstractView, DestroyAPIView):
     def get_pharmacy(self):
         code = self.request.resolver_match.kwargs.get("code")
         pharmacy = get_object_or_404(User, code=code)
@@ -150,6 +151,7 @@ class StatusOrderView(AbstractView, APIView):
         order.status = status
         order.save()
         return Response("the state is changed successfully")
+
 
 
 class BatchOrderStatusView(AbstractView, RetrieveUpdateAPIView):

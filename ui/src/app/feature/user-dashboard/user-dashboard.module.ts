@@ -27,10 +27,11 @@ import { SearchPipe } from '../shared/pipes/search.pipe';
     UserRoutingModule,
   ],
   exports: [
-     CommonModule,
+    CommonModule,
     LayoutModule,
     SharedModule,
-    UserRoutingModule
+    UserRoutingModule,
+    NewOrderComponent,
   ]
 })
 export class UserDashboardModule { }

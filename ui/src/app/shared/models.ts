@@ -26,6 +26,7 @@ export interface OrderedDrug extends Drug {
 export interface Order {
 	id?: number,
 	user?: string,
+	username?: string,
 	status?: string,
 	description: string,
 	created_at?: string,

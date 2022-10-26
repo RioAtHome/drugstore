@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChildren, ViewChild, QueryList, SimpleChange } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { RestService } from 'src/app/core/services/rest.service';
 import { Order } from 'src/app/shared/models';
 import { MatTable } from '@angular/material/table';
@@ -16,7 +16,7 @@ import { PharmacyOrders } from 'src/app/shared/models';
   templateUrl: './archived-orders.component.html',
   styleUrls: ['./archived-orders.component.css']
 })
-export class ArchivedOrdersComponent implements OnInit {
+export class ArchivedOrdersComponent implements OnInit, OnDestroy {
   activeOrders: PharmacyOrders[] = [];
   extractSubscription = new Subscription;
   getOrdersSubscription = new Subscription;
@@ -28,7 +28,6 @@ export class ArchivedOrdersComponent implements OnInit {
   totalRows = 0;
   pageSize = 10;
   currentPage = 0;
-  pageSizeOptions: number[] = [5, 10, 25, 100];
   allPharmacyNames = new Set<string>();
   AllOrders: Order[] = [];
   rawFilters?: any;
@@ -53,7 +52,7 @@ export class ArchivedOrdersComponent implements OnInit {
   cleanData(data: Order[]): PharmacyOrders[]{
     let newData: PharmacyOrders[] = [];
     data.forEach((element) => {
-      this.allPharmacyNames.add(element.user as string) 
+      this.allPharmacyNames.add(element.username as string) 
 })
     this.allPharmacyNames.forEach((name) => {
       newData.push({pharmacy_name: name, orders: []})
@@ -62,7 +61,7 @@ export class ArchivedOrdersComponent implements OnInit {
     
     this.allPharmacyNames.forEach((name) => {
       data.forEach((order) => {
-        if(order.user === name){
+        if(order.username === name){
           let index = newData.findIndex(object => {
               return object.pharmacy_name === name;})
           newData[index].orders.push(order)
@@ -127,7 +126,9 @@ export class ArchivedOrdersComponent implements OnInit {
 
 
   ngOnDestroy(){
-    this.extractSubscription.unsubscribe();
-    this.getOrdersSubscription.unsubscribe();
+    if(this.extractSubscription){
+    this.extractSubscription.unsubscribe();}
+    if(this.getOrdersSubscription){
+    this.getOrdersSubscription.unsubscribe();}
   }
 }

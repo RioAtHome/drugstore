@@ -6,12 +6,14 @@
 				/Pharmacy Profile <span class='active-text'>/ Current Orders</span>
 			</span>
 		</div>
-<app-order-table [editable]="editable" [orders]='archivedOrders' [isAdmin]='isAdmin'></app-order-table>
+<div ngClass='tables-container' ngClass.lt-md='tables-container-lt-md' ngClass.lt-lg='tables-container-lt-lg'>
+<app-order-table [editable]="editable" [orders]='currentOrders' [isAdmin]='isAdmin'></app-order-table>
+</div>
 <mat-paginator 
 		(page) = "pageChanged($event)"
 		[length] ="totalRows"
 		[pageSize]="pageSize"
 		[pageIndex]="currentPage"
-		[pageSizeOptions]="pageSizeOptions">
+		>
 	</mat-paginator>
 </div>

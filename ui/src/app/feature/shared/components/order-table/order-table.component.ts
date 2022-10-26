@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, QueryList, Type, ViewChild, ViewChildren } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList, Type, ViewChild, ViewChildren } from '@angular/core';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { RestService } from 'src/app/core/services/rest.service';
@@ -12,7 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
   templateUrl: './order-table.component.html',
   styleUrls: ['./order-table.component.css']
 })
-export class OrderTableComponent implements OnInit {
+export class OrderTableComponent implements OnInit, OnDestroy {
     COLOR = {
     PE:  'pending-color',
     CO: 'completed-color',
@@ -78,7 +78,8 @@ export class OrderTableComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.changeStatusSubscription.unsubscribe();
+    if(this.changeStatusSubscription){
+    this.changeStatusSubscription.unsubscribe();}
   }
 
 }

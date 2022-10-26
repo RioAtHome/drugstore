@@ -16,7 +16,7 @@ export class NavbarUserMenuComponent implements OnInit {
 
   signOut(): void{
     this.auth.signOut();
-    this.router.navigateByUrl('/');
+    this.router.navigateByUrl('');
   }
 
   redirect(route: string): void {

@@ -1,7 +1,7 @@
 <div ngClass='main-container' ngClass.lt-md='main-container-lt-md' fxLayoutGap='10px'>
 	<div fxLayout='row' fxLayoutAlign='space-between center' class='h1-container' [ngStyle]= "{'padding-bottom': '20px'}">
-		<h1><span class='underline'>Cus</span>tomers</h1>
-		<button mat-raised-button (click)= 'openDialog("0ms", "0ms")'>
+		<h1 [ngStyle]="{'margin-bottom': '0px'}"><span class='underline'>Cus</span>tomers</h1>
+		<button mat-raised-button (click)= 'openDialog("0ms", "0ms")' ngClass='import-button'>
 			Import Customers
 		</button>
 	</div>
@@ -42,7 +42,7 @@
 		[length] ="totalRows"
 		[pageSize]="pageSize"
 		[pageIndex]="currentPage"
-		[pageSizeOptions]="pageSizeOptions">
+	>
 
 	</mat-paginator>
 </div>

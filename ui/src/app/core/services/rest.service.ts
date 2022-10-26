@@ -88,9 +88,9 @@ export class RestService {
   }
 
   getAllDrugs(pag: boolean, page:string='1'): Observable<Drug[]> {
-    const url = this.baseUrl + `drugs?page=${page}`;
+    let url = this.baseUrl + `drugs?page=${page}`;
     if(pag){
-      const url = this.baseUrl + `drugs/?no_pag=true`;
+      url = this.baseUrl + `drugs/?no_pag=true`;
     }
 
     return this.http.get<Drug[]>(url, this.httpAuthOptions).pipe(
@@ -113,15 +113,11 @@ export class RestService {
       );
   }
 
-  getCustomerOrders(query_status: string, page_number: string='1'): Observable<ListCustomerOrders>{
+  getCustomerOrders(query_status: string[] | any, page_number: string='1'): Observable<ListCustomerOrders>{
     const code = this.auth.getCurrentUser()?.code;
-    let url = this.baseUrl + `orders/${code}/?status=${query_status}&page=${page_number}`;
+    const url = this.baseUrl + `orders/${code}/`;
 
-    if(query_status === 'archived'){
-      url = this.baseUrl + `orders/${code}/?status=CA&status=CO&status=RE&page=${page_number}`
-    }
-
-    return this.http.get<ListCustomerOrders>(url, this.httpAuthOptions).pipe(
+    return this.http.get<ListCustomerOrders>(url,{...this.fileAuthOptions, params: new HttpParams({fromObject: query_status})}).pipe(
       tap(_ => this.logger.log("Getting List of Drugs")),
       catchError(this.handleError)
       )
@@ -131,6 +127,15 @@ export class RestService {
     const url = this.baseUrl + `orders/${code}/${id}/`;
 
     return this.http.put<any>(url, order,this.httpAuthOptions).pipe(
+      tap(_ => this.logger.log(`updating Order`)),
+      catchError(this.handleError)
+      )
+  }
+
+  deleteOrder(order: Order, id: number | undefined, code: string | undefined): Observable<any>{
+    const url = this.baseUrl + `orders/${code}/${id}/`;
+
+    return this.http.delete<any>(url, this.httpAuthOptions).pipe(
       tap(_ => this.logger.log(`updating Order`)),
       catchError(this.handleError)
       )
@@ -154,7 +159,7 @@ export class RestService {
       )
     }
 
-    getAllOrders(query_params: string[]| any): Observable<ListCustomerOrders>{
+    getAllOrders(query_params: string[] | any): Observable<ListCustomerOrders>{
 
       let url = this.baseUrl + `orders/all`
       

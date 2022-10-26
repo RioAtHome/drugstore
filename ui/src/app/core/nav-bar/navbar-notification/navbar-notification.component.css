@@ -1,0 +1,5 @@
+.notification-container{
+	display: block;
+	white-space: nowrap;
+	overflow-y: auto;
+}

@@ -23,3 +23,8 @@
 	background: rgba(0,147,221,0.1);
     color: black;
 }
+.import-button{
+ border-radius: 20px;
+  background-color: var(--blue) !important;
+  color: white;
+  }
