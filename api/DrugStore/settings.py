@@ -74,9 +74,9 @@ AUTH_USER_MODEL = "user.User"
 SIMPLE_JWT = {
     "USER_ID_FIELD": "code",
     "USER_ID_CLAIM": "code",
-    "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=1),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=2),
-    "UPDATE_LAST_LOGIN": True,  # for TokenObtainBairView
+    
 }
 
 MIDDLEWARE = [

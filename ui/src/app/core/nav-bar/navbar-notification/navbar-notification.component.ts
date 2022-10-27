@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { WebSocketService } from '../../services/web-socket.service';
 
 @Component({
   selector: 'app-navbar-notification',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarNotificationComponent implements OnInit {
 
-  constructor() { }
+  constructor(private ws: WebSocketService) { }
 
   ngOnInit(): void {
   }

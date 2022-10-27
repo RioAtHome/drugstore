@@ -1,6 +1,10 @@
 import { Injectable, Optional, SkipSelf } from '@angular/core';
 import { User } from 'src/app/shared/models';
 
+const ACCESS_TOKEN_KEY = 'access';
+const REFRESH_TOKEN_KEY = 'refresh';
+const USER_KEY = 'user'
+
 @Injectable({
   providedIn: 'root'
 })
@@ -17,8 +21,13 @@ export class AuthService {
     console.info('AuthService have been created');
   }
 
+  signOut(): void{
+    localStorage.clear();
+    window.sessionStorage.clear()
+  }
+
   setCurrentUser(user: User | undefined){
-    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem(USER_KEY, JSON.stringify(user));
     this.currentUser = user;
   }
 
@@ -35,10 +44,9 @@ export class AuthService {
 
   getCurrentUserStorage(): User | null {
     try{
-      const user: User | null = JSON.parse(localStorage.getItem('user') || "");
+      const user: User | null = JSON.parse(localStorage.getItem(USER_KEY) || "");
       return user;
     }
-    // throws for some reason Illegal Constructer
     catch(e){
       if(e instanceof SyntaxError){
         return null;
@@ -52,19 +60,19 @@ export class AuthService {
   }
 
   isStaff(): boolean | undefined {
-
     return this.getCurrentUser()?.is_staff;
   }
 
+
   setAccessToken(token: string): void {
-    localStorage.setItem('access', token);
+    localStorage.setItem(ACCESS_TOKEN_KEY, token);
     this.accessToken = token;
 
   }
 
   getAccessToken(): string | null {
     try{
-      const token: string | null = localStorage.getItem('access') || "";
+      const token: string | null = localStorage.getItem(ACCESS_TOKEN_KEY) || "";
       return token;
     }
     catch(e){
@@ -79,23 +87,16 @@ export class AuthService {
 
   }
 
-  signOut(): void{
-    localStorage.clear();
-    sessionStorage.clear();
-    this.currentUser = undefined;
-    this.accessToken = '';
-
-  }
 
   setRefreshToken(token:string): void {
-    localStorage.setItem('refresh', token);
+    localStorage.setItem(REFRESH_TOKEN_KEY, token);
     this.accessToken = token;
 
   }
 
   getRefreshToken(): string | null {
     try{
-      const token: string | null = localStorage.getItem('refresh') || "";
+      const token: string | null = localStorage.getItem(REFRESH_TOKEN_KEY) || "";
       return token;
     }
     catch(e){
@@ -103,15 +104,10 @@ export class AuthService {
         return null;
       }
     }
-    if (this.accessToken){
-      return this.accessToken
+    if (this.refreshToken){
+      return this.refreshToken
     }
     return null;
 
   }
-
-  validateToken(): void {
-
-  }
-  
 }

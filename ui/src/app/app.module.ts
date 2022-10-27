@@ -1,5 +1,3 @@
-// TODO: Unsubscribe from observables
-// TODO: Divide to ngModules to enable lazy_loading
 // TODO: enable intercepter
 
 import { CoreModule } from './core/core.module';
@@ -8,9 +6,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from './layout/layout.module';
-import { HomeModule } from './feature/home/home.module';
-import { SigninModule } from './feature/signin/signin.module';
 import { FeatureModule } from './feature/feature.module';
+import { HeaderInterceptor } from './core/intercepters/header.interceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { RefreshTokenInterceptor } from './core/intercepters/refresh-token.interceptor';
 
 
 @NgModule({
@@ -24,9 +23,11 @@ import { FeatureModule } from './feature/feature.module';
     FeatureModule,
     BrowserAnimationsModule,
 
-    
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: RefreshTokenInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

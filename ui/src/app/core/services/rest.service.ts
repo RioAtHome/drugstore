@@ -22,32 +22,6 @@ export class RestService {
     console.info("RestService have been created!")
    }
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-    }),
-  };
-  fileAuthOptions = {
-    headers: new HttpHeaders({
-      'Authorization': `Bearer ${this.auth.getAccessToken()}`
-    }),
-    reportProgress: true,
-   
-}
-  httpAuthOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${this.auth.getAccessToken()}`
-    }),
-
-  }
-
-  fileDonwload = {
-    headers: new HttpHeaders({
-      'Authorization': `Bearer ${this.auth.getAccessToken()}`
-    }),
-    responseType: 'blob'
-  }
 
   private handleError(error: HttpErrorResponse) {
     if(error.status === 500){
@@ -60,8 +34,7 @@ export class RestService {
 
   signIn(code: string, password: string): Observable<LoginData>{
     return this.http.post<LoginData>(this.baseUrl + 'users/signin/',
-      {code, password},
-      this.httpOptions).pipe(
+      {code, password}).pipe(
       tap(_ => this.logger.log('Sign in Happened')),
       catchError(this.handleError),
       );
@@ -71,7 +44,7 @@ export class RestService {
     const code = this.auth.getCurrentUser()?.code
 
     const url = this.baseUrl + `users/${code}/`;
-    return this.http.patch<Customer>(url, data, this.fileAuthOptions).pipe(
+    return this.http.patch<Customer>(url, data).pipe(
       tap(_ => this.logger.log('Photo Uploaded')),
       catchError(this.handleError),
       )
@@ -81,7 +54,7 @@ export class RestService {
     const code = this.auth.getCurrentUser()?.code
 
     const url = this.baseUrl + `users/${code}/`;
-    return this.http.patch<Customer>(url, data, this.httpAuthOptions).pipe(
+    return this.http.patch<Customer>(url, data).pipe(
       tap(_ => this.logger.log('Account Updated')),
       catchError(this.handleError),
       )
@@ -93,7 +66,7 @@ export class RestService {
       url = this.baseUrl + `drugs/?no_pag=true`;
     }
 
-    return this.http.get<Drug[]>(url, this.httpAuthOptions).pipe(
+    return this.http.get<Drug[]>(url).pipe(
       tap(_ => this.logger.log('Getting All Drugs')),
       catchError(this.handleError),
       )
@@ -107,7 +80,7 @@ export class RestService {
     const code = this.auth.getCurrentUser()?.code;
     const url = this.baseUrl + `orders/${code}/`;
 
-    return this.http.post<Order>(url, order, this.httpAuthOptions).pipe(
+    return this.http.post<Order>(url, order).pipe(
         tap(_ => this.logger.log("Created a New Drug!")),
         catchError(this.handleError)
       );
@@ -117,7 +90,7 @@ export class RestService {
     const code = this.auth.getCurrentUser()?.code;
     const url = this.baseUrl + `orders/${code}/`;
 
-    return this.http.get<ListCustomerOrders>(url,{...this.fileAuthOptions, params: new HttpParams({fromObject: query_status})}).pipe(
+    return this.http.get<ListCustomerOrders>(url,{ params: new HttpParams({fromObject: query_status})}).pipe(
       tap(_ => this.logger.log("Getting List of Drugs")),
       catchError(this.handleError)
       )
@@ -126,7 +99,7 @@ export class RestService {
   editOrder(order: Order, id: number | undefined, code: string | undefined): Observable<any>{
     const url = this.baseUrl + `orders/${code}/${id}/`;
 
-    return this.http.put<any>(url, order,this.httpAuthOptions).pipe(
+    return this.http.put<any>(url, order).pipe(
       tap(_ => this.logger.log(`updating Order`)),
       catchError(this.handleError)
       )
@@ -135,7 +108,7 @@ export class RestService {
   deleteOrder(order: Order, id: number | undefined, code: string | undefined): Observable<any>{
     const url = this.baseUrl + `orders/${code}/${id}/`;
 
-    return this.http.delete<any>(url, this.httpAuthOptions).pipe(
+    return this.http.delete<any>(url).pipe(
       tap(_ => this.logger.log(`updating Order`)),
       catchError(this.handleError)
       )
@@ -144,7 +117,7 @@ export class RestService {
   getAllCustomer(page_number: string='1'): Observable<ListCustomers>{
     const url = this.baseUrl + `users/?page=${page_number}`;
 
-    return this.http.get<ListCustomers>(url, this.httpAuthOptions).pipe(
+    return this.http.get<ListCustomers>(url).pipe(
       tap(_ => this.logger.log('Getting All Customers')),
       catchError(this.handleError)
       )
@@ -153,7 +126,7 @@ export class RestService {
   importCustomers(data: FormData): Observable<any>{
     const url = this.baseUrl + 'users/';
 
-    return this.http.post<any>(url, data, this.fileAuthOptions).pipe(
+    return this.http.post<any>(url, data).pipe(
       tap(_ => this.logger.log('importing New Customers')),
       catchError(this.handleError)
       )
@@ -164,7 +137,7 @@ export class RestService {
       let url = this.baseUrl + `orders/all`
       
 
-      return this.http.get<ListCustomerOrders>(url, {...this.fileAuthOptions, params: new HttpParams({fromObject: query_params})}).pipe(
+      return this.http.get<ListCustomerOrders>(url, {params: new HttpParams({fromObject: query_params})}).pipe(
       tap(_ => this.logger.log('Getting All Orders')),
       catchError(this.handleError)
       )
@@ -175,14 +148,14 @@ export class RestService {
       let url = this.baseUrl + `orders/all/extract/`
       
 
-      return this.http.get(url, {...this.fileAuthOptions, params: new HttpParams({fromObject: query_params}), responseType: 'blob'}).pipe(
+      return this.http.get(url, { params: new HttpParams({fromObject: query_params}), responseType: 'blob'}).pipe(
       catchError(this.handleError)
       )
     }
   
     changeStatus(id: number | undefined, status: string="CO"): Observable<any>{
       const url = this.baseUrl + `orders/${id}/set-status/`;
-      return this.http.patch<any>(url,{status: status}, this.httpAuthOptions).pipe(
+      return this.http.patch<any>(url,{status: status}).pipe(
       tap(_ => this.logger.log('Changed Status')),
       catchError(this.handleError)
       )
@@ -190,20 +163,17 @@ export class RestService {
     
     changeBatchStatus(orders: Order[] ): Observable<any>{
       const url = this.baseUrl + `orders/set-status/batch`;
-      return this.http.patch<any>(url, orders, this.httpAuthOptions).pipe(
+      return this.http.patch<any>(url, orders).pipe(
       tap(_ => this.logger.log('Changed Status')),
       catchError(this.handleError)
       )
     }
 
-  // TODO: Enable refresh token, like for real
-  refreshToken(token: string): Observable<LoginData>{
-    const url = this.baseUrl + 'users/refresh/';
 
-    return this.http.post<LoginData>(url, {refresh: token}, this.httpAuthOptions).pipe(
-      tap(_ => this.logger.log("refresh Token")),
-      catchError(this.handleError),
-      )
+    refreshToken(token: string){
+    const url = "http://localhost:8000/refresh/";
+    return this.http.post(url, {refresh: token})
+  } 
 
-  }
+
 }
