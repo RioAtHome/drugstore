@@ -3,5 +3,8 @@ from .consumers import NotificationConsumer
 
 
 websocket_urlpatterns = [
-    re_path(r"ws/notification/", NotificationConsumer.as_asgi()),
+    re_path(r"ws/notification/$", NotificationConsumer.as_asgi()),
 ]
+
+
+# r'^ws/chat/(?P<room_name>[^/]+)/$'

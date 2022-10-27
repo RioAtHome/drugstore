@@ -16,11 +16,6 @@ def get_user(pk):
     return get_object_or_404(USER_MODEL, pk=pk)
 
 
-def verify_token(token):
-    token = verify_token(token)
-    return token.payload
-
-
 class JWTMiddleware:
     """
     This Middleware takes care of getting the token from the query parameter
