@@ -7,9 +7,9 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from './layout/layout.module';
 import { FeatureModule } from './feature/feature.module';
-import { HeaderInterceptor } from './core/intercepters/header.interceptor';
+import { HeaderInterceptor } from './core/interceptors/header.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { RefreshTokenInterceptor } from './core/intercepters/refresh-token.interceptor';
+import { RefreshTokenInterceptor } from './core/interceptors/refresh-token.interceptor';
 
 
 @NgModule({

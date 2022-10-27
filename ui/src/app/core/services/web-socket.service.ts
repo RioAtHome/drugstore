@@ -1,62 +1,40 @@
-import { Injectable } from '@angular/core';
-import { Observable, Observer } from 'rxjs';
-import { AnonymousSubject } from 'rxjs/internal/Subject';
-import { Subject } from 'rxjs/internal/Subject';
-import { map } from 'rxjs';
+import { Injectable, Optional, SkipSelf } from '@angular/core';
+import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
+import { switchAll, catchError, Subject} from 'rxjs';
 import { AuthService } from './auth.service';
+import { ServicesModule } from './services.module';
 
 
-const WS_URL = 'ws://localhost:8000';
-
-export interface Message {
-    source: string;
-    content: string;
-}
-
+const WS_URL = 'ws://localhost:8000/ws/notification/';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WebSocketService {
-  private subject?: AnonymousSubject<MessageEvent>;
-  public messages: Subject<Message>;
-  constructor(private auth: AuthService) {
-    this.messages = <Subject<Message>>this.connect(`WS_URL/?token=${this.auth.getAccessToken()}`).pipe(
-            map(
-                (response: MessageEvent): Message => {
-                    console.log(response.data);
-                    let data = JSON.parse(response.data)
-                    return data;
-                }
-            )
-        );
-  }
-  public connect(url: string): AnonymousSubject<MessageEvent> {
-        if (!this.subject) {
-            this.subject = this.create(url);
-            console.log("Successfully connected: " + url);
-        }
-        return this.subject;
+    private _socket : WebSocketSubject<any>;
+    private _messagesSubject = new Subject<any>();
+    messages = this._messagesSubject.pipe(switchAll(), catchError(err => {throw err}));
+    constructor(private auth: AuthService, @Optional() @SkipSelf() parentModule?: ServicesModule) {
+    if (parentModule){
+        throw new Error("ServicesModule is already loaded")
     }
+    console.info("WebSocket Service have been loaded!")
+    }
+    connect(){
+        if(!this._socket || this._socket.closed){
+            const token = this.auth.getAccessToken();
+            const url = WS_URL + `?token=${token}`;
+            this._socket = webSocket(url)
+        }
 
-    private create(url: string): AnonymousSubject<MessageEvent> {
-        let ws = new WebSocket(url);
-        let observable = new Observable((obs: Observer<MessageEvent>) => {
-            ws.onmessage = obs.next.bind(obs);
-            ws.onerror = obs.error.bind(obs);
-            ws.onclose = obs.complete.bind(obs);
-            return ws.close.bind(ws);
-        });
-        let observer = {
-            error: null,
-            complete: null,
-            next: (data: Object) => {
-                console.log('Message sent to websocket: ', data);
-                if (ws.readyState === WebSocket.OPEN) {
-                    ws.send(JSON.stringify(data));
-                }
-            }
-        };
-        return new AnonymousSubject<MessageEvent>(observer, observable);
+        return this._socket
+    }
+  updates() {
+    return this.connect().asObservable();
+  }
+
+
+    close(){
+        this.connect().complete();
     }
 }
