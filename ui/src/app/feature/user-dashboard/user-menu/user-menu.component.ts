@@ -18,7 +18,7 @@ export class UserMenuComponent implements OnInit, OnDestroy {
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string){
     this.subscription = this.dialog.open(ProfilePictureDialogComponent, {
-      width: '450px',
+      width: '300px',
       enterAnimationDuration,
       exitAnimationDuration,
       autoFocus: false,

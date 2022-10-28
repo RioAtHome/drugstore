@@ -11,12 +11,14 @@ export class FilterComponent implements OnInit {
   @Input() status: string[] = []
   @Output() detectFilters = new EventEmitter<any>();
   @Output() initalValues = new EventEmitter<any>();
+  @Input() pharmacyNames: string[] = [];
+  @Input() drugNames: string[] = []
 
   filterForm = new FormGroup({
     date: new FormControl(''),
     drugName : new FormControl(''),
     gtPrice: new FormControl('1', [Validators.min(1), Validators.max(100000)]),
-    ltPrice: new FormControl('99999', [Validators.min(1), Validators.max(100000)]),
+    ltPrice: new FormControl('9999', [Validators.min(1), Validators.max(100000)]),
     pharmacyName: new FormControl('')
   });
   constructor() { }
@@ -41,7 +43,12 @@ export class FilterComponent implements OnInit {
       if (filters[key] == ''){
         delete filters[key]
       }
+      if(typeof filters[key] === 'string' ||filters[key] instanceof String){
+        filters[key] = filters[key].toLowerCase()
+      }
+
     })
+    console.log(filters)
     return filters = {...filters, status: this.status}
 
   }

@@ -33,7 +33,7 @@ changeDisabled(): void {
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string){
     this.dialog.open(ProfilePictureDialogComponent, {
-      width: '450px',
+      width: '300px',
       enterAnimationDuration,
       exitAnimationDuration,
       autoFocus: false,

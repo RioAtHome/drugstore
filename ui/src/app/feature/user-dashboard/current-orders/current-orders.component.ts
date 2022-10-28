@@ -15,7 +15,7 @@ export class CurrentOrdersComponent implements OnInit, OnDestroy {
   isAdmin = false;
   status = ["PE"];
   getOrdersSubscription = new Subscription
-  @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   totalRows = 0;
   pageSize = 10;
   currentPage = 0;
@@ -32,10 +32,13 @@ export class CurrentOrdersComponent implements OnInit, OnDestroy {
     this.getOrdersSubscription = this.restClient.getCustomerOrders(status, page).subscribe(
       (res) =>{
             this.initResponse = res;
-            this.paginator.length = this.initResponse.count;
-            this.paginator.pageIndex = this.currentPage;
-
             this.currentOrders = this.initResponse.results;
+            if(this.paginator){
+              this.paginator.length = this.initResponse.count;
+              this.paginator.pageIndex = this.currentPage;
+            }
+            
+            
       },
       (err) => {}
       )
@@ -43,7 +46,6 @@ export class CurrentOrdersComponent implements OnInit, OnDestroy {
   }
 
   pageChanged(event: PageEvent){
-      this.pageSize = event.pageSize;
       this.currentPage = event.pageIndex;
       this.getAllOrders({status: this.status}, (this.currentPage).toString())
     }

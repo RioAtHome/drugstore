@@ -16,7 +16,7 @@ export class DrugsComponent implements OnInit {
   error: string = '';
   initalResponse?: ListDrugs;
 
-  @ViewChild(MatTable, {static: true}) paginator!: MatPaginator;
+  @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
   @ViewChild(MatTable, {static: true}) table: MatTable<any>;
   totalRows = 0;
   pageSize = 10;
@@ -38,11 +38,12 @@ export class DrugsComponent implements OnInit {
     }
    openDialog(enterAnimationDuration: string, exitAnimationDuration: string){
       const dialog = this.dialog.open(UploadFileDialogComponent, {
-        width: '450px',
+        width: '350px',
         enterAnimationDuration,
         exitAnimationDuration,
         autoFocus: false,
-        restoreFocus: false
+        restoreFocus: false,
+        data: { component: 'drugs' },
 
       })
     

@@ -14,7 +14,7 @@
 				{{drug.name}}
 			</td>
 			<td mat-footer-cell *matFooterCellDef>
-			Created At:{{order.created_at | stringToDate}}</td>
+			Order Created At: {{order.created_at | stringToDate}}</td>
 		</ng-container>
 		<ng-container matColumnDef='quantity'>
 			<th mat-header-cell *matHeaderCellDef>Quantity</th>
@@ -44,7 +44,7 @@
 					{{drug.total_drug_price}}$
 				</td>
 				<td mat-footer-cell *matFooterCellDef>
-				Order Price :{{order.total_price}}$</td>
+				Order Price : {{order.total_price}}$</td>
 
 		</ng-container>
 		<ng-container matColumnDef='actions'>

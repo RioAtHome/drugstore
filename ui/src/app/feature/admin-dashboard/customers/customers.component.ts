@@ -33,11 +33,12 @@ export class CustomersComponent implements OnInit {
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string){
       const dialog = this.dialog.open(UploadFileDialogComponent, {
-        width: '450px',
+        width: '350px',
         enterAnimationDuration,
         exitAnimationDuration,
         autoFocus: false,
-        restoreFocus: false
+        restoreFocus: false,
+        data: { component: 'customers' },
 
       })
     

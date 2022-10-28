@@ -6,13 +6,20 @@
 				/Pharmacy Profile <span class='active-text'>/ Archived Orders</span>
 			</span>
 		</div>
+<div *ngIf='archivedOrders.length; else NoResult'>
 <div ngClass='tables-container' ngClass.lt-md='tables-container-lt-md' ngClass.lt-lg='tables-container-lt-lg'>
 <app-order-table [editable]="editable" [orders]='archivedOrders' [isAdmin]='isAdmin'></app-order-table>
 </div>
-<mat-paginator 
+
+</div>
+</div>
+<ng-template #NoResult>
+		<app-no-results></app-no-results>
+</ng-template>
+<mat-paginator fxShow='archivedOrders.length > 0 '
 		(page) = "pageChanged($event)"
 		[length] ="totalRows"
 		[pageSize]="pageSize"
-		[pageIndex]="currentPage">
+		[pageIndex]="currentPage"
+		>
 	</mat-paginator>
-</div>

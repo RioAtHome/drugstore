@@ -1,6 +1,6 @@
 <div ngClass='main-container' ngClass.lt-lg='main-container-lt-md' fxLayout='column' fxLayoutAlign='center center'>
 
-	<span><h1>Please Submit a File !</h1></span>
+	<span><h1>Submit a File!</h1></span>
 
 	<div>
 		<form [formGroup]='fileForm' (ngSubmit)='onSubmit()' novalidate fxLayout=column fxLayoutAlign='center center' fxLayoutGap=10px>
@@ -8,7 +8,7 @@
 
 			<label mat-label for="file">Upload a file!</label>
 			<input type='file' id='fileInput' #file (change)="onFileChange($event)" fromControlName='file' hidden>
-			<button type="button" mat-raised-button (click)="file.click()">Choose File</button>
+			<button type="button" mat-raised-button (click)="file.click()" ngClass='file-button'>Choose File</button>
 			<span>{{fileName}}</span>
 
 
@@ -22,8 +22,8 @@
 			<mat-progress-bar *ngIf='startProgress'  mode="indeterminate"></mat-progress-bar>
 
 			<div fxLayoutGap=20px>
-				<button mat-raised-button type="submit" [disabled]="!fileForm.valid">Import</button>
-				<button mat-raised-button (click)="onCancel()" type='button'>Cancel</button>
+				<button mat-raised-button type="submit" [disabled]="!fileForm.valid" ngClass='save-button'>Import</button>
+				<button mat-raised-button (click)="onCancel()" type='button' ngClass='cancel-button'>Cancel</button>
 			</div>
 		</form>	
 	</div>

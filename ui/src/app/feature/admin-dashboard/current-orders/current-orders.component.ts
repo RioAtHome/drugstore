@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatTable } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { RestService } from 'src/app/core/services/rest.service';
 import { ListCustomerOrders, Order, PharmacyOrders } from 'src/app/shared/models';
@@ -17,11 +16,11 @@ export class CurrentOrdersComponent implements OnInit, OnDestroy {
   getOrdersSubscription = new Subscription;
   activeOrders: PharmacyOrders[] = [];
   status = ["PE"];
-  @ViewChild(MatTable, {static: true}) paginator!: MatPaginator;
+  @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
   error: string = '';
   totalRows = 0;
-  pageSize = 10;
   currentPage = 0;
+  pageSize = 10;
   allPharmacyNames = new Set<string>();
   AllOrders: Order[] = [];
   rawFilters?: any;
@@ -54,11 +53,11 @@ export class CurrentOrdersComponent implements OnInit, OnDestroy {
     })
 
     
-    this.allPharmacyNames.forEach((name) => {
+    this.allPharmacyNames.forEach((username) => {
       data.forEach((order) => {
-        if(order.username === name){
+        if(order.username === username){
           let index = newData.findIndex(object => {
-              return object.pharmacy_name === name;})
+              return object.pharmacy_name === username;})
           newData[index].orders.push(order)
       }})
     })
@@ -96,28 +95,29 @@ export class CurrentOrdersComponent implements OnInit, OnDestroy {
     return newData;
   }
 
-  pageChanged(event: PageEvent){
-      this.pageSize = event.pageSize;
-      this.currentPage = event.pageIndex;
-      this.getAllOrders({...this.rawFilters, page:(this.currentPage + 1).toString(), status: this.status})
-    }
 
   getAllOrders(params: string[] | any){
     this.getOrdersSubscription = this.restClient.getAllOrders(params).subscribe(
       (res) => {
         this.intialResponse = res
-        
+        this.paginator.length = res.count;
         this.AllOrders = this.intialResponse.results;
-
+        console.log("Inital Orders -->", this.AllOrders)
         const newData = this.filterTotalPrice(this.AllOrders);
-        this.totalRows = newData.length
+        console.log("After Filtering on price -->", newData)
+        
         const orders = this.cleanData(newData);
-            
+        console.log("Cleaning Data", orders)      
         this.activeOrders = orders;
       },
       (err) => {this.error = err}
       )
   }
+
+    pageChanged(event: PageEvent){
+      this.currentPage = event.pageIndex;
+      this.getAllOrders({...this.rawFilters, page:(this.currentPage + 1).toString(), status: this.status})
+    }
 
   ngOnDestroy(){
     if(this.extractSubscription){

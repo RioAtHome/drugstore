@@ -2,9 +2,6 @@
 	color: var(--blue);
 }
 
-app-orders-view  {
-	width: 800px;
-}
 
 .tables-container{
 	display: block;
@@ -14,10 +11,11 @@ app-orders-view  {
 
 }
 .tables-container-lt-md {
-	display: block;
+
     overflow-x: auto;
 	white-space: nowrap;
-	width: 100vw;
+	margin-left: 20px;
+	width: 90vw;
 }
 
 .tables-container-lt-lg {

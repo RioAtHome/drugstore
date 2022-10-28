@@ -37,7 +37,7 @@ export class NavbarComponent implements OnInit {
     this.router.navigateByUrl(route).then(()=> {
     const element = document.querySelector(section);
     if (element){
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      element.scrollIntoView();
     }
     });
     

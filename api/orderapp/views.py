@@ -35,17 +35,17 @@ class AbstractView(GenericAPIView):
 class ListCreateOrder(AbstractView, ListCreateAPIView):
     def get_pharmacy(self):
         code = self.request.resolver_match.kwargs.get("code")
-        pharmacy = get_object_or_404(User, code=code)
+        pharmacy = User.objects.get(code=code)
         return pharmacy
 
     def filter_queryset(self, queryset):
         pharmacy = self.get_pharmacy()
-        if pharmacy != self.request.user or not self.request.user.is_staff:
-            return Response({"message": "cannot get another pharmacy orders"})
         queryset = queryset.filter(user=pharmacy)
         status = self.request.query_params.getlist("status")
+
         if status:
             queryset = queryset.filter(status__in=status)
+
         return queryset
 
     def create(self, request, *args, **kwargs):

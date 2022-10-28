@@ -1,27 +1,25 @@
 
 <form fxLayout='row'  fxLayoutGap='10px' fxLayoutAlign='start center' [formGroup]='addDrugForm'  autocomplete="off" (ngSubmit)="onAdd()">
-	<div fxLayout='row'  fxFlexAlign='center'>
+	<div fxLayout='row'  fxFlexAlign='center' ngClass.lt-md = "form">
 		<div fxLayout='row' fxLayoutGap='10px'>
 			<div>
 				<!-- TODO: BUG: focus out doesnt remove list, also if you put focusout, the click doesnt register! -->
 				<mat-form-field appearance='fill' [ngStyle]="{'width': '210px'}">
 					<mat-label>Search</mat-label>
 					<mat-icon matSuffix>search icon</mat-icon>
-					<input matInput [(ngModel)]=searchText 
-					formControlName='searchTextController' (focus)='FocusOnSearch()'> 
-				</mat-form-field>
-				<mat-card  *ngIf='show' ngClass='mat-card-search'>
-					<mat-selection-list fxLayout='column' #drugs>
-						<button mat-button fxLayout='row' (click)='onClickSearch($event, drug)' type="button"  *ngFor='let drug of availableDrugs | search: searchText | slice:0:3 '>
-							<span [ngStyle]="{'float': 'left'}">
-								{{drug.name}}
+					<input matInput  
+					formControlName='searchTextController' [matAutocomplete]="auto">
+					<mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+					      <mat-option *ngFor="let option of filteredOptions | async" [value]="option" fxLayout='row' fxLayoutAlign='space-between center'>
+					        <span [ngStyle]="{'float': 'left'}">
+								{{option.name}}
 							</span>
 							<span [ngStyle]="{'float': 'right'}">
-								{{drug.drug_price}}$
+								{{option.drug_price}}$
 							</span>
-						</button>
-					</mat-selection-list>
-				</mat-card>
+					      </mat-option>
+    				</mat-autocomplete> 
+				</mat-form-field>
 			</div>
 			<mat-form-field appearance='fill' [ngStyle]="{'width': '110px'}">
 				<mat-label>Quantity</mat-label>
@@ -75,7 +73,6 @@
 		<ng-container matColumnDef=total_price>
 			<th mat-header-cell *matHeaderCellDef>Total Price</th>
 			<td mat-cell *matCellDef='let order'>
-				{{console.log(order)}}
 				{{order.total_drug_price? order.total_drug_price: order.total_price | number}}$
 			</td>
 			<td mat-footer-cell *matFooterCellDef colspan="2">

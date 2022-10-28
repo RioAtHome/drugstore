@@ -72,9 +72,16 @@ export class RestService {
       )
   }
 
-  importDrugs(){
+  importDrugs(data: FormData): Observable<any>{
+    const url = this.baseUrl + 'drugs/';
 
+    return this.http.post<any>(url, data).pipe(
+      tap(_ => this.logger.log('importing New Drugs')),
+      catchError(this.handleError)
+      )
   }
+
+
 
   createNewOrder(order: Order): Observable<Order> {
     const code = this.auth.getCurrentUser()?.code;

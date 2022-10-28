@@ -19,14 +19,14 @@ export class ArchivedOrdersComponent implements OnDestroy, OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
   totalRows = 0;
   pageSize = 10;
-  currentPage = 1;
+  currentPage = 0;
 
   error: string = '';
   initResponse?: ListCustomerOrders;
   constructor(private restClient: RestService) { }
 
   ngOnInit(): void {
-    this.getAllOrders({status: this.status}, (this.currentPage).toString())
+    this.getAllOrders({status: this.status}, (this.currentPage + 1).toString())
   }
 
   getAllOrders(status: any, page: string){
@@ -34,8 +34,10 @@ export class ArchivedOrdersComponent implements OnDestroy, OnInit {
     this.getOrdersSubscription = this.restClient.getCustomerOrders(status, page).subscribe(
       (res) =>{
         this.initResponse = res;
-            this.paginator.length = this.initResponse.count
+            if(this.paginator){
+              this.paginator.length = this.initResponse.count
             this.paginator.pageIndex = this.currentPage;
+            }
             this.archivedOrders = this.initResponse.results;
       },
       (err) =>{}
@@ -43,7 +45,6 @@ export class ArchivedOrdersComponent implements OnDestroy, OnInit {
   }
 
   pageChanged(event: PageEvent){
-      this.pageSize = event.pageSize;
       this.currentPage = event.pageIndex;
       this.getAllOrders({status: this.status}, (this.currentPage).toString())
     }

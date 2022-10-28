@@ -77,5 +77,14 @@ export interface ListCustomers extends Omit<ListCustomerOrders, 'results'> {
 }
 
 
+export interface Notification{
+	id: number
+	username: string
+	user: string
+	payload:string
+	seen: boolean
+	created_at: string | Date
+}
+
 
 

@@ -38,11 +38,9 @@
 		</div>
 	</div>
 	<div fxLayout='column' fxLayoutGap='10px'>
-		<span><h1>Create Your Order Now</h1></span>
+		<span [ngStyle]="{'padding-left': '10px'}"><h1>Create Your Order Now</h1></span>
 		<div fxLayout='column' fxLayoutGap='10px'>
-			<div>
-				<app-order-form></app-order-form>
-			</div>
+				<app-order-form fxFlexAlign.lt-md='center'></app-order-form>
 		</div>
 	</div>
 </div>

@@ -4,7 +4,7 @@ from .serializers import NotificationSerializer
 from django.db.utils import IntegrityError
 from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
-
+from django.db import IntegrityError
 
 class NotificationConsumer(AsyncWebsocketConsumer):
     @database_sync_to_async
@@ -21,8 +21,10 @@ class NotificationConsumer(AsyncWebsocketConsumer):
 
     @database_sync_to_async
     def set_user_online(self, user):
-        Online.objects.create(user=user)
-
+        try:
+            Online.objects.create(user=user)
+        except IntegrityError:
+            pass
     @database_sync_to_async
     def latest_notfication(self, user):
         notification = Notification.objects.filter(user=user)[:10]

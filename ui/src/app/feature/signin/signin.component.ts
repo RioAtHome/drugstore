@@ -28,13 +28,16 @@ export class SigninComponent implements OnInit, OnDestroy {
     const { code, password } = this.signinForm.getRawValue();
     
     this.loginRequest = this.restClient.signIn(code, password).subscribe(
-      res => {
+      (res) => {
         this.auth.setCurrentUser(res.pharmacy);
         this.auth.setAccessToken(res?.access || "");
         this.auth.setRefreshToken(res.refresh || "");
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl('');
       },
-      err => this.error = err,
+      (err) => {
+        console.log(err)
+        this.error = err;
+      },
       )
   }
 

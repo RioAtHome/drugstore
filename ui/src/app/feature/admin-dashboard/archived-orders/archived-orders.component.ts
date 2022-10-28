@@ -23,7 +23,7 @@ export class ArchivedOrdersComponent implements OnInit, OnDestroy {
   editable: boolean = false;
   isAdmin: boolean = true;
   status = ['CO', 'CA', 'RE'];
-  @ViewChild(MatTable, {static: true}) paginator!: MatPaginator;
+  @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
   error: string = '';
   totalRows = 0;
   pageSize = 10;
@@ -101,7 +101,6 @@ export class ArchivedOrdersComponent implements OnInit, OnDestroy {
   }
 
   pageChanged(event: PageEvent){
-      this.pageSize = event.pageSize;
       this.currentPage = event.pageIndex;
       this.getAllOrders({...this.rawFilters, page:(this.currentPage + 1).toString(), status: this.status})
     }
@@ -110,7 +109,7 @@ export class ArchivedOrdersComponent implements OnInit, OnDestroy {
     this.getOrdersSubscription = this.restClient.getAllOrders(params).subscribe(
       (res) => {
         this.intialResponse = res
-        
+        this.paginator.length = res.count;
         this.AllOrders = this.intialResponse.results;
 
         const newData = this.filterTotalPrice(this.AllOrders);

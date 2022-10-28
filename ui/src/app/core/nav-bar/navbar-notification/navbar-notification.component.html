@@ -1,21 +1,20 @@
 <button mat-icon-button [matMenuTriggerFor]="notificationMenu">
-			<mat-icon fontIcon="notifications" matBadge="3 "matBadgeColor="warn" class='text_on_background'></mat-icon>
+			<mat-icon fontIcon="notifications" [matBadge]="unSeenMessages" [matBadgeHidden]='unSeenMessages <= 0 ' matBadgeColor="warn" class='text_on_background'></mat-icon>
 		</button>
-		<mat-menu #notificationMenu='matMenu'>
-			<mat-list >
-				<div mat-menu-item fxLayout='row' fxLayoutAlign="space-between center">
-					<span> Notification 1 and others things </span>
-					<mat-icon color="accent">new_releases</mat-icon>
+		<mat-menu #notificationMenu='matMenu' (closed) = "setAllSeen()">
+			<mat-list>
+				<span mat-menu-item *ngIf='messages.length <= 0; else Show'>
+					No Notifications ¯\(ツ)/¯
+				</span>
+				<ng-template #Show>
+				<div mat-menu-item fxLayout='row' fxLayoutAlign="space-between center" *ngFor='let notification of messages| slice:0:4' fxLayoutGap='3px'>
+					<span>Order {{notification.payload}} have some updates!</span>
+	
+					<mat-icon color="warn" fxFlex='start' 
+					*ngIf="notification.seen === false">new_releases</mat-icon>
+					<h5>{{timePassed(notification.created_at)}}</h5>
 				</div>
-				<mat-divider></mat-divider>
-				<div mat-menu-item fxLayout='row' fxLayoutAlign="space-between center">
-					<span> Notification 2 </span>
-					<mat-icon color="accent">new_releases</mat-icon>
-				</div>
-				<mat-divider></mat-divider>
-				<div mat-menu-item>
-					<span> does this even work??</span>
-				</div>
+			</ng-template>
 			</mat-list>
 
 		</mat-menu>

@@ -18,7 +18,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { CdkTableModule } from '@angular/cdk/table'; 
-
+import {MatAutocompleteModule} from '@angular/material/autocomplete'; 
 @NgModule({
   declarations: [],
   imports: [
@@ -43,6 +43,7 @@ import { CdkTableModule } from '@angular/cdk/table';
   MatCheckboxModule,
   MatDialogModule,
   MatProgressBarModule,
+  MatAutocompleteModule,
   ]
 })
 export class MaterialModule { }

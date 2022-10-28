@@ -1,5 +1,8 @@
-.notification-container{
-	display: block;
-	white-space: nowrap;
-	overflow-y: auto;
+mat-menu {
+	margin: 0px !important;
+	padding: 0px !important;
+}
+mat-list {
+	margin: 0px !important;
+	padding: 0px !important;
 }

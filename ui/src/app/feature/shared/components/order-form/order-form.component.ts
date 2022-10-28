@@ -7,6 +7,7 @@ import { RestService } from 'src/app/core/services/rest.service';
 import { Drug, ListDrugs, Order, OrderedDrug } from 'src/app/shared/models';
 import { MatSelectionList } from '@angular/material/list';
 import { OrderStatusDialogComponent } from '../order-status-dialog/order-status-dialog.component';
+import { map, Observable, startWith } from 'rxjs';
 
 @Component({
   selector: 'app-order-form',
@@ -16,15 +17,10 @@ import { OrderStatusDialogComponent } from '../order-status-dialog/order-status-
 export class OrderFormComponent implements OnInit {
   @Input() asDialog = false;
   @Output() clickCancelled = new EventEmitter<boolean>;
-   displayedColumns = ['id', 'drug_name', 'quantity', 'expiration_date','price_per_unit', 'total_price', 'actions'];
+  displayedColumns = ['id', 'drug_name', 'quantity', 'expiration_date','price_per_unit', 'total_price', 'actions'];
   footerDisplayColumns = ['id', 'total_price']
-  availableDrugs: Drug[] = [];
   availableDrugsNames: string[] = [];
   error: string = '';
-  console = console;
-  searchText = '';
-  show: boolean = false;
-  searchInput: string = '';
   addDrugForm: FormGroup = new FormGroup({
     searchTextController: new FormControl('' ,Validators.required),
     quantityController: new FormControl('', Validators.required)
@@ -34,20 +30,33 @@ export class OrderFormComponent implements OnInit {
   
   initResponse?: ListDrugs
   @ViewChild(MatTable,{static:true}) table: MatTable<any>;
-  @ViewChild("drugs") drugsCard: MatSelectionList;
+
+  availableDrugs: Drug[] = [];
+  filteredOptions: Observable<Drug[]>;
   constructor(public dialog: MatDialog, private restClient: RestService, private auth: AuthService) { }
 
   ngOnInit(): void {
     this.getDrugs();
     this.orderData.data = this.order?.ordered_drugs || []
-
+    this.filteredOptions = this.addDrugForm.controls['searchTextController'].valueChanges.pipe(
+      startWith(''),
+      map((value) => {
+        const name = typeof value === 'string' ? value : value?.name;
+        return name ? this._filter(name as string) : this.availableDrugs.slice();
+      })
+      )
     
   }
+  private _filter(name: string): Drug[] {
+    const filterValue = name.toLowerCase();
 
-  FocusOnSearch(){
-    this.show = !this.show
-    this.drugsCard?.focus();
+    return this.availableDrugs.filter(option => option.name.toLowerCase().includes(filterValue));
   }
+
+  displayFn(user: Drug): string {
+    return user && user.name ? user.name : '';
+  }
+
   totalPrice(): number{
     return this.orderData.data.reduce((acc: any, obj: any)=> {
       if(obj.total_price){
@@ -64,15 +73,9 @@ export class OrderFormComponent implements OnInit {
     this.restClient.getAllDrugs(true).subscribe(
       (res) => {
         this.availableDrugs = res;
-
         this.availableDrugsNames = this.availableDrugs.map(({name})=> name); 
       },
       (err) => this.error = err);
-  }
-
-  onClickSearch(event: any, drug: Drug): void {
-    this.addDrugForm.controls['searchTextController'].setValue(drug.name);
-    this.show = false;
   }
 
   pricePerDrug(price: string ='1' , quantity: number = 0): number {
@@ -84,11 +87,11 @@ export class OrderFormComponent implements OnInit {
     this.error = '';
 
     const { searchTextController, quantityController } = this.addDrugForm.getRawValue();
-    
-    const { quantity, ...drug }: Drug = this.availableDrugs.find(drug => drug.name === searchTextController) || this.availableDrugs[0];
-    
-    if (!this.availableDrugsNames.includes(searchTextController)){
-      this.error = `${searchTextController} is not available at this moment`;
+
+    const { quantity, ...drug }: Drug = this.availableDrugs.find(drug => drug.name === searchTextController.name) || this.availableDrugs[0];
+    console.log(quantity, drug)
+    if (!this.availableDrugsNames.includes(searchTextController.name)){
+      this.error = `${searchTextController.name} is not available at this moment`;
       return;
     }
     if( quantityController > quantity || quantityController <= 0){
@@ -102,8 +105,7 @@ export class OrderFormComponent implements OnInit {
 
     const total_price = this.pricePerDrug(drug.drug_price, quantityController);
     const acceptedDrug: OrderedDrug  = {...drug, origindrug: drug.id, total_price:total_price, quantity: quantityController}; 
-    console.log(acceptedDrug)
-    const isInserted = this.orderData.data.find((obj:any) => obj.id == acceptedDrug.id);
+    const isInserted = this.orderData.data.find((obj:any) => obj.name == acceptedDrug.name);
     
     if(isInserted){
       this.error = `Drug:${acceptedDrug.name} is already inserted!.`
@@ -127,7 +129,7 @@ export class OrderFormComponent implements OnInit {
 
   openDialog(icon: string, order_status: string, enterAnimationDuration: string, exitAnimationDuration: string){
     this.dialog.open(OrderStatusDialogComponent, {
-      width: '600px',
+      width: '400px',
       data: {icon: icon, order_status: order_status},
       enterAnimationDuration,
       exitAnimationDuration,
@@ -140,6 +142,7 @@ export class OrderFormComponent implements OnInit {
       }
     }))
   }
+
 
   onSave(){
     if(this.asDialog){

@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { RestService } from 'src/app/core/services/rest.service';
 import { ExtensionValidator } from '../../directive/extension-validator.directive';
 
@@ -23,7 +23,7 @@ export class UploadFileDialogComponent implements OnInit {
   fileName: string = '';
   formData = new FormData();
   
-  constructor(public dialogRef: MatDialogRef<UploadFileDialogComponent>, private restClient: RestService) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: {component: string}, public dialogRef: MatDialogRef<UploadFileDialogComponent>, private restClient: RestService) { }
 
 ngOnInit(): void {
   }
@@ -36,7 +36,11 @@ ngOnInit(): void {
     this.error = '';
     this.startProgress = true;
     this.fileForm.disable
-    this.importCustomers(this.formData);
+    if(this.data.component === 'customer'){
+      this.importCustomers(this.formData);
+      return
+    }
+    this.importDrugs(this.formData);
   }
 
   onFileChange(event: any){
@@ -67,6 +71,13 @@ ngOnInit(): void {
         })
     }
 
-    uploadPhoto(){}  
+    importDrugs(data: FormData){
+      this.restClient.importDrugs(data).subscribe(
+        (res) => {this.dialogRef.close(true)}, (err) => {
+          this.fileForm.enable;
+          this.startProgress = false;
+          this.console.log(err)
+        })
+    }
 
 }

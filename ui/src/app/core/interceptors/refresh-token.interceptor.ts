@@ -24,7 +24,7 @@ export class RefreshTokenInterceptor implements HttpInterceptor {
         if(!IGNORE_ENDPOINTS.includes(error.url as string) && error.status === 401){
           return this.refreshToken(request, next);
         }
-        return throwError(() => next.handle(request))
+        return next.handle(request)
     }));
   }
 
