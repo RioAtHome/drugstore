@@ -9,7 +9,7 @@ class OrderFilter(filters.FilterSet):
         ("RE", "Rejected"),
         ("CA", "Canceled"),)
     )
-    pharmacyName = filters.CharFilter(field_name='user__name')
+    pharmacyName = filters.CharFilter(field_name='user__code', lookup_expr='iexact')
     class Meta:
         model = Order
         fields = ('user',)

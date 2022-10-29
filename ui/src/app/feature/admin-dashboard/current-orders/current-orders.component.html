@@ -14,6 +14,7 @@
 		<div *ngFor='let pharmacy of activeOrders'>
 		<h3>{{pharmacy.pharmacy_name}}</h3>
 		<div  ngClass='tables-container' ngClass.lt-md='tables-container-lt-lg'>
+			{{console.log(pharmacy)}}
 		<app-order-table [editable]="editable" [orders]="pharmacy.orders" [isAdmin]="isAdmin" ></app-order-table>
 		</div>
 	</div>

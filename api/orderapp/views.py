@@ -20,9 +20,6 @@ from .filters import OrderFilter
 from drug_app.serializers import DrugSerializer
 
 
-# Create your views here.
-
-
 class AbstractView(GenericAPIView):
     serializer_class = OrderSerializer
     queryset = Order.objects.all()
@@ -56,23 +53,7 @@ class ListCreateOrder(AbstractView, ListCreateAPIView):
 
 
 class ListOrders(AbstractView, ListAPIView):
-
-    # def get_queryset(self):
-    #     status = self.request.query_params.getlist("status")
-        
-    #     filters = self.request.query_params.dict()
-    #     if filters.get('no_pag', False) == 'true':
-    #         self.pagination_class = None
-    #         filters.pop('no_pag')
-    #     if not status:
-    #         status = ['PE']
-    #     return self.queryset.filter(**filters, status__in=status)
-
-
-    def list(self, request, *args, **kwargs):
-        # if not request.user.is_staff:
-        #     return Response({"message": "admin only can get all orders"})
-        return super().list(request, *args, **kwargs)
+    pass
 
 
 class ExtractOrders(ListOrders):

@@ -19,7 +19,6 @@ export class OrderFormComponent implements OnInit {
   @Output() clickCancelled = new EventEmitter<boolean>;
   displayedColumns = ['id', 'drug_name', 'quantity', 'expiration_date','price_per_unit', 'total_price', 'actions'];
   footerDisplayColumns = ['id', 'total_price']
-  availableDrugsNames: string[] = [];
   error: string = '';
   addDrugForm: FormGroup = new FormGroup({
     searchTextController: new FormControl('' ,Validators.required),
@@ -30,7 +29,7 @@ export class OrderFormComponent implements OnInit {
   
   initResponse?: ListDrugs
   @ViewChild(MatTable,{static:true}) table: MatTable<any>;
-
+  availableDrugsNames: string[] = [];
   availableDrugs: Drug[] = [];
   filteredOptions: Observable<Drug[]>;
   constructor(public dialog: MatDialog, private restClient: RestService, private auth: AuthService) { }
@@ -53,8 +52,8 @@ export class OrderFormComponent implements OnInit {
     return this.availableDrugs.filter(option => option.name.toLowerCase().includes(filterValue));
   }
 
-  displayFn(user: Drug): string {
-    return user && user.name ? user.name : '';
+  displayFn(drug: Drug): string {
+    return drug && drug.name ? drug.name : '';
   }
 
   totalPrice(): number{
@@ -89,7 +88,6 @@ export class OrderFormComponent implements OnInit {
     const { searchTextController, quantityController } = this.addDrugForm.getRawValue();
 
     const { quantity, ...drug }: Drug = this.availableDrugs.find(drug => drug.name === searchTextController.name) || this.availableDrugs[0];
-    console.log(quantity, drug)
     if (!this.availableDrugsNames.includes(searchTextController.name)){
       this.error = `${searchTextController.name} is not available at this moment`;
       return;

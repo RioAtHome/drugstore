@@ -12,6 +12,7 @@ import { ListCustomerOrders, Order, PharmacyOrders } from 'src/app/shared/models
 export class CurrentOrdersComponent implements OnInit, OnDestroy {
   editable: boolean = true;
   isAdmin: boolean = true;
+  console = console
   extractSubscription = new Subscription;
   getOrdersSubscription = new Subscription;
   activeOrders: PharmacyOrders[] = [];
@@ -24,6 +25,8 @@ export class CurrentOrdersComponent implements OnInit, OnDestroy {
   allPharmacyNames = new Set<string>();
   AllOrders: Order[] = [];
   rawFilters?: any;
+  priceFilters: any;
+  apiFilters: any;
   intialResponse?: ListCustomerOrders;
   constructor(private restClient: RestService) { }
 
@@ -38,8 +41,12 @@ export class CurrentOrdersComponent implements OnInit, OnDestroy {
   }
 
   onFilterChanges(event: any){
-    this.rawFilters = event;
-    this.getAllOrders(this.rawFilters)
+    console.log(event)
+    const {ltPrice, gtPrice, ...rest} = event;
+    this.apiFilters = rest;
+    this.priceFilters = {ltPrice: ltPrice, gtPrice: gtPrice}
+    console.log("rest--?", rest);
+    this.getAllOrders(rest)
   }
 
  
@@ -81,12 +88,12 @@ export class CurrentOrdersComponent implements OnInit, OnDestroy {
 
   filterTotalPrice(data: Order[]): Order[]{
     let newData: Order[] = []
-    if(!this.rawFilters.gtPrice || !this.rawFilters.ltPrice){
+    if(!this.priceFilters?.gtPrice || !this.priceFilters?.ltPrice){
       return data
     }
     
-    const min = this.rawFilters?.gtPrice;
-    const max = this.rawFilters?.ltPrice;
+    const min = this.priceFilters?.gtPrice;
+    const max = this.priceFilters?.ltPrice;
     data.forEach((element)=> {
       if((element.total_price ?? 1) >= min && (element.total_price ?? 1) < max){
         newData.push(element);
@@ -97,6 +104,7 @@ export class CurrentOrdersComponent implements OnInit, OnDestroy {
 
 
   getAllOrders(params: string[] | any){
+    console.log(params)
     this.getOrdersSubscription = this.restClient.getAllOrders(params).subscribe(
       (res) => {
         this.intialResponse = res
