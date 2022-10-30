@@ -1,0 +1,24 @@
+
+.icon{
+	transform: scale(5);
+}
+.icon-color {
+	color: var(--blue);
+}
+
+.icon-red-color {
+	color: red;
+}
+.icon-container {
+	width: 200px;
+	height: 200px;
+}
+
+
+.ok-button {
+  border-radius: 20px;
+  background-color: var(--blue) !important;
+  color: white;
+ 
+
+}

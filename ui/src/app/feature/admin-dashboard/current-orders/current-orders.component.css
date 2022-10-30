@@ -1,0 +1,42 @@
+.main-container-lt-md {
+	padding: 1rem;
+}
+
+
+.main-container {
+	padding: 4rem;
+}
+
+
+.tables-container-lt-lg {
+	display: block;
+    overflow-x: auto;
+	white-space: nowrap;
+	width: 90vw;
+}
+
+
+.export-button {
+  border-radius: 20px;
+  background-color: var(--blue) !important;
+  color: white;
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+}
+
+.underline {
+  text-decoration: underline;
+  text-decoration-color : green;
+  text-decoration-thickness: 4px;
+}
+
+.form-container {
+	width: 70%;
+}
+
+.h2-pharmacy-name{
+  color : var(--blue);
+  margin: 15px;
+
+}

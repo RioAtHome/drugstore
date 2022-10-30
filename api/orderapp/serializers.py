@@ -45,14 +45,14 @@ class OrderedDrugSerialilzer(serializers.ModelSerializer):
 
 
 class OrderSerializer(serializers.ModelSerializer):
-
     ordered_drugs = OrderedDrugSerialilzer(many=True)
-    user = serializers.CharField(source='user.name')
+    username = serializers.CharField(source='user.name', read_only=True)
     class Meta:
         model = Order
         fields = (
             "id",
             "status",
+            "username",
             "user",
             "description",
             "updated_at",
@@ -60,8 +60,7 @@ class OrderSerializer(serializers.ModelSerializer):
             "ordered_drugs",
             "total_price"
         )
-        read_only_fields = ("status", "username", "created_at", "updated_at", "total_price", "id")
-
+        read_only_fields = ("status", "created_at", "updated_at", "total_price", "id")
 
     def create_ordered_drugs(self, ordered_drugs: dict, order):
         for ordered_drug in ordered_drugs:

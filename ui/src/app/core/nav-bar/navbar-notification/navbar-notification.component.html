@@ -1,0 +1,20 @@
+<button mat-icon-button [matMenuTriggerFor]="notificationMenu">
+			<mat-icon fontIcon="notifications" [matBadge]="unSeenMessages" [matBadgeHidden]='unSeenMessages <= 0 ' matBadgeColor="warn" class='text_on_background'></mat-icon>
+		</button>
+		<mat-menu #notificationMenu='matMenu' (closed) = "setAllSeen()">
+			<mat-list>
+				<span mat-menu-item *ngIf='messages.length <= 0; else Show'>
+					No Notifications ¯\(ツ)/¯
+				</span>
+				<ng-template #Show>
+				<div mat-menu-item fxLayout='row' fxLayoutAlign="space-between center" *ngFor='let notification of messages| slice:0:4' fxLayoutGap='3px'>
+					<span>Order {{notification.payload}} have some updates!</span>
+	
+					<mat-icon color="warn" fxFlex='start' 
+					*ngIf="notification.seen === false">new_releases</mat-icon>
+					<h5>{{timePassed(notification.created_at)}}</h5>
+				</div>
+			</ng-template>
+			</mat-list>
+
+		</mat-menu>

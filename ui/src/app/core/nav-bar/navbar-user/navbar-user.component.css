@@ -1,0 +1,15 @@
+.mat-divider.mat-divider-inset.toolbar-divider {
+  margin-left: 8px;
+}
+
+.rounded-button {
+  border-radius: 20px;
+}
+
+.blue-button {
+  background-color: var(--blue) !important;
+}
+
+.green-button {
+  background-color: var(--green) !important;;
+}

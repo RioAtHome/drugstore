@@ -3,7 +3,7 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save, pre_save
 from notification.utils import create_notfication
 from django.core.exceptions import ValidationError
-
+from user.models import User
 
 @receiver(pre_save, sender=Order)
 def cant_edit_cancelled(sender, instance, *args, **kwargs):
@@ -26,8 +26,17 @@ def rollback_quantity(sender, instance, *args, **kwargs):
 def send_notification(sender, instance, *args, **kwargs):
     data = {
         "user": instance.user,
-        "payload": f"Order with ID {instance.id} have some updates!",
+        "payload": f"{instance.id}",
     }
+
+    admins = User.objects.filter(is_staff=True)
+    for admin in admins:
+        admin_notification = {
+        "user": admin,
+        "payload": f"{instance.id}",
+        }
+        create_notfication(admin_notification)
+
     create_notfication(data)
 
 

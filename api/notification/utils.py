@@ -16,20 +16,10 @@ def create_notfication(data):
         serializer.save()
 
 
-def create_token(payload):
-    load = {
-        "exp": settings.SIMPLE_JWT['ACCESS_TOKEN_LIFETIME'],
-        "iat": datetime.datetime.utcnow(),}
-
-    load = {**payload, **load}
-    token = jwt.encode(payload, settings.SECRET_KEY, algorithm="HS256")
-
-    return token
-
-
 def verify_token(token):
+    print(token)
     try:
-        payload = jwt.decode(token, settings.WS_SECRET_KEY, algorithms=["HS256"])
+        payload = jwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"])
     except jwt.exceptions.DecodeError:
         raise AuthenticationFailed("Unauthenticated!")
     except jwt.ExpiredSignatureError:

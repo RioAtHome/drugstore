@@ -1,0 +1,48 @@
+.mat-header-cell {
+    background: rgba(167,204,58,0.2);
+    color: black;
+}
+
+.mat-footer-cell {
+	background: rgba(0,147,221,0.1);
+    color: black;
+}
+
+.main-container-lt-md {
+    padding: 1rem;
+}
+
+
+.main-container {
+    padding: 4rem;
+}
+
+
+.table-container-lt-md {
+    display: block !important;
+    overflow-x: auto;
+    white-space: nowrap;
+    width: 90vw;
+
+}
+
+.table-lt-md {
+    min-width: 800px;
+}
+
+.table{
+    width: 100%;
+}
+
+.underline {
+  text-decoration: underline;
+  text-decoration-color : green;
+  text-decoration-thickness: 4px;
+}
+
+
+.import-button{
+ border-radius: 20px;
+  background-color: var(--blue) !important;
+  color: white;
+  }

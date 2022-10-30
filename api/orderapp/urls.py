@@ -5,12 +5,14 @@ from .views import (
     ListOrders,
     ExtractOrders,
     StatusOrderView,
+    BatchOrderStatusView
 )
 
 urlpatterns = [
     path("all/", ListOrders.as_view(), name="all-orders"),
     path("all/extract/", ExtractOrders.as_view()),
     path("<int:order_id>/set-status/", StatusOrderView.as_view()),
+    path("set-status/batch", BatchOrderStatusView.as_view()),
     path("<str:code>/", ListCreateOrder.as_view()),
     path("<str:code>/<int:order_id>/", ModifyOrder.as_view(), name="order-details"),
 ]

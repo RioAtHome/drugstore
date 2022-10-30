@@ -1,0 +1,23 @@
+.active-text {
+	color: var(--blue);
+}
+
+.main-container {
+	padding: 2rem;
+	
+}
+
+.main-container-lt-md{
+	padding: 0rem;
+}
+
+
+::ng-deep span.mat-button-wrapper {
+	flex: 0 0 100%;
+}
+
+.my-orders-button {
+  border-radius: 20px;
+  background-color: var(--blue) !important;
+  color: white;
+}

@@ -3,7 +3,7 @@ djangorestframework
 django-cors-headers
 djangorestframework-simplejwt[crypto]
 black
-channels
+channels[daphne]
 channels_redis
 django-filter
 requests

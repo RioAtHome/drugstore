@@ -1,0 +1,17 @@
+.price {
+	width: 110px;
+}
+
+.filter-button {
+  border-radius: 20px;
+  background-color: var(--green) !important;
+  color: white;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.medium-size-form {
+	width: 150px;
+}
+
+

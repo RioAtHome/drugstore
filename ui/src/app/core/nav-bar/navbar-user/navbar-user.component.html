@@ -1,0 +1,17 @@
+<div fxLayout='row'>
+	<span *ngIf='authenticated'>
+		<app-navbar-user-menu></app-navbar-user-menu>
+		<app-navbar-notification></app-navbar-notification>
+	</span>
+	<mat-divider *ngIf='authenticated' vertical=true inset=true class='toolbar-divider' [ngStyle]="{'margin-right': '10px'}"></mat-divider>
+	
+		<div fxLayout='row' fxLayoutGap='10px'>
+		<span *ngIf="!authenticated">
+			<button mat-raised-button class="rounded-button blue-button" routerLink="/signin"><span class='text_on_background'>Sign In</span></button>
+		</span>
+		<span>
+		<button mat-raised-button class="rounded-button green-button" routerLink="/account/order"><span class='text_on_background'>Order Now</span></button>
+		</span>
+		</div>
+	
+</div>

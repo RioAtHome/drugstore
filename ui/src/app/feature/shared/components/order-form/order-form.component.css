@@ -1,0 +1,76 @@
+.active-text {
+	color: var(--blue);
+}
+.form{
+
+}
+.table-lt-md{
+min-width: 800px;
+}
+
+.table-container-lt-md {
+	display: block !important;
+    overflow-x: auto;
+    white-space: nowrap;
+    width: 90vw;
+}
+
+.main-container {
+	padding: 2rem;
+	
+}
+
+.main-container-lt-md{
+	padding: 0rem;
+}
+
+.mat-card-search {
+	padding: 0;
+}
+
+mat-selection-list {
+	padding: 0;
+}
+
+::ng-deep span.mat-button-wrapper {
+	flex: 0 0 100%;
+}
+
+.mat-card-search {
+	margin-top: -18px;
+}
+
+.table {
+	min-width: 800px;
+}
+
+.my-orders-button {
+  border-radius: 20px;
+  background-color: var(--blue) !important;
+  color: white;
+ 
+
+}
+
+.save-button {
+  border-radius: 20px;
+  background-color: var(--green) !important;
+  color: white;
+ 
+}
+
+.mat-header-cell {
+    background: rgba(167,204,58,0.2);
+    color: black;
+}
+
+.mat-footer-cell {
+	background: rgba(0,147,221,0.1);
+    color: black;
+}
+
+
+.cancel-button {
+	border-radius: 20px;
+  color: white;
+}

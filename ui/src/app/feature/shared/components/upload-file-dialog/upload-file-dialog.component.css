@@ -1,0 +1,25 @@
+.main-container{
+	padding: 4rem;
+}
+
+.main-container-lt-md{
+	padding: 1rem;
+}
+
+.cancel-button {
+	border-radius: 20px;
+  background-color: red!important;
+  color: white;
+}
+
+.file-button {
+  border-radius: 20px;
+  background-color: var(--blue) !important;
+  color: white;
+}
+
+.save-button {
+	border-radius: 20px;
+  background-color: var(--green) !important;
+  color: white;
+}

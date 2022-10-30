@@ -1,0 +1,24 @@
+<div>
+	<div fxLayout='row'>
+		<span>
+			<span>
+				<mat-icon svgIcon='home-icon'></mat-icon></span>
+				/Pharmacy Profile <span class='active-text'>/ Current Orders</span>
+			</span>
+		</div>
+<div *ngIf='currentOrders.length; else NoResult'>
+<div ngClass='tables-container' ngClass.lt-md='tables-container-lt-md' ngClass.lt-lg='tables-container-lt-lg' fxLayoutAlign.lt-md='center'>
+<app-order-table [editable]="editable" [orders]='currentOrders' [isAdmin]='isAdmin' ></app-order-table>
+</div>
+</div>
+</div>
+<ng-template #NoResult>
+		<app-no-results></app-no-results>
+</ng-template>
+<mat-paginator fxShow='currentOrders.length > 0 '
+		(page) = "pageChanged($event)"
+		[length] ="totalRows"
+		[pageSize]="pageSize"
+		[pageIndex]="currentPage"
+		>
+	</mat-paginator>

@@ -22,7 +22,7 @@ class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="orders")
     status = models.CharField(default=STATUS[0][0], choices=STATUS, max_length=2)
     description = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True, editable=False, blank=True)
+    created_at = models.DateField(auto_now_add=True, editable=False, blank=True)
     updated_at = models.DateTimeField(auto_now=True, editable=False, blank=True)
     
     class Meta:

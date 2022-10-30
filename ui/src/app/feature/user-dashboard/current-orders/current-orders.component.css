@@ -1,0 +1,26 @@
+.active-text {
+	color: var(--blue);
+}
+
+
+.tables-container{
+	display: block;
+    overflow-x: auto;
+	white-space: nowrap;
+	width: 80vw;
+
+}
+.tables-container-lt-md {
+
+    overflow-x: auto;
+	white-space: nowrap;
+	margin-left: 20px;
+	width: 90vw;
+}
+
+.tables-container-lt-lg {
+	display: block;
+    overflow-x: auto;
+	white-space: nowrap;
+	width: 60vw;
+}

@@ -1,0 +1,46 @@
+<div ngClass='main-container' ngClass.lt-md='main-container-lt-md' fxLayout='column' fxLayoutGap='10px'>
+	<div fxLayout='column' fxLayoutGap='30px'>
+		<div fxLayout='row' >
+			<span>
+				<span>
+					<mat-icon svgIcon='home-icon'></mat-icon>
+				</span>
+				/ 
+				<span class='active-text'>New Order
+				</span>
+			</span>
+		</div>
+		<div>
+			<mat-card>
+				<mat-card-content fxLayout='row' fxLayoutAlign='space-between center' >
+					<div fxLayout='row' fxLayoutGap='150px'>	
+						<div fxLayout='row'>
+							<span>
+								<span>
+									<mat-icon svgIcon='home-icon'>		
+									</mat-icon>
+								</span>
+								/ 
+								<span class='active-text'>New Order
+								</span>
+							</span>
+						</div>
+					</div>
+					<div fxLayout='row'>
+						<span>
+							<button mat-button routerLink='/account/current-orders' ngClass='my-orders-button'>
+								<span>My orders</span>
+							</button>
+						</span>
+					</div>	
+				</mat-card-content>
+			</mat-card>
+		</div>
+	</div>
+	<div fxLayout='column' fxLayoutGap='10px'>
+		<span [ngStyle]="{'padding-left': '10px'}"><h1>Create Your Order Now</h1></span>
+		<div fxLayout='column' fxLayoutGap='10px'>
+				<app-order-form fxFlexAlign.lt-md='center'></app-order-form>
+		</div>
+	</div>
+</div>

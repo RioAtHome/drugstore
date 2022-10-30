@@ -42,6 +42,7 @@ ALLOWED_HOSTS = os.environ.get("HOSTS").split(" ")
 # Application definition
 
 INSTALLED_APPS = [
+    "daphne",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -58,13 +59,12 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
     "channels",
     "notification.apps.NotificationConfig",
-    'django_property_filter',
 ]
 
 REST_FRAMEWORK = {
-    # "DEFAULT_AUTHENTICATION_CLASSES": (
-    #     "rest_framework_simplejwt.authentication.JWTAuthentication",
-    # ),
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 10,
     "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
@@ -77,7 +77,7 @@ SIMPLE_JWT = {
     "USER_ID_CLAIM": "code",
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=2),
-    "UPDATE_LAST_LOGIN": True,  # for TokenObtainBairView
+    
 }
 
 MIDDLEWARE = [

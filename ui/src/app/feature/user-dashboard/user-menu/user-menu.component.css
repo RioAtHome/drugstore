@@ -1,0 +1,68 @@
+.info .active{
+	background-color: rgba(0, 147, 221, 0.2);
+}
+.active {
+	background-color: rgba(0, 147, 221, 0.2);
+}
+
+
+.change-profile-button {
+	z-index: 1;
+	margin-top: -50px !important;
+}
+
+.main-container{
+	margin-left: 4rem;
+	background-color: aliceblue;
+}
+
+mat-card {
+background-color: aliceblue;
+box-shadow: none !important;
+
+}
+
+.main-container-lt-md{
+	margin: 0;
+	background-color: aliceblue;
+}
+
+.menu-container-lt-md{
+	display: block !important;
+    overflow-x: auto;
+    white-space: nowrap;
+    width: 100vw;
+}
+
+.menu-button-group-lt-md{
+	min-width: 485px;
+}
+
+@media (min-width: 640px){
+
+:host {
+	display: flex;
+	margin-bottom: 0px !important;
+}
+}
+
+@media (min-width: 768px){
+
+:host {
+	display: flex;
+	margin-bottom: 0px !important;
+}
+}
+
+:host{
+	margin-bottom: 0px !important;	
+}
+
+
+.change-photo-button{
+  border-radius: 20px;
+  background-color: var(--blue) !important;
+  color: white;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}

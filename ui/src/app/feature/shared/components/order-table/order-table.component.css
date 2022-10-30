@@ -1,0 +1,50 @@
+table {
+	table-layout: fixed;
+}
+.table {
+	width: 100%;
+	
+}
+
+.table-lt-lg {
+	min-width: 900px;
+}
+
+.save-button {
+  border-radius: 20px;
+  background-color: var(--green) !important;
+  color: white;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+
+.pending-color{
+	color: orange;
+}
+
+.completed-color{
+	color: #034B03;
+}
+
+
+.cancelled-color{
+	color: #FC3800;
+}
+
+.mat-header-cell {
+    background: rgba(167,204,58,0.2);
+    color: black;
+}
+
+.mat-footer-cell {
+	background: rgba(0,147,221,0.1);
+    color: black;
+}
+
+
+.edit-button {
+	background-color: var(--blue) !important;
+}
+
+

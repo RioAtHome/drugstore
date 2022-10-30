@@ -1,0 +1,31 @@
+<div ngClass='main-container' ngClass.lt-md='main-container-lt-md' fxLayout='column' fxLayout.lt-md='row' fxFlexAlign.gt-md='stretch' fxLayoutGap='100px' fxLayoutGap.lt-md=0 >
+	<mat-card fxHide.lt-md>
+		<mat-card-header fxLayout='column'>
+			<div mat-card-avatar [ngStyle]="{'background-image': getPicture() , 'width': '180px', 'height': '180px', 'background-size': 'cover'}"></div>
+			<div class='change-profile-button'
+			fxLayout='row' fxLayoutAlign='end end'>
+			<button mat-mini-fab color='primary' (click)="openDialog('0ms', '0ms')" ngClass='change-photo-button'>
+				<div>
+					<mat-icon class='text_on_background'>camera_enhance</mat-icon>
+				</div>
+			</button>
+		</div>
+	</mat-card-header>
+</mat-card>
+<div ngClass.lt-md='menu-container-lt-md'>
+	<mat-button-toggle-group name='fontStyle' aria-label='Font Style' fxLayout='column' fxLayout.lt-md='row' ngClass.lt-md='menu-button-group-lt-md' fxLayoutAlign.lt-md='center center' fxLayoutAlign.gt-sm=''>
+		<mat-button-toggle value='info' routerLink='info' routerLinkActive="active">
+			Account Information
+		</mat-button-toggle>
+		<mat-button-toggle value='current-orders' routerLink='current-orders' routerLinkActive="active">
+			Current Orders
+		</mat-button-toggle>
+		<mat-button-toggle value='archived-orders' routerLink='archived-orders' routerLinkActive='active'>
+			Archived Orders
+		</mat-button-toggle>
+		<mat-button-toggle value='new-order' routerLink='order' routerLinkActive='active'>
+			New Order
+		</mat-button-toggle>
+	</mat-button-toggle-group>
+</div>
+</div>

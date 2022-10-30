@@ -117,7 +117,7 @@ class AddListUsers(ListCreateAPIView):
             return Response("Unauthorized", status=status.HTTP_401_UNAUTHORIZED)
 
         file = request.FILES['file']
-        ext = file.name.split(".")[1]
+        ext = file.name.split(".")[-1]
 
         if not ext in ['csv']:
             return Response("Bad Extension honey", status=status.HTTP_400_BAD_REQUEST)
