@@ -41,17 +41,16 @@ export class CurrentOrdersComponent implements OnInit, OnDestroy {
   }
 
   onFilterChanges(event: any){
-    console.log(event)
     const {ltPrice, gtPrice, ...rest} = event;
     this.apiFilters = rest;
     this.priceFilters = {ltPrice: ltPrice, gtPrice: gtPrice}
-    console.log("rest--?", rest);
     this.getAllOrders(rest)
   }
 
  
   cleanData(data: Order[]): PharmacyOrders[]{
     let newData: PharmacyOrders[] = [];
+    this.allPharmacyNames.clear()
     data.forEach((element) => {
       this.allPharmacyNames.add(element.username as string) 
 })
@@ -69,6 +68,7 @@ export class CurrentOrdersComponent implements OnInit, OnDestroy {
       }})
     })
 
+    
     return newData
   }
 
@@ -104,24 +104,22 @@ export class CurrentOrdersComponent implements OnInit, OnDestroy {
 
 
   getAllOrders(params: string[] | any){
-    console.log(params)
     this.getOrdersSubscription = this.restClient.getAllOrders(params).subscribe(
       (res) => {
         this.intialResponse = res
-        this.paginator.length = res.count;
         this.AllOrders = this.intialResponse.results;
-        console.log("Inital Orders -->", this.AllOrders)
         const newData = this.filterTotalPrice(this.AllOrders);
-        console.log("After Filtering on price -->", newData)
-        
-        const orders = this.cleanData(newData);
-        console.log("Cleaning Data", orders)      
+        this.paginator.length = newData.length;
+        const orders = this.cleanData(newData);    
         this.activeOrders = orders;
+
       },
       (err) => {this.error = err}
       )
   }
-
+    trackPharmacyName(index: number, pharmacyOrders: PharmacyOrders){
+      return pharmacyOrders.pharmacy_name;
+    }
     pageChanged(event: PageEvent){
       this.currentPage = event.pageIndex;
       this.getAllOrders({...this.rawFilters, page:(this.currentPage + 1).toString(), status: this.status})

@@ -2,23 +2,27 @@
 
 }
 .mainbox {
-  background-color: rgba(0,147,221, 0.3);
+  background-color: white;
+  padding-top: 50px;
 
 }
 
   .err {
-    color: #ffffff;
+    color: black;
     font-family: 'Nunito Sans', sans-serif;
     font-size: large;
     margin: auto;
     padding: auto;
+    background-color: aliceblue;
+    border-radius: 50px;
+
   }
 h1 {
-  color: #ffffff;
+  color: black;
     font-family: 'Nunito Sans', sans-serif;
     font-size: 100px;
-    padding-top: 100px;
-    padding-bottom: 100px;
+    padding-top: 50px;
+    padding-bottom: 50px;
 
 
 }
@@ -29,11 +33,8 @@ h1 {
     padding-bottom: 100px;
   }
 
-a {
-  text-decoration: none;
+.home-button{
+  border-radius: 20px;
+  background-color: var(--blue) !important;
   color: white;
-}
-
-a:hover {
-  text-decoration: underline;
 }

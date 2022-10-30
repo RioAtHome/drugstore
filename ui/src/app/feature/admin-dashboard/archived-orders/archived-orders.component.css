@@ -34,3 +34,8 @@
 .form-container {
 	width: 70%;
 }
+.h2-pharmacy-name{
+  color : var(--blue);
+  margin: 15px;
+
+}

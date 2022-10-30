@@ -8,7 +8,7 @@ import { AuthService } from '../services/auth.service';
 export class AuthGuardGuard {
   constructor(public router: Router, public auth: AuthService) { }
   canActivate(): boolean {
-    if (!this.auth.isAuthenticated()){
+    if (!this.auth.isAuthenticated() || this.auth.isStaff()){
       this.router.navigateByUrl('signin');
       return false;
     }

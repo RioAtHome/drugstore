@@ -11,8 +11,8 @@
 	<div>
 
 	<div *ngIf='activeOrders.length > 0; else NoResult'>
-		<div *ngFor='let pharmacy of activeOrders'>
-		<h3>{{pharmacy.pharmacy_name}}</h3>
+		<div *ngFor='let pharmacy of activeOrders; '>
+		<h2 ngClass='h2-pharmacy-name'>{{pharmacy.pharmacy_name}}</h2>
 		<div  ngClass='tables-container' ngClass.lt-md='tables-container-lt-lg'>
 		<app-order-table [editable]="editable" [orders]="pharmacy.orders" [isAdmin]="isAdmin" ></app-order-table>
 		</div>
