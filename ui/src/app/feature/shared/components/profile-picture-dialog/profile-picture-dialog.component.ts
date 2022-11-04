@@ -12,7 +12,7 @@ import { ExtensionValidator } from '../../directive/extension-validator.directiv
   templateUrl: './profile-picture-dialog.component.html',
   styleUrls: ['./profile-picture-dialog.component.css']
 })
-export class ProfilePictureDialogComponent implements OnInit, OnDestroy {
+export class ProfilePictureDialogComponent implements OnDestroy {
 
   selectedFile: any = null;
   error: string = '';
@@ -27,9 +27,6 @@ export class ProfilePictureDialogComponent implements OnInit, OnDestroy {
   uploadPhotoSubscription = new Subscription;
 
   constructor(public dialogRef: MatDialogRef<ProfilePictureDialogComponent>, private auth: AuthService, private restClient: RestService) { }
-
-  ngOnInit(): void {
-  }
 
   onFileSelected(event: any){
     this.selectedFile = event.target.files[0] ?? null;

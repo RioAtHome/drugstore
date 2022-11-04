@@ -8,13 +8,10 @@ import { ProfilePictureDialogComponent } from '../../shared/components/profile-p
   templateUrl: './user-menu.component.html',
   styleUrls: ['./user-menu.component.css']
 })
-export class UserMenuComponent implements OnInit, OnDestroy {
+export class UserMenuComponent implements OnDestroy {
   currentUser = this.auth.getCurrentUser();
   subscription: any;
   constructor(public dialog: MatDialog, private auth: AuthService) { }
-  
-  ngOnInit(): void {
-  }
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string){
     this.subscription = this.dialog.open(ProfilePictureDialogComponent, {

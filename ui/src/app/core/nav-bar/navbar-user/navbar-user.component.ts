@@ -7,9 +7,11 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class NavbarUserComponent implements OnInit {
   @Input() authenticated: boolean = false;
+  @Input() isStaff: boolean = false;
   constructor() { }
 
   ngOnInit(): void {
+    console.log("NavBar user have been created")
   }
 
 }

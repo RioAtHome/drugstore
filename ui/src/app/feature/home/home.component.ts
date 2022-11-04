@@ -5,11 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent{
   public arr = new Array<number>(6);
   constructor() { }
-
-  ngOnInit(): void {
-  }
-
 }

@@ -11,7 +11,7 @@ import { ProfilePictureDialogComponent } from '../../shared/components/profile-p
   templateUrl: './account-information.component.html',
   styleUrls: ['./account-information.component.css']
 })
-export class AccountInformationComponent implements OnInit {
+export class AccountInformationComponent {
   currentUser = this.auth.getCurrentUser();
   disabled: boolean = true;
   hide: boolean = true;
@@ -26,9 +26,6 @@ changeDisabled(): void {
     this.disabled = !this.disabled;
     this.accountForm.controls.name.reset({ value: this.currentUser?.name, disabled: this.disabled });
     this.accountForm.controls.password.reset({ value: "", disabled: this.disabled });
-  }
-
-  ngOnInit(): void {
   }
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string){

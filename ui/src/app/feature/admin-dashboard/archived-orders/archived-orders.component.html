@@ -1,6 +1,6 @@
 <div ngClass='main-container' ngClass.lt-lg='main-container-lt-md'>
-	<div fxLayout='row' fxLayout.lt-md='column' fxLayoutAlign='space-between center'  class='h1-container' fxLayoutGap='10px'>
-		<h1 fxFlexAlign.lt-md='start'><span class='underline'>Arc</span>hived Orders</h1>
+	<div fxLayout='row' fxLayout.lt-lg='column' fxLayoutAlign='space-between center'  class='h1-container'>
+		<h1 fxFlexAlign.lt-lg='start'><span class='underline'>Arc</span>hived Orders</h1>
 		<div ngClass.gt-md='form-container' fxLayoutGap='10px' fxLayoutAlign='center center' fxFlexAlign.lt-md='center'>
 		<app-filter [status]='status' (initalValues)="setFilters($event)" (detectFilters)="onFilterChanges($event)"></app-filter>
 		</div>

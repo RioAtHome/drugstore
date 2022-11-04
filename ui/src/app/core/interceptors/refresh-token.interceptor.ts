@@ -25,7 +25,7 @@ export class RefreshTokenInterceptor implements HttpInterceptor {
           return this.refreshToken(request, next);
         }
         return next.handle(request)
-    }));
+    }), retry(3))
   }
 
   refreshToken(request: HttpRequest<any>, next: HttpHandler){

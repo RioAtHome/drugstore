@@ -32,7 +32,9 @@ export class NavbarComponent implements OnInit {
     console.info("isAuthenticated have been called")
     return this.auth.isAuthenticated();
   }
-
+  isStaff(): boolean {
+    return this.auth.isStaff()? true: false;
+  }
   navToSection(section: string, route: string): void{
     this.router.navigateByUrl(route).then(()=> {
     const element = document.querySelector(section);

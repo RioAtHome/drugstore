@@ -15,6 +15,7 @@
   margin-right: -70px;
   margin-top: -130px;
   margin-bottom: -130px;
+  margin-left: 300px;
 
 }
 
@@ -33,7 +34,7 @@
 background-image: url(/assets/images/founder.png);
   background-size: 100% 100%;
   align-self: stretch;
-  margin-right: -70px;
+  margin-right: -43px;
   margin-top: -130px;
   margin-bottom: -200px;
   margin-left: 500px;
@@ -42,7 +43,7 @@ background-image: url(/assets/images/founder.png);
 
 .head-container {
   background: rgb(0, 147, 221);
-  padding: 5em;
+  padding: 3em;
 }
 
 .text-container {
@@ -99,6 +100,14 @@ background-image: url(/assets/images/founder.png);
 
 .card-container-horizontal {
    padding: 3em; 
+}
+
+.card-container-lt-md{
+  padding-top: 0px;
+  padding-bottom: 0px;
+  margin: 10rem;
+  margin-bottom: 0px !important;
+  margin-top: 15px !important;
 }
 
 

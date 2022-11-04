@@ -12,15 +12,6 @@
 			      </mat-option>
     			</mat-autocomplete>
 			</mat-form-field> 	
-
-			<mat-form-field appearance="fill" fxFlexAlign=center ngClass='price' ngClass.lt-md='medium-size-form' fxFlexOrder=4>
-				<mat-label>Min Price</mat-label>
-				<input matInput type='number' formControlName='gtPrice'>
-			</mat-form-field>
-			<mat-form-field appearance="fill" fxFlexAlign=center ngClass='price' ngClass.lt-md='medium-size-form' fxFlexOrder=5>
-				<mat-label>Max Price</mat-label>
-				<input matInput type='number' formControlName='ltPrice'>
-			</mat-form-field>
 	
 		<mat-form-field appearance="fill" fxFlexAlign=center fxFlexOrder=3 ngClass='medium-size-form'>
 			<mat-label>Pharmacy Name</mat-label>
@@ -31,9 +22,15 @@
 			      </mat-option>
     			</mat-autocomplete>
 		</mat-form-field>
-
-	<div fxLayoutAlign='center center' fxFlexOrder=6 fxFlex='start' fxFlexAlign='start' ngClass.lt-md='medium-size-form'>
-		
+		<mat-form-field appearance="fill" fxFlexAlign=center ngClass='price' ngClass.lt-sm='medium-size-form' ngClass.gt-md='price' fxFlexOrder=4>
+				<mat-label>Min Price</mat-label>
+				<input matInput type='number' formControlName='gtPrice'>
+			</mat-form-field>
+			<mat-form-field appearance="fill" fxFlexAlign=center ngClass='price' ngClass.lt-sm='medium-size-form' fxFlexOrder=5>
+				<mat-label>Max Price</mat-label>
+				<input matInput type='number' formControlName='ltPrice'>
+			</mat-form-field>
+	<div fxLayoutAlign='center center' fxFlexOrder=6 fxFlex='start' fxFlexAlign='start' fxFlex.gt-md='center' fxFlexAlign.gt-md='center' ngClass='price' ngClass.lt-sm='medium-size-form' ngClass='price'>
 		<button mat-raised-button type='submit' ngClass='filter-button'>Filter</button>
 		
 	</div>

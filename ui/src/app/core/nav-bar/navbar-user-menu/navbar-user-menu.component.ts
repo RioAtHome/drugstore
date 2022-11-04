@@ -12,11 +12,13 @@ export class NavbarUserMenuComponent implements OnInit {
   constructor(public auth: AuthService, public router: Router) { }
 
   ngOnInit(): void {
+    console.log("NavBar Notification have been created")
   }
 
   signOut(): void{
     this.auth.signOut();
     this.router.navigateByUrl('');
+    window.location.reload()
   }
 
   redirect(route: string): void {

@@ -35,18 +35,15 @@ export interface Order {
 	ordered_drugs: OrderedDrug[]
 }
 
-
 export interface DataForm {
 	name?: string| undefined| null;
 	password?: string| undefined| null;
 }
 
-
 export interface PharmacyOrders{
 	pharmacy_name: string, 
 	orders:  Order[]
 }
-
 
 export interface ListDrugs{
 	count: number,
@@ -57,13 +54,11 @@ export interface ListDrugs{
 
 export interface User extends Customer{}
 
-
 export interface LoginData {
 	pharmacy?: Customer,
 	access? : string,
 	refresh?: string
 } 
-
 
 export interface ListCustomerOrders {
 	count: number,
@@ -76,7 +71,6 @@ export interface ListCustomers extends Omit<ListCustomerOrders, 'results'> {
 	results: Customer[]
 }
 
-
 export interface Notification{
 	id: number
 	username: string
@@ -85,6 +79,3 @@ export interface Notification{
 	seen: boolean
 	created_at: string | Date
 }
-
-
-

@@ -43,8 +43,6 @@ class ServiceUnavailable(APIException):
     default_code = 'service_unavailable'
 
 
-
-
 def return_picture_url(picture):
     # TODO: TAKES TOO GODDAMN LONG
     API_KEY = settings.PHOTO_STORAGE_API_KEY
@@ -55,7 +53,6 @@ def return_picture_url(picture):
         return resp.json()['data']['display_url']
 
     raise ServiceUnavailable()
-
 
 
 class MyTokenView(TokenObtainPairView):
@@ -112,7 +109,6 @@ class AddListUsers(ListCreateAPIView):
         return super().list(self, request)
 
     def create(self, request):
-        users = User.objects.all()
         if not request.user.is_staff:
             return Response("Unauthorized", status=status.HTTP_401_UNAUTHORIZED)
 
@@ -126,19 +122,15 @@ class AddListUsers(ListCreateAPIView):
         if not customers:
             return Response("Bad Syntax", status=status.HTTP_400_BAD_REQUEST)
 
-
         serializer = UserSerializer(data=customers, many=True)
         valid = serializer.is_valid()
-
         for error in serializer.errors:
             if error['code'][0].code != 'unique':
                 return Response("Bad Syntax", status=status.HTTP_400_BAD_REQUEST)
-        
         self.queryset.delete()
-        
+        print("queryset got deleted")
         serializer = UserSerializer(data=customers, many=True)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
-
 
         return Response("A-Okay", status=status.HTTP_201_CREATED)

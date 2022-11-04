@@ -9,7 +9,7 @@ import { ExtensionValidator } from '../../directive/extension-validator.directiv
   templateUrl: './upload-file-dialog.component.html',
   styleUrls: ['./upload-file-dialog.component.css']
 })
-export class UploadFileDialogComponent implements OnInit {
+export class UploadFileDialogComponent {
   selectedFile: any = null;
   error: string = '';
   startProgress = false;
@@ -25,9 +25,6 @@ export class UploadFileDialogComponent implements OnInit {
   
   constructor(@Inject(MAT_DIALOG_DATA) public data: {component: string}, public dialogRef: MatDialogRef<UploadFileDialogComponent>, private restClient: RestService) { }
 
-ngOnInit(): void {
-  }
-
   onCancel(): void { 
     this.dialogRef.close(false);
   }
@@ -36,7 +33,8 @@ ngOnInit(): void {
     this.error = '';
     this.startProgress = true;
     this.fileForm.disable
-    if(this.data.component === 'customer'){
+    console.log(this.data.component)
+    if(this.data.component === 'customers'){
       this.importCustomers(this.formData);
       return
     }
@@ -44,6 +42,7 @@ ngOnInit(): void {
   }
 
   onFileChange(event: any){
+      this.error = '';
       const file: File = event.target.files[0];
 
       if(file) {
@@ -65,18 +64,16 @@ ngOnInit(): void {
     importCustomers(data: FormData){
       this.restClient.importCustomers(data).subscribe(
         (res) => {this.dialogRef.close(true)}, (err) => {
-          this.fileForm.enable;
           this.startProgress = false;
-          this.console.log(err)
+          this.error = "Check if Document have the correct format, ie(name, quantity, exp_date, drug_price)";
         })
     }
 
     importDrugs(data: FormData){
       this.restClient.importDrugs(data).subscribe(
         (res) => {this.dialogRef.close(true)}, (err) => {
-          this.fileForm.enable;
           this.startProgress = false;
-          this.console.log(err)
+          this.error = "Check if Document have the correct format, ie(name, quantity, exp_date, drug_price)";
         })
     }
 

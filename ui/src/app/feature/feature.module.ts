@@ -5,7 +5,7 @@ import { HomeModule } from './home/home.module';
 import { AdminDashboardModule } from './admin-dashboard/admin-dashboard.module';
 import { SharedModule } from './shared/shared.module';
 import { UserDashboardModule } from './user-dashboard/user-dashboard.module';
-import { SearchPipe } from './shared/pipes/search.pipe';
+
 @NgModule({
   declarations: [
   ],

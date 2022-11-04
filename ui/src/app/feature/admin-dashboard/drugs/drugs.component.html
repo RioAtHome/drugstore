@@ -6,7 +6,7 @@
 		</button>
 	</div>
 	<div  fxLayout='column' ngClass='table-container' ngClass.lt-md='table-container-lt-md'>
-		<table mat-table [dataSource]="drugsSource.data" ngClass='table' ngClass.lt-lg='table-lt-md'>
+		<table mat-table [dataSource]="drugsSource.data" ngClass.lt-md='table-lt-md'>
 			<ng-container matColumnDef='id'>
 				<th mat-header-cell *matHeaderCellDef>ID</th>
 				<td mat-cell *matCellDef='let drug'>

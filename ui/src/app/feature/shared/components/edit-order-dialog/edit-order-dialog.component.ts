@@ -7,14 +7,11 @@ import { Order} from 'src/app/shared/models';
   templateUrl: './edit-order-dialog.component.html',
   styleUrls: ['./edit-order-dialog.component.css']
 })
-export class EditOrderDialogComponent implements OnInit {
+export class EditOrderDialogComponent {
   dialog = true;
   constructor(public dialogRef: MatDialogRef<EditOrderDialogComponent>,
    @Inject(MAT_DIALOG_DATA) public data: {order: Order, dialog:true},
     ) { }
-
-  ngOnInit(): void {
-  }
   
   onCancel(){
     this.dialogRef.close(false);

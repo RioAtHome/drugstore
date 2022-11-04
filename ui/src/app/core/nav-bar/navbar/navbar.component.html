@@ -8,6 +8,6 @@
 		<button mat-button (click)='navToSection("#mission-vision", "/")' class='text_on_background'>Mission & Vision</button>
 		<button mat-button (click)='navToSection("#contact-us", "/")' class='text_on_background'>Contact Us</button>
 	</div>
-	<app-navbar-user [authenticated]='isAuthenticated()'></app-navbar-user>
+	<app-navbar-user [authenticated]='isAuthenticated()' [isStaff]='isStaff()'></app-navbar-user>
 </mat-toolbar>
 </div>

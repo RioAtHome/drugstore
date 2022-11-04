@@ -19,10 +19,10 @@
 
 
 .table-container-lt-md {
-    display: block !important;
+    display: block;
     overflow-x: auto;
     white-space: nowrap;
-    width: 90vw;
+    width: 95vw;
 
 }
 
